@@ -1,0 +1,48 @@
+<html>
+<style>
+td.main, th.main {
+    border: 1px solid black;
+	padding: 5px;
+	vertical-align: top;
+}
+
+table.main {
+    border-collapse: collapse;
+}
+</style>
+<body>
+<br/><br/><br/><br/><br/>
+<center><h1>Login</h1></center>
+<form action="/login" method="POST">
+<table border=0 align="center" class="main">
+<tr class="main">
+<td class="main">
+
+<br/><br/><br/><br/><br/>
+<table border=0>
+<tr>
+<td>Email</td>
+<td><input type="email" value="!%EMAIL%!" name="email" required></td>
+</tr>
+
+<tr>
+<td>Password</td>
+<td><input type="text" value="!%PASSWORD%!" name="password" pattern=".{6,}" required></td>
+</tr>
+
+<tr>
+<td><input type="submit" value="Login"></td><td></td></tr>
+<tr>
+<td colspan="2"><br/>!%ERROR STATUS%!</td></tr>
+
+</table>
+
+</td>
+<td class="main">
+<img src="/images/login1.jpg">
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
