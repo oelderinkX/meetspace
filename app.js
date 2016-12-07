@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
+var port = process.env.PORT || 80
 
 app.use(favicon(__dirname + '/favicon.ico'));
 
@@ -15,7 +16,7 @@ app.get('/', function (req, res) {
   A place to meet people in the real world');
 });
 
-app.listen(80, function () {
+app.listen(port, function () {
   console.log('Reading to meat people!');
 });
 
