@@ -132,7 +132,7 @@ module.exports = function(app) {
 								
 								details += '<br/><br/>Whos going:<br/><br/>';
 								
-								if (result.rows.length == 0) {
+								if (!result) {
 									details += 'Nobody';
 								} else {
 									for (var i = 0; i < result.rows.length; i++) {
