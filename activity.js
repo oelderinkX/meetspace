@@ -106,9 +106,14 @@ module.exports = function(app) {
 		
 		console.log(sql);
 		
-		pool.connect(function(err, client) {
+		pool.connect(function(err, client, done) {
+			
+			if(err) {
+				console.log("ERROR! " + err)
+			}
+			
 			client.query(sql, function(err, result) {
-				cone();
+				done();
 				
 				if (err) {
 					console.log("errors!");
@@ -126,7 +131,7 @@ module.exports = function(app) {
 						
 						
 						var whosgoingsql = "SELECT user.username FROM meetspace.whosgoing JOIN meetspace.user ON whosgoing.userId = user.id WHERE whosgoing.activityId = ?"
-						pool.connect(function(err, client) {
+						pool.connect(function(err, client, done) {
 							client.query(whosgoingsql, [activityId], function(err, result) {
 								connection.release();
 								
