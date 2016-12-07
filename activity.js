@@ -157,7 +157,7 @@ module.exports = function(app) {
 						details += 'no activty for ' + game + '.  Would you like to create it?';
 						details += '</body></html>';
 						res.send(details);
-					} else if (rows.length > 1) {
+					} else if (result.rows.length > 1) {
 						
 						details += 'Activities in your area:<br/><br/>';
 						
