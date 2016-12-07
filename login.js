@@ -1,17 +1,19 @@
-var mysql = require('mysql');
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 const util = require('util');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var pool = mysql.createPool({
-  connectionLimit : 10,
-  host     : 'localhost',
-  user     : 'root',
-  password : 'oelderink',
-  database : 'meetspace'
-});
+var config = {
+  host: 'ec2-54-235-111-59.compute-1.amazonaws.com',
+  user: 'qpidruggfishtd',
+  database: 'df8uavpng011op',
+  password: '2RgFbHtlj9eQO8MRwP48Vi_NFV',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000
+};
 
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 
@@ -49,11 +51,11 @@ module.exports = function(app){
 		var sql = 'INSERT INTO session (email, sessionid) ';
 		sql = sql + 'SELECT email,' + mysql.escape(sessionId) + ' FROM user WHERE email=' + mysql.escape(email) + ' AND password=' + mysql.escape(password) + ';';
 	
-		pool.getConnection(function(err, connection) {
-			connection.query(sql, function(err, rows) {
-				connection.release();
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, function(err, result) {
+				done();
 
-				console.log(JSON.stringify(rows));
+				//console.log(JSON.stringify(rows));
 				
 				if (err) {
 					console.error(err);
@@ -68,7 +70,7 @@ module.exports = function(app){
 					
 					res.send(formatted);
 				} else {
-					if (rows.affectedRows > 0) {
+					if (result && result.rows.affectedRows > 0) {
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
 						res.send('<html><body>successful? ' + 'hello' + '</body></html>');	
