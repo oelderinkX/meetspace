@@ -128,7 +128,7 @@ module.exports = function(app) {
 						var whosgoingsql = "SELECT user.username FROM meetspace.whosgoing JOIN meetspace.user ON whosgoing.userId = user.id WHERE whosgoing.activityId = ?"
 						pool.connect(function(err, client, done) {
 							client.query(whosgoingsql, [activityId], function(err, result) {
-								connection.release();
+								done();
 								
 								details += '<br/><br/>Whos going:<br/><br/>';
 								
