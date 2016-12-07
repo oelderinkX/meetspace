@@ -1,17 +1,20 @@
-var mysql = require('mysql');
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 //var constant = require('./script/constant.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var pool = mysql.createPool({
-  connectionLimit : 10,
-  host     : 'localhost',
-  user     : 'root',
-  password : 'oelderink',
-  database : 'meetspace'
-});
+var config = {
+  user: 'qpidruggfishtd',
+  database: 'df8uavpng011op',
+  password: '2RgFbHtlj9eQO8MRwP48Vi_NFV',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000
+};
+
+var pool = new pg.Pool(config);
 
 function addWhereClause(sql, fieldName, fieldValue) {
 	var newSql = sql;
@@ -92,7 +95,7 @@ module.exports = function(app) {
 			//res.send(details);
 		}
 		
-		var sql = 'SELECT activityId, title, game, city, region, country, time, day, description FROM activity';
+		var sql = 'SELECT activityId, title, game, city, region, country, time, day, description FROM meetspace.activity';
 		
 		sql = addWhereClause(sql, 'country', country);
 		sql = addWhereClause(sql, 'region', region);
@@ -103,37 +106,37 @@ module.exports = function(app) {
 		
 		console.log(sql);
 		
-		pool.getConnection(function(err, connection) {
-			connection.query(sql, function(err, rows) {
-				connection.release();
+		pool.connect(function(err, client) {
+			client.query(sql, function(err, result) {
+				cone();
 				
 				if (err) {
 					console.log("errors!");
 				} else {
-					if (rows.length == 1) {
-						var title = rows[0].title;
-						var datetime = rows[0].time;
-						var day = rows[0].day;
-						var activityId = rows[0].activityId;
+					if (result.rows.length == 1) {
+						var title = result.rows[0].title;
+						var datetime = result.rows[0].time;
+						var day = result.rows[0].day;
+						var activityId = result.rows[0].activityId;
 						
-						game = rows[0].game;
-						description = rows[0].description;
+						game = result.rows[0].game;
+						description = result.rows[0].description;
 						details += '<h2>' + title + ', ' + getDay(day) + ' ' + getTime(datetime) + '</h2>';
 						details += '' + description + '';
 						
 						
-						var whosgoingsql = "SELECT user.username FROM whosgoing JOIN user ON whosgoing.userId = user.id WHERE whosgoing.activityId = ?"
-						pool.getConnection(function(err, connection) {
-							connection.query(whosgoingsql, [activityId], function(err, rows) {
+						var whosgoingsql = "SELECT user.username FROM meetspace.whosgoing JOIN meetspace.user ON whosgoing.userId = user.id WHERE whosgoing.activityId = ?"
+						pool.connect(function(err, client) {
+							client.query(whosgoingsql, [activityId], function(err, result) {
 								connection.release();
 								
 								details += '<br/><br/>Whos going:<br/><br/>';
 								
-								if (rows.length == 0) {
+								if (result.rows.length == 0) {
 									details += 'Nobody';
 								} else {
-									for (var i = 0; i < rows.length; i++) {
-										var username = rows[i].username;
+									for (var i = 0; i < result.rows.length; i++) {
+										var username = result.rows[i].username;
 										details +=  username + '<br/>';
 									}
 								}
@@ -143,7 +146,7 @@ module.exports = function(app) {
 							});
 						});
 						
-					} else if (rows.length == 0) {
+					} else if (result.rows.length == 0) {
 						//display 'would you like to create'
 						details += 'no activty for ' + game + '.  Would you like to create it?';
 						details += '</body></html>';
@@ -152,15 +155,15 @@ module.exports = function(app) {
 						
 						details += 'Activities in your area:<br/><br/>';
 						
-						for (var i = 0; i < rows.length; i++) {
-							var title = rows[i].title
-							game = rows[i].game;
-							city = rows[i].city;
-							region = rows[i].region;
-							country = rows[i].country;
-							description = rows[i].description;
+						for (var i = 0; i < result.rows.length; i++) {
+							var title = result.rows[i].title
+							game = result.rows[i].game;
+							city = result.rows[i].city;
+							region = result.rows[i].region;
+							country = result.rows[i].country;
+							description = result.rows[i].description;
 							
-							var link = 'http://www.meetspace.com/';
+							var link = 'https://meetspacev1.herokuapp.com/';
 							if (region) {
 								link += country + '/' + region + '/' + city + '/' + game;
 							} else {
