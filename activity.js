@@ -31,14 +31,8 @@ function addWhereClause(sql, fieldName, fieldValue) {
 	return newSql;
 }
 
-function getTime(datetime) {
-	var hours = datetime.getHours();
-	var minutes = datetime.getMinutes();
-	var ampm = hours >= 12 ? 'pm' : 'am';
-	hours = hours % 12;
-	hours = hours ? hours : 12; // the hour '0' should be '12'
-	minutes = minutes < 10 ? '0'+minutes : minutes;
-	var strTime = hours + ':' + minutes + ' ' + ampm;
+function getTime(time) {
+	var strTime = time;
 	return strTime;
 }
 
@@ -121,13 +115,13 @@ module.exports = function(app) {
 				} else {
 					if (result.rows.length == 1) {
 						var title = result.rows[0].title;
-						var datetime = result.rows[0].time;
+						var time = result.rows[0].time;
 						var day = result.rows[0].day;
 						var activityId = result.rows[0].activityId;
 						
 						game = result.rows[0].game;
 						description = result.rows[0].description;
-						details += '<h2>' + title + ', ' + getDay(day) + ' ' + getTime(datetime) + '</h2>';
+						details += '<h2>' + title + ', ' + getDay(day) + ' ' + getTime(time) + '</h2>';
 						details += '' + description + '';
 						
 						
