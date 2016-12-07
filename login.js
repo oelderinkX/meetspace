@@ -49,7 +49,7 @@ module.exports = function(app){
 		var sessionId = guid();
 		
 		var sql = 'INSERT INTO session (email, sessionid) ';
-		sql = sql + 'SELECT email,' + mysql.escape(sessionId) + ' FROM user WHERE email=' + mysql.escape(email) + ' AND password=' + mysql.escape(password) + ';';
+		sql = sql + 'SELECT email,' + sessionId + ' FROM user WHERE email=' + email + ' AND password=' + password + ';';
 	
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
