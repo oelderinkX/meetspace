@@ -1,13 +1,16 @@
-var mysql = require('mysql');
+var pg = require('pg');
 var querystring = require('querystring');
 
-var pool = mysql.createPool({
-  connectionLimit : 10,
-  host     : 'localhost',
-  user     : 'root',
-  password : 'oelderink',
-  database : 'meetspace'
-});
+var config = {
+  user: 'qpidruggfishtd',
+  database: 'df8uavpng011op',
+  password: '2RgFbHtlj9eQO8MRwP48Vi_NFV',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000
+};
+
+var pool = new pg.Pool(config);
 
 function decode(activationcode) {
 	var decoded = querystring.unescape(activationcode);
@@ -45,7 +48,6 @@ function encode(email) {
 }
 
 module.exports = function(app){
-	
 	///
 	/// This function will eventually send out emails but at the moment its just generating a potential activation key
 	///	
@@ -53,12 +55,12 @@ module.exports = function(app){
 		var email = req.params.email;
 		var response = '<html><body>';
 
-		pool.getConnection(function(err, connection) {
-			connection.query('SELECT email FROM user WHERE active = false AND email = ? LIMIT 1;', [email], function(err, rows, fields) {
-				connection.release();
+		pool.connect(function(err, client, done) {
+			client.query('SELECT email FROM meetspace.user WHERE active = false AND email = ? LIMIT 1;', [email], function(err, result) {
+				done();
 				
-				if (rows[0]) {
-					var encodedEmail = encode(rows[0].email);
+				if (result.rows[0]) {
+					var encodedEmail = encode(result.rows[0].email);
 					var encodedEmail = '';
 			
 					response = response + 'Your activation link is: <a href="/activate/' + encodedEmail + '">Activate</a><br/><br/>email: ' + decode(encodedEmail) + '<br/>encoded: ' + encodedEmail;
@@ -84,9 +86,9 @@ module.exports = function(app){
 		try {
 			email = decode(activationCode);
 		
-			pool.getConnection(function(err, connection) {
-				connection.query('UPDATE user SET active = true WHERE email = ? AND active = false;', [email], function(err, rows, fields) {
-					connection.release();
+			pool.connect(function(err, client) {
+				client.query('UPDATE meetspace.user SET active = true WHERE email = ? AND active = false;', [email], function(err, result) {
+					done();
 
 					response = response + 'Email ' + email + ' activivated.';
 				
