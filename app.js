@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
 var port = process.env.PORT || 80
 
+console.log('port number is: ' + port);
+
 app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(cookieParser())
