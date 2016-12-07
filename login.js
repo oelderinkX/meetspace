@@ -15,6 +15,8 @@ var config = {
   idleTimeoutMillis: 30000
 };
 
+var pool = new pg.Pool(config);
+
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 
 function guid() {
