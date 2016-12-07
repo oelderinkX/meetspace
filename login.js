@@ -50,15 +50,13 @@ module.exports = function(app){
 		var email = req.body.email;
 		var sessionId = guid();
 		
-		var sql = 'INSERT INTO session (email, sessionid) ';
-		sql = sql + 'SELECT email,' + sessionId + ' FROM user WHERE email=' + email + ' AND password=' + password + ';';
+		var sql = 'INSERT INTO meetspace.session (email, sessionid) ';
+		sql = sql + 'SELECT email,' + sessionId + ' FROM meetspace.user WHERE email=' + email + ' AND password=' + password + ';';
 	
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
 				done();
 
-				//console.log(JSON.stringify(rows));
-				
 				if (err) {
 					console.error(err);
 					var errAsString = err.toString();
@@ -69,6 +67,8 @@ module.exports = function(app){
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
 					formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
+					
+					console.log(errAsString);
 					
 					res.send(formatted);
 				} else {
