@@ -53,6 +53,8 @@ module.exports = function(app){
 		var sql = 'INSERT INTO meetspace.session (email, sessionid) ';
 		sql = sql + 'SELECT email,' + sessionId + ' FROM meetspace.user WHERE email=' + email + ' AND password=' + password + ';';
 	
+		console.log(sql);
+	
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
 				done();
@@ -67,9 +69,7 @@ module.exports = function(app){
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
 					formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
-					
-					console.log(errAsString);
-					
+				
 					res.send(formatted);
 				} else {
 					if (result && result.rows.affectedRows > 0) {
