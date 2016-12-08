@@ -72,6 +72,18 @@ module.exports = function(app){
 				
 					res.send(formatted);
 				} else {
+					if (result) {
+						console.log('result IS GOOD!');
+					} else {
+						console.log('result IS BAD!');
+					}
+					
+					if (result.rows.rowCount > 0) {
+						console.log('rowCount IS GOOD!');
+					} else {
+						console.log('rowCount IS BAD! ' + result.rows.rowCount);
+					}
+					
 					if (result && result.rows.rowCount > 0) {
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
