@@ -23,7 +23,7 @@ module.exports = function(app){
 	app.all('/logout', urlencodedParser, function(req, res) {
 		
 		var registrationStatus = 'OK';
-		var sql = 'DELETE FROM meetspace.session WHERE email = $1 AND sessionId = $2;';
+		var sql = "DELETE FROM meetspace.session WHERE email = '$1' AND sessionId = '$2';";
 		
 		var email = req.cookies['email'];
 		var sessionId = req.cookies['sessionId'];
@@ -38,6 +38,7 @@ module.exports = function(app){
 				}
 				
 				console.log(result);
+				console.error(q);
 				console.error(q.text);
 				
 				res.clearCookie('email');
