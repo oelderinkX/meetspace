@@ -72,6 +72,9 @@ module.exports = function(app){
 				
 					res.send(formatted);
 				} else {
+					
+					console.log(result);
+					
 					if (result && result.rows.affectedRows > 0) {
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
