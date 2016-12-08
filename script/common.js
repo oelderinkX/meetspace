@@ -25,3 +25,4 @@ function postgresConfig() {
   
   return config;
 }
+module.exports.postgresConfig = postgresConfig;
