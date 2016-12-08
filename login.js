@@ -72,10 +72,7 @@ module.exports = function(app){
 				
 					res.send(formatted);
 				} else {
-					
-					console.log(result);
-					
-					if (result && result.rows.affectedRows > 0) {
+					if (result && result.rows.rowCount > 0) {
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
 						res.send('<html><body>successful? ' + 'hello' + '</body></html>');	
