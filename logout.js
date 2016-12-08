@@ -38,6 +38,7 @@ module.exports = function(app){
 				}
 				
 				console.log(result);
+				console.error(q.text);
 				
 				res.clearCookie('email');
 				res.clearCookie('sessionId');
