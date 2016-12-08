@@ -51,7 +51,7 @@ module.exports = function(app){
 		var sessionId = guid();
 		
 		var sql = 'INSERT INTO meetspace.session (email, sessionid) ';
-		sql = sql + 'SELECT email,' + sessionId + ' FROM meetspace.user WHERE email=' + email + ' AND password=' + password + ';';
+		sql = sql + "SELECT email, '" + sessionId + "' FROM meetspace.user WHERE email='" + email + "' AND password='" + password + "';";
 	
 		console.log(sql);
 	
