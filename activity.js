@@ -1,13 +1,11 @@
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
-//var constant = require('./script/constant.js');
+var common = require('./script/common.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const connectionString = process.env.DATABASE_URL;
-
-var pool = new pg.Pool(connectionString);
+var pool = new pg.Pool(common.postgresConfig());
 
 function addWhereClause(sql, fieldName, fieldValue) {
 	var newSql = sql;

@@ -1,12 +1,11 @@
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
+var common = require('./script/common.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const connectionString = process.env.DATABASE_URL;
-
-var pool = new pg.Pool(connectionString);
+var pool = new pg.Pool(common.postgresConfig());
 
 var registrationPage = fs.readFileSync(__dirname + "/webpage/registration.html", "utf8");
 

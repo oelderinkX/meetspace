@@ -1,9 +1,8 @@
 var pg = require('pg');
 var querystring = require('querystring');
+var common = require('./script/common.js');
 
-const connectionString = process.env.DATABASE_URL;
-
-var pool = new pg.Pool(connectionString);
+var pool = new pg.Pool(common.postgresConfig());
 
 function decode(activationcode) {
 	var decoded = querystring.unescape(activationcode);
