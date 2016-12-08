@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
