@@ -1,16 +1,9 @@
 var pg = require('pg');
 var querystring = require('querystring');
 
-var config = {
-  user: 'qpidruggfishtd',
-  database: 'df8uavpng011op',
-  password: '2RgFbHtlj9eQO8MRwP48Vi_NFV',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};
+const connectionString = process.env.DATABASE_URL;
 
-var pool = new pg.Pool(config);
+var pool = new pg.Pool(connectionString);
 
 function decode(activationcode) {
 	var decoded = querystring.unescape(activationcode);

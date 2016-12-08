@@ -5,17 +5,9 @@ const util = require('util');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var config = {
-  host: 'ec2-54-235-111-59.compute-1.amazonaws.com',
-  user: 'qpidruggfishtd',
-  database: 'df8uavpng011op',
-  password: '2RgFbHtlj9eQO8MRwP48Vi_NFV',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis: 30000
-};
+const connectionString = process.env.DATABASE_URL;
 
-var pool = new pg.Pool(config);
+var pool = new pg.Pool(connectionString);
 
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 

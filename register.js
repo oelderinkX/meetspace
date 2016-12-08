@@ -4,18 +4,13 @@ var fs = require("fs");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var pool = mysql.createPool({
-  connectionLimit : 10,
-  host     : 'localhost',
-  user     : 'root',
-  password : 'oelderink',
-  database : 'meetspace'
-});
+const connectionString = process.env.DATABASE_URL;
+
+var pool = new pg.Pool(connectionString);
 
 var registrationPage = fs.readFileSync(__dirname + "/webpage/registration.html", "utf8");
 
 module.exports = function(app){
-	
 	app.get('/register', function(req, res) {
 		registrationPage = fs.readFileSync(__dirname + "/webpage/registration.html", "utf8");
 		
@@ -33,7 +28,7 @@ module.exports = function(app){
 		
 		var registrationStatus = 'OK';
 		var insert = 'INSERT INTO user (username, password, email, active) ';
-		insert = insert + 'VALUES(?,?,?,false);';
+		insert = insert + 'VALUES($1,$2,$3,false);';
 		
 		var username = req.body.username;
 		var password = req.body.password;
@@ -41,7 +36,7 @@ module.exports = function(app){
 		
 		console.log(insert);
 		
-		pool.getConnection(function(err, connection) {
+		pool.connect(function(err, connection, done) {
 			connection.query(insert, 
 						[ username,
 						password,
