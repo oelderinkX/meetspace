@@ -29,11 +29,12 @@ module.exports = function(app){
 		var sessionId = req.cookies['sessionId'];
 		
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [ email, sessionId], function(err, result) {
+			var q = connection.query(sql, [ email, sessionId], function(err, result) {
 				done()
 				
 				if (err) {
 					console.error(err);
+					console.error(q.text);
 				}
 				
 				console.log(result);
