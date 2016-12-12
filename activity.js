@@ -45,7 +45,10 @@ function getDay(day) {
 }
 
 module.exports = function(app) {
-    app.get('*', function(req, res) {
+    //app.get('*', function(req, res) {
+	app.post('*', urlencodedParser, function(req, res) {
+		var action = req.body.action;
+		
 		var url = req.url;
 		var params = url.split("/");
 		
@@ -131,6 +134,8 @@ module.exports = function(app) {
 									}
 								}
 
+								details += 'action: ' + action;
+								
 								details += '</body></html>';
 								res.send(details);
 							});
