@@ -47,7 +47,7 @@ function getDay(day) {
 module.exports = function(app) {
     //app.get('*', function(req, res) {
 	app.get('*', urlencodedParser, function(req, res) {
-		var action = req.param.action;
+		var action = req.params.action;
 		
 		var url = req.url;
 		var fullurl = url.split("?");
