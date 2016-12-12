@@ -50,7 +50,11 @@ module.exports = function(app) {
 		var action = req.body.action;
 		
 		var url = req.url;
-		var params = url.split("/");
+		var fullurl = url.split("?");
+		
+		if (fullurl && fullurl.length > 0) {
+			var params = fullurl[0].split("/");
+		}
 		
 		var country = '';
 		var city = '';
