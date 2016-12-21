@@ -95,8 +95,6 @@ function renderPage(country, region, city, game, res) {
 									details +=  username + '<br/>';
 								}
 							}
-
-							details += 'action: ' + action;
 							
 							details += '</body></html>';
 							res.send(details);
