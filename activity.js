@@ -86,10 +86,12 @@ function renderPage(country, region, city, game, res) {
 					console.log('activityyId:' + activityId);
 					
 					pool.connect(function(err, client, done) {
-						client.query(whosgoingsql, [activityId], function(err, result) {
+						var itrun = client.query(whosgoingsql, [activityId], function(err, result) {
 							done();
 							
 							details += '<br/><br/>Whos going:<br/><br/>';
+							
+							console.log(itrun);
 							
 							if (!result) {
 								details += 'Nobody';
