@@ -136,9 +136,21 @@ function renderPage(country, region, city, game, res) {
 	});
 }
 
-function performAction(country, region, city, game, action, res) {
+function performAction(country, region, city, game, action, req, res) {
+	//var email = req.cookies['email'];
+	//var sessionId = req.cookies['sessionId'];
+	
+	
 	if (action) {
-		console.log('do action');
+		if (action == 'join') {
+			sql = 'insert into meetspace.whosgoing (activityid, userid) values (1,1);';
+			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+				});
+			});
+		}
 		renderPage(country, region, city, game, res);
 	} else {
 		console.log('do NOT action');
@@ -176,6 +188,6 @@ module.exports = function(app) {
 			//res.send(details);
 		}
 		
-		performAction(country, region, city, game, action, res);
+		performAction(country, region, city, game, action, req, res);
     });
 }
