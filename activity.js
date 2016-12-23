@@ -72,7 +72,7 @@ function renderPage(country, region, city, game, res) {
 					var title = result.rows[0].title;
 					var time = result.rows[0].time;
 					var day = result.rows[0].day;
-					var activityId = result.rows[0].activityId;
+					var activityId = result.rows[0].activityid;
 					
 					game = result.rows[0].game;
 					description = result.rows[0].description;
