@@ -148,10 +148,13 @@ function performAction(country, region, city, game, action, req, res) {
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
 					done();
+					
+					renderPage(country, region, city, game, res);
 				});
 			});
+		} else {
+			renderPage(country, region, city, game, res);
 		}
-		renderPage(country, region, city, game, res);
 	} else {
 		console.log('do NOT action');
 		renderPage(country, region, city, game, res);
