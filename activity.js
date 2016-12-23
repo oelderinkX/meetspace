@@ -80,7 +80,11 @@ function renderPage(country, region, city, game, res) {
 					details += '' + description + '';
 					
 					
-					var whosgoingsql = "SELECT user.username FROM meetspace.whosgoing JOIN meetspace.user ON whosgoing.userId = user.id WHERE whosgoing.activityId = ?"
+					var whosgoingsql = "SELECT meetspace.user.username FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = ?"
+					
+					console.log('sql:' + whosgoingsql);
+					console.log('activityyId:' + activityId);
+					
 					pool.connect(function(err, client, done) {
 						client.query(whosgoingsql, [activityId], function(err, result) {
 							done();
