@@ -79,7 +79,6 @@ function renderPage(country, region, city, game, res) {
 					details += '<h2>' + title + ', ' + getDay(day) + ' ' + getTime(time) + '</h2>';
 					details += '' + description + '';
 					
-					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
 					pool.connect(function(err, client, done) {
@@ -98,9 +97,9 @@ function renderPage(country, region, city, game, res) {
 									console.log('status: ' + status);
 									
 									if (status == 1) {
-										details +=  '<p style="color:#808080">' + username + '</p>';
-									} else {
 										details +=  '<p style="color:#FFFFFF">' + username + '</p>';
+									} else {
+										details +=  '<p style="color:#808080">' + username + '</p>';
 									}
 								}
 							}
