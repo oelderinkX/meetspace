@@ -82,9 +82,6 @@ function renderPage(country, region, city, game, res) {
 					
 					var whosgoingsql = "SELECT meetspace.user.username FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
-					console.log('sql:' + whosgoingsql);
-					console.log('activityyId:' + activityId);
-					
 					pool.connect(function(err, client, done) {
 						client.query(whosgoingsql , function(err, result) {
 							done();
@@ -157,6 +154,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'unjoin') {
+			console.log('gonna unjoin');
 			sql = 'delete meetspace.whosgoing where activityid = 1 and userid = 1;';
 			
 			pool.connect(function(err, client, done) {
