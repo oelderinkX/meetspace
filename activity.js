@@ -86,12 +86,10 @@ function renderPage(country, region, city, game, res) {
 					console.log('activityyId:' + activityId);
 					
 					pool.connect(function(err, client, done) {
-						var itrun = client.query(whosgoingsql , function(err, result) {
+						client.query(whosgoingsql , function(err, result) {
 							done();
 							
 							details += '<br/><br/>Whos going:<br/><br/>';
-							
-							console.log(itrun);
 							
 							if (!result) {
 								details += 'Nobody';
@@ -158,6 +156,16 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, res);
 				});
 			});
+		} else if (action == 'unjoin') {
+			sql = 'delete meetspace.whosgoing (activityid, userid) values (1,1);';
+			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+					
+					renderPage(country, region, city, game, res);
+				});
+			});			
 		} else {
 			renderPage(country, region, city, game, res);
 		}
