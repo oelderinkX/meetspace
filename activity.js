@@ -80,7 +80,7 @@ function renderPage(country, region, city, game, res) {
 					details += '' + description + '';
 					
 					
-					var whosgoingsql = "SELECT meetspace.user.username FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
+					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
 					pool.connect(function(err, client, done) {
 						client.query(whosgoingsql , function(err, result) {
@@ -93,7 +93,13 @@ function renderPage(country, region, city, game, res) {
 							} else {
 								for (var i = 0; i < result.rows.length; i++) {
 									var username = result.rows[i].username;
-									details +=  username + '<br/>';
+									var status = result.rows[i].status;
+									
+									if (status == 1) {
+										details +=  '<p style="color:#808080">' + username + '</p>';
+									} else {
+										details +=  '<p style="color:#FFFFFF">' + username + '</p>';
+									}
 								}
 							}
 							
@@ -144,7 +150,7 @@ function performAction(country, region, city, game, action, req, res) {
 	
 	if (action) {
 		if (action == 'join') {
-			sql = 'insert into meetspace.whosgoing (activityid, userid) values (1,1);';
+			sql = 'insert into meetspace.whosgoing (activityid, userid, status) values (1,1,1);';
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
@@ -163,9 +169,30 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, res);
 				});
 			});			
+		} else if (action == 'attend') {
+			sql = 'update meetspace.whosgoing (status) values (1) where activityid = 1 and userid = 1;';
+			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+					
+					renderPage(country, region, city, game, res);
+				});
+			});	
+		} else if (action == 'unattend') {
+			sql = 'update meetspace.whosgoing (status) values (0) where activityid = 1 and userid = 1;';
+			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+					
+					renderPage(country, region, city, game, res);
+				});
+			});				
 		} else {
 			renderPage(country, region, city, game, res);
 		}
+		
 	} else {
 		console.log('do NOT action');
 		renderPage(country, region, city, game, res);
