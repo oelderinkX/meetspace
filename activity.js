@@ -95,6 +95,8 @@ function renderPage(country, region, city, game, res) {
 									var username = result.rows[i].username;
 									var status = result.rows[i].status;
 									
+									console.log('status: ' + status);
+									
 									if (status == 1) {
 										details +=  '<p style="color:#808080">' + username + '</p>';
 									} else {
@@ -194,7 +196,6 @@ function performAction(country, region, city, game, action, req, res) {
 		}
 		
 	} else {
-		console.log('do NOT action');
 		renderPage(country, region, city, game, res);
 	}
 }
