@@ -154,8 +154,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'unjoin') {
-			console.log('gonna unjoin');
-			sql = 'delete meetspace.whosgoing where activityid = 1 and userid = 1;';
+			sql = 'delete from meetspace.whosgoing where activityid = 1 and userid = 1;';
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
