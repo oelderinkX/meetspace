@@ -170,7 +170,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});			
 		} else if (action == 'attend') {
-			sql = 'update meetspace.whosgoing (status) values (1) where activityid = 1 and userid = 1;';
+			sql = 'update meetspace.whosgoing set status=1 where activityid = 1 and userid = 1;';
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
@@ -180,7 +180,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});	
 		} else if (action == 'unattend') {
-			sql = 'update meetspace.whosgoing (status) values (0) where activityid = 1 and userid = 1;';
+			sql = 'update meetspace.whosgoing set status=0 where activityid = 1 and userid = 1;';
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
