@@ -97,9 +97,9 @@ function renderPage(country, region, city, game, res) {
 									console.log('status: ' + status);
 									
 									if (status == 1) {
-										details +=  '<p style="color:#FFFFFF">' + username + '</p>';
+										details +=  '<p style="color:#FFFFFF">ATTENDING:' + username + '</p>';
 									} else {
-										details +=  '<p style="color:#808080">' + username + '</p>';
+										details +=  '<p style="color:#808080">NOT ATTENDING:' + username + '</p>';
 									}
 								}
 							}
