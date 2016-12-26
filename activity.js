@@ -7,6 +7,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var pool = new pg.Pool(common.postgresConfig());
 
+var style1Page = fs.readFileSync(__dirname + "/webpage/activity_style1.html", "utf8");
+
 function addWhereClause(sql, fieldName, fieldValue) {
 	var newSql = sql;
 	
@@ -44,10 +46,21 @@ function getDay(day) {
 	}
 }
 
-function renderPage(country, region, city, game, res) {
-	var details = details = '<html><body>';
+function getActionButtons(url) {
+	var joinbutton = "<input value='Join' type=button click=window.location.href = url + '?action=join'</input>";
+	var unjoinbutton = "<input value='Leave' type=button click=window.location.href = url + '?action=unjoin'</input>";
+	var attendbutton = "<input value='Attend' type=button click=window.location.href = url + '?action=attend'</input>";
+	var unattendbutton = "<input value='Unattend' type=button click=window.location.href = url + '?action=unattend'</input>";
+	return joinbutton + unjoinbutton + attendbutton + unattendbutton;
+}
+
+function renderPage(country, region, city, game, req, res) {
+	//var email = req.cookies['email'];
+	//var sessionId = req.cookies['sessionId'];
 	
-	var sql = 'SELECT activityId, title, game, city, region, country, time, day, description FROM meetspace.activity';
+	var webpage = style1Page;
+	
+	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
 	
 	sql = addWhereClause(sql, 'country', country);
 	sql = addWhereClause(sql, 'region', region);
@@ -76,8 +89,9 @@ function renderPage(country, region, city, game, res) {
 					
 					game = result.rows[0].game;
 					description = result.rows[0].description;
-					details += '<h2>' + title + ', ' + getDay(day) + ' ' + getTime(time) + '</h2>';
-					details += '' + description + '';
+					
+					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
+					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
@@ -85,26 +99,27 @@ function renderPage(country, region, city, game, res) {
 						client.query(whosgoingsql , function(err, result) {
 							done();
 							
-							details += '<br/><br/>Whos going:<br/><br/>';
+							var whosgoinglist = '';
+							var notattendinglist = '';
 							
 							if (!result) {
-								details += 'Nobody';
+								webpage = webpage.replace('!%WHOSGOING%!', 'No body');
 							} else {
 								for (var i = 0; i < result.rows.length; i++) {
 									var username = result.rows[i].username;
 									var status = result.rows[i].status;
 									
-									console.log('status: ' + status);
-									
 									if (status == 1) {
-										details +=  '<p style="color:#000000">ATTENDING:' + username + '</p>';
+										whosgoinglist += username + '<br/>';
 									} else {
-										details +=  '<p style="color:#808080">NOT ATTENDING:' + username + '</p>';
+										notattendinglist += username + '<br/>';
 									}
 								}
 							}
 							
-							details += '</body></html>';
+							webpage = webpage.replace('!%WHOSGOING%!', whosgoinglist);
+							webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);
+
 							res.send(details);
 						});
 					});
@@ -145,10 +160,6 @@ function renderPage(country, region, city, game, res) {
 }
 
 function performAction(country, region, city, game, action, req, res) {
-	//var email = req.cookies['email'];
-	//var sessionId = req.cookies['sessionId'];
-	
-	
 	if (action) {
 		if (action == 'join') {
 			sql = 'insert into meetspace.whosgoing (activityid, userid, status) values (1,1,1);';
@@ -157,7 +168,7 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
-					renderPage(country, region, city, game, res);
+					renderPage(country, region, city, game, req, res);
 				});
 			});
 		} else if (action == 'unjoin') {
@@ -167,7 +178,7 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
-					renderPage(country, region, city, game, res);
+					renderPage(country, region, city, game, req, res);
 				});
 			});			
 		} else if (action == 'attend') {
@@ -177,7 +188,7 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
-					renderPage(country, region, city, game, res);
+					renderPage(country, region, city, game,req, res);
 				});
 			});	
 		} else if (action == 'unattend') {
