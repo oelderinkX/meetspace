@@ -188,7 +188,7 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
-					renderPage(country, region, city, game,req, res);
+					renderPage(country, region, city, game, req, res);
 				});
 			});	
 		} else if (action == 'unattend') {
@@ -198,15 +198,15 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
-					renderPage(country, region, city, game, res);
+					renderPage(country, region, city, game, req, res);
 				});
 			});				
 		} else {
-			renderPage(country, region, city, game, res);
+			renderPage(country, region, city, game, req, res);
 		}
 		
 	} else {
-		renderPage(country, region, city, game, res);
+		renderPage(country, region, city, game, req, res);
 	}
 }
 
