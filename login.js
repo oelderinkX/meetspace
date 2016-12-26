@@ -24,9 +24,8 @@ function s4() {
 module.exports = function(app){
 	
 	app.get('/login', function(req, res) {
-		loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
-		
 		var formatted = loginPage;
+		
 		formatted = formatted.replace('!%PASSWORD%!', '');
 		formatted = formatted.replace('!%EMAIL%!', '');
 		
