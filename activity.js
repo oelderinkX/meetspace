@@ -115,15 +115,14 @@ function renderPage(country, region, city, game, req, res) {
 										notattendinglist += username + '<br/>';
 									}
 								}
+								
+								webpage = webpage.replace('!%WHOSGOING%!', whosgoinglist);
+								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);								
 							}
-							
-							webpage = webpage.replace('!%WHOSGOING%!', whosgoinglist);
-							webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);
 
 							res.send(webpage);
 						});
 					});
-					
 				} else if (result.rows.length == 0) {
 					//display 'would you like to create'
 					var details = 'no activty for ' + game + '.  Would you like to create it?';
