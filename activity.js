@@ -120,7 +120,7 @@ function renderPage(country, region, city, game, req, res) {
 							webpage = webpage.replace('!%WHOSGOING%!', whosgoinglist);
 							webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);
 
-							res.send(details);
+							res.send(webpage);
 						});
 					});
 					
