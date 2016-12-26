@@ -58,6 +58,8 @@ function renderPage(country, region, city, game, req, res) {
 	//var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
 	
+	console.log('res at very start: ' + res);
+	
 	var webpage = style1Page;
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
@@ -74,6 +76,8 @@ function renderPage(country, region, city, game, req, res) {
 		if(err) {
 			console.log("ERROR! " + err)
 		}
+		
+		console.log('res in pool: ' + res);
 		
 		client.query(sql, function(err, result) {
 			done();
@@ -152,7 +156,7 @@ function renderPage(country, region, city, game, req, res) {
 					}
 					
 					details += '</body></html>';
-					console.log('more than 1 activity');
+					console.log('res: ' + res);
 					res.send(details);
 				}
 			}
