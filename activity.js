@@ -126,12 +126,11 @@ function renderPage(country, region, city, game, req, res) {
 					
 				} else if (result.rows.length == 0) {
 					//display 'would you like to create'
-					details += 'no activty for ' + game + '.  Would you like to create it?';
+					var details = 'no activty for ' + game + '.  Would you like to create it?';
 					details += '</body></html>';
 					res.send(details);
 				} else if (result.rows.length > 1) {
-					
-					details += 'Activities in your area:<br/><br/>';
+					var details = 'Activities in your area:<br/><br/>';
 					
 					for (var i = 0; i < result.rows.length; i++) {
 						var title = result.rows[i].title
