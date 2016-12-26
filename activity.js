@@ -58,7 +58,7 @@ function renderPage(country, region, city, game, req, res) {
 	//var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
 	
-	console.log('res at very start: ' + res);
+	console.trace('res: ' + res);
 	
 	var webpage = style1Page;
 	
@@ -76,8 +76,6 @@ function renderPage(country, region, city, game, req, res) {
 		if(err) {
 			console.log("ERROR! " + err)
 		}
-		
-		console.log('res in pool: ' + res);
 		
 		client.query(sql, function(err, result) {
 			done();
@@ -124,7 +122,6 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);								
 							}
 
-							console.log('webpage send');
 							res.send(webpage);
 						});
 					});
@@ -132,7 +129,6 @@ function renderPage(country, region, city, game, req, res) {
 					//display 'would you like to create'
 					var details = 'no activty for ' + game + '.  Would you like to create it?';
 					details += '</body></html>';
-					console.log('no rows 1');
 					res.send(details);
 				} else if (result.rows.length > 1) {
 					var details = 'Activities in your area:<br/><br/>';
@@ -156,7 +152,6 @@ function renderPage(country, region, city, game, req, res) {
 					}
 					
 					details += '</body></html>';
-					console.log('res: ' + res);
 					res.send(details);
 				}
 			}
