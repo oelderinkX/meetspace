@@ -213,7 +213,7 @@ function performAction(country, region, city, game, action, req, res) {
 module.exports = function(app) {
     app.get('*', function(req, res) {
 		var url = req.url;
-		var params = fullurl.split("/");
+		var params = url.split("/");
 		
 		var country = '';
 		var city = '';
@@ -239,7 +239,7 @@ module.exports = function(app) {
 		var action = req.body.action;
 		
 		var url = req.url;
-		var params = fullurl.split("/");
+		var params = url.split("/");
 		
 		var country = '';
 		var city = '';
