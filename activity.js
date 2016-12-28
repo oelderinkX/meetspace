@@ -212,14 +212,34 @@ function performAction(country, region, city, game, action, req, res) {
 
 module.exports = function(app) {
     app.get('*', function(req, res) {
-		var action = req.param('action');
+		var url = req.url;
+		var params = fullurl.split("/");
+		
+		var country = '';
+		var city = '';
+		var region = '';
+		var game = '';
+		
+		if(params.length === 4) {
+			country = params[1];
+			city = params[2];
+			game = params[3];
+		} else if (params.length === 5) {
+			country = params[1];
+			region = params[2];
+			city = params[3];
+			game = params[4];
+		} else {
+			//details = 'unknown activity';
+			//res.send(details);
+		}
+    });
+	
+   app.post('*', urlencodedParser, function(req, res) {
+		var action = req.body.action;
 		
 		var url = req.url;
-		var fullurl = url.split("?");
-		
-		if (fullurl && fullurl.length > 0) {
-			var params = fullurl[0].split("/");
-		}
+		var params = fullurl.split("/");
 		
 		var country = '';
 		var city = '';
@@ -241,5 +261,5 @@ module.exports = function(app) {
 		}
 		
 		performAction(country, region, city, game, action, req, res);
-    });
+    });	
 }
