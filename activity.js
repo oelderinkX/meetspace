@@ -233,6 +233,8 @@ module.exports = function(app) {
 			//details = 'unknown activity';
 			//res.send(details);
 		}
+		
+		renderPage(country, region, city, game, req, res);
     });
 	
    app.post('*', urlencodedParser, function(req, res) {
