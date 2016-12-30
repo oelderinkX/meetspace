@@ -91,9 +91,16 @@ function renderPage(country, region, city, game, req, res) {
 					
 					game = result.rows[0].game;
 					description = result.rows[0].description;
+					var actionlink = '/' + country;
+					if (region) {
+						actionlink += '/' + region;
+					}
+					actionlink += '/' + city;
+					actionlink += '/' + game;
 					
 					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
+					webpage = webpage.replace('!%ACTION%!', actionlink);
 					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
@@ -239,6 +246,9 @@ module.exports = function(app) {
 	
    app.post('*', urlencodedParser, function(req, res) {
 		var action = req.body.action;
+		
+		console('action: ' + action);
+		console('body: ' + req.body);
 		
 		var url = req.url;
 		var params = url.split("/");
