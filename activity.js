@@ -46,14 +46,6 @@ function getDay(day) {
 	}
 }
 
-function getActionButtons(url) {
-	var joinbutton = "<input value='Join' type=button click=window.location.href = url + '?action=join'</input>";
-	var unjoinbutton = "<input value='Leave' type=button click=window.location.href = url + '?action=unjoin'</input>";
-	var attendbutton = "<input value='Attend' type=button click=window.location.href = url + '?action=attend'</input>";
-	var unattendbutton = "<input value='Unattend' type=button click=window.location.href = url + '?action=unattend'</input>";
-	return joinbutton + unjoinbutton + attendbutton + unattendbutton;
-}
-
 function renderPage(country, region, city, game, req, res) {
 	//var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
@@ -165,6 +157,12 @@ function renderPage(country, region, city, game, req, res) {
 }
 
 function performAction(country, region, city, game, action, req, res) {
+	var email = req.cookies['email'];
+	var sessionId = req.cookies['sessionId'];
+	
+	console.log('email: ' + email);
+	console.log('sessionId: ' + sessionId);
+	
 	if (action) {
 		if (action == 'join') {
 			sql = 'insert into meetspace.whosgoing (activityid, userid, status) values (1,1,1);';
