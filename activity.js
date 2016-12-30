@@ -58,8 +58,6 @@ function renderPage(country, region, city, game, req, res) {
 	//var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
 	
-	console.trace('res: ' + res);
-	
 	var webpage = style1Page;
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
@@ -248,7 +246,6 @@ module.exports = function(app) {
 		var action = req.body.action;
 		
 		console.log('action: ' + action);
-		console.log('body: ' + req.body);
 		
 		var url = req.url;
 		var params = url.split("/");
