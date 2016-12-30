@@ -247,8 +247,8 @@ module.exports = function(app) {
    app.post('*', urlencodedParser, function(req, res) {
 		var action = req.body.action;
 		
-		console('action: ' + action);
-		console('body: ' + req.body);
+		console.log('action: ' + action);
+		console.log('body: ' + req.body);
 		
 		var url = req.url;
 		var params = url.split("/");
