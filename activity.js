@@ -109,9 +109,9 @@ function renderPage(country, region, city, game, req, res) {
 									var status = result.rows[i].status;
 									
 									if (status == 1) {
-										whosgoinglist += username + '<br/>';
+										whosgoinglist += '<li>' + username + '</li>';
 									} else {
-										notattendinglist += username + '<br/>';
+										notattendinglist += '<li style="color:#888888">' + username + '</li>';
 									}
 								}
 								
