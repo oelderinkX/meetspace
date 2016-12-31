@@ -159,12 +159,14 @@ function renderPage(country, region, city, game, req, res) {
 function performAction(country, region, city, game, action, req, res) {
 	var email = req.cookies['email'];
 	var sessionId = req.cookies['sessionId'];
+	var sql = '';
 	
 	console.log('email: ' + email);
 	console.log('sessionId: ' + sessionId);
 	
 	if (action) {
 		if (action == 'join') {
+			sql = "SELECT join_activity('joelderink.wale@gmail.com', 'e7e1b2ef-eef8-127a-7715-9af933dc0beb', 1, 1);";
 			sql = 'insert into meetspace.whosgoing (activityid, userid, status) values (1,1,1);';
 			
 			pool.connect(function(err, client, done) {
