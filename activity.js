@@ -115,8 +115,8 @@ function renderPage(country, region, city, game, req, res) {
 									}
 								}
 								
-								webpage = webpage.replace('!%WHOSGOING%!', whosgoinglist);
-								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist);								
+								webpage = webpage.replace('!%WHOSGOING%!', '<ul>' + whosgoinglist);
+								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist + '</ul>');
 							}
 
 							res.send(webpage);
