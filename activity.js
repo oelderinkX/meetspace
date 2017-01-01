@@ -190,7 +190,7 @@ function performAction(country, region, city, game, action, req, res) {
 		if (action == 'join') {
 			sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
-			console('sql: ' + sql);
+			console.log('sql: ' + sql);
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
