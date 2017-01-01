@@ -40,7 +40,7 @@ module.exports = function(app){
 		var email = req.body.email;
 		var sessionId = guid();
 		
-		var sql = "SELECT ret_username from login('" + email + "', '" + password + "', '" + sessionId + "');"
+		var sql = "SELECT ret_username from meetspace.login('" + email + "', '" + password + "', '" + sessionId + "');"
 	
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
