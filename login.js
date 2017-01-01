@@ -60,7 +60,7 @@ module.exports = function(app){
 					res.send(formatted);
 				} else {
 					if (result && result.rowCount > 0) {
-						res.cookies('username', result.rows[0].ret_username);
+						res.cookie('username', result.rows[0].ret_username);
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
 						res.send('<html><body>successful? ' + 'hello' + '</body></html>');	
