@@ -188,7 +188,7 @@ function performAction(country, region, city, game, action, req, res) {
 	
 	if (action) {
 		if (action == 'join') {
-			sql = "SELECT join_activity('joelderink.wale@gmail.com', '" + sessionId + "', 1, 1);";
+			sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
