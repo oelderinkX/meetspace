@@ -53,6 +53,8 @@ function renderPage(country, region, city, game, req, res) {
 	var webpage = style1Page;
 	
 	var username = req.cookies['username'];
+	var sessionId = req.cookies['sessionId'];
+	
 	webpage = webpage.replace('!%LOGIN%!', username);
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
@@ -169,7 +171,7 @@ function performAction(country, region, city, game, action, req, res) {
 	
 	if (action) {
 		if (action == 'join') {
-			sql = "SELECT join_activity('joelderink.wale@gmail.com', 'e7e1b2ef-eef8-127a-7715-9af933dc0beb', 1, 1);";
+			sql = "SELECT join_activity('joelderink.wale@gmail.com', '" + sessionId + "', 1, 1);";
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
