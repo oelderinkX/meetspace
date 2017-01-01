@@ -2,6 +2,9 @@ const url = require('url')
 const params = url.parse(process.env.DATABASE_URL);
 const auth = params.auth.split(':');
 
+const webpage_url = 'https://meetspacev1.herokuapp.com/';
+module.exports.webpage_url = webpage_url;
+
 function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
