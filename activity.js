@@ -46,6 +46,16 @@ function getDay(day) {
 	}
 }
 
+function getUrl(country, region, city, game) {
+	var url = 'https://meetspacev1.herokuapp.com/';
+	
+	if (region) {
+		url += country + '/' + region + '/' + city + '/' + game;
+	} else {
+		url += country + '/' + city + '/' + game;
+	}	
+}
+
 function renderPage(country, region, city, game, req, res) {
 	//var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
@@ -55,7 +65,16 @@ function renderPage(country, region, city, game, req, res) {
 	var username = req.cookies['username'];
 	var sessionId = req.cookies['sessionId'];
 	
-	webpage = webpage.replace('!%LOGIN%!', username);
+	var loginForm = '<form action="' + getUrl(country, region, city, game) + 'login"><input type="submit" value="Login" /></form>';
+	var logoutForm = '<form action="' + getUrl(country, region, city, game) + 'login"><input type="submit" value="Logout" /></form>';
+	
+	 getUrl(country, region, city, game);
+	
+	if (username) {
+		webpage = webpage.replace('!%LOGIN%!', loginForm);
+	} else {
+		webpage = webpage.replace('!%LOGIN%!', username + logoutForm);
+	}
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
 	
@@ -143,12 +162,7 @@ function renderPage(country, region, city, game, req, res) {
 						country = result.rows[i].country;
 						description = result.rows[i].description;
 						
-						var link = 'https://meetspacev1.herokuapp.com/';
-						if (region) {
-							link += country + '/' + region + '/' + city + '/' + game;
-						} else {
-							link += country + '/' + city + '/' + game;
-						}
+						var link = getUrl(country, region, city, game);
 						
 						details += title + ' <a href="' + link + '">' + link + '</a><br/>';
 					}
