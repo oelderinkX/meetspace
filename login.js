@@ -40,8 +40,6 @@ module.exports = function(app){
 		var email = req.body.email;
 		var sessionId = guid();
 		
-		//var sql = 'INSERT INTO meetspace.session (email, sessionid, lastupdate) ';
-		//sql = sql + "SELECT email, '" + sessionId + "', now() FROM meetspace.user WHERE email='" + email + "' AND password='" + password + "';";
 		var sql = "SELECT login('" + email + "', '" + password + "', '" + sessionId + "');"
 	
 		pool.connect(function(err, connection, done) {
@@ -62,6 +60,7 @@ module.exports = function(app){
 					res.send(formatted);
 				} else {
 					if (result && result.rowCount > 0) {
+						console.log(result);
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
 						res.send('<html><body>successful? ' + 'hello' + '</body></html>');	
