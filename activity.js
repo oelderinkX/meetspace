@@ -73,9 +73,9 @@ function renderPage(country, region, city, game, req, res) {
 	 getUrl(country, region, city, game);
 	
 	if (username) {
-		webpage = webpage.replace('!%LOGIN%!', loginForm);
-	} else {
 		webpage = webpage.replace('!%LOGIN%!', username + logoutForm);
+	} else {
+		webpage = webpage.replace('!%LOGIN%!', loginForm);
 	}
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
