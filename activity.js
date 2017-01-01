@@ -200,7 +200,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'unjoin') {
-			sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+			sql = "SELECT meetspace.unjoin_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
