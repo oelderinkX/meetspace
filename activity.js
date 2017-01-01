@@ -47,13 +47,15 @@ function getDay(day) {
 }
 
 function getUrl(country, region, city, game) {
-	var url = 'https://meetspacev1.herokuapp.com/';
+	var url = common.webpage_url;
 	
 	if (region) {
 		url += country + '/' + region + '/' + city + '/' + game;
 	} else {
 		url += country + '/' + city + '/' + game;
-	}	
+	}
+	
+	return url;
 }
 
 function renderPage(country, region, city, game, req, res) {
@@ -65,8 +67,8 @@ function renderPage(country, region, city, game, req, res) {
 	var username = req.cookies['username'];
 	var sessionId = req.cookies['sessionId'];
 	
-	var loginForm = '<form action="' + getUrl(country, region, city, game) + 'login"><input type="submit" value="Login" /></form>';
-	var logoutForm = '<form action="' + getUrl(country, region, city, game) + 'login"><input type="submit" value="Logout" /></form>';
+	var loginForm = '<form action="' + common.webpage_url + 'login"><input type="submit" value="Login" /></form>';
+	var logoutForm = '<form action="' + common.webpage_url + 'login"><input type="submit" value="Logout" /></form>';
 	
 	 getUrl(country, region, city, game);
 	
