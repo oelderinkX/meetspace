@@ -31,6 +31,7 @@ module.exports = function(app){
 				console.log(result);
 				console.error(q);
 				
+				res.clearCookie('username');
 				res.clearCookie('email');
 				res.clearCookie('sessionId');
 				
