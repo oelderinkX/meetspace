@@ -220,7 +220,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});	
 		} else if (action == 'unattend') {
-			sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+			sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
