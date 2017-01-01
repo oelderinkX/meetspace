@@ -117,6 +117,7 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
+					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
@@ -182,8 +183,8 @@ function performAction(country, region, city, game, action, req, res) {
 	var sessionId = req.cookies['sessionId'];
 	var sql = '';
 	
-	console.log('email: ' + email);
-	console.log('sessionId: ' + sessionId);
+	var activityId = req.body.activityId;
+	console.log('activityId:' + activityId);
 	
 	if (action) {
 		if (action == 'join') {
