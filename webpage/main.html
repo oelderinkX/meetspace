@@ -1,7 +1,8 @@
 <html>
 
 <script type="application/javascript">
-function loadCity(file) {
+function loadCity(country) {
+	var file = "/script/country/" + country + "cities.js";
     var jsElm = document.createElement("script");
     jsElm.type = "application/javascript";
     jsElm.src = file;
@@ -9,11 +10,10 @@ function loadCity(file) {
 }
 </script>
 
-<script>
+<script type="application/javascript">
 window.onload = function() {
 	var countries = ["New Zealand", "nz", 
 					 "Wales", "wales"];
-
 	
     var select = document.getElementById("country");
 	
@@ -26,6 +26,13 @@ window.onload = function() {
 }
 </script>
 
+<script type="application/javascript">
+function getCities(country) {
+	loadCity(country)
+}
+</script>
+
+
 <body>
 <h1>Meet Space!</h1>
 A place to meet people in the real world.<br>
@@ -33,7 +40,7 @@ A place to meet people in the real world.<br>
 Whats happening in your area:<br>
 <br>
 Country:
- <select id="country">
+ <select id="country" onchange="getCities(this.value)">
 </select>
 
 City
