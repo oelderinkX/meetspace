@@ -2,16 +2,18 @@
 
 <script>
 window.onload = function() {
+	alert("is running");
 	var countryNames = ["New Zealand", "Wales"];
 	var countryValues = ["nz", "wales"];
 	
     var select = document.getElementById("country");
 	
     for(var i = 0; i >= countryNames.length; i++) {
+		alert("in foreach");
         var option = document.createElement('option');
         option.text = countryNames[i];
 		option.value = countryValues[i];
-        select.add(option, 0);
+        select.appendChild(option, 0);
     }
 }
 </script>
