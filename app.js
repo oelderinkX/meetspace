@@ -13,10 +13,7 @@ app.use('/images', express.static('images'));
 app.use('/script', express.static('script'));
 app.use('/webpage', express.static('webpage'));
 
-app.get('/', function (req, res) {
-  res.send('<h1>Meet Space!</h1><br> \
-  A place to meet people in the real world');
-});
+require('./main.js')(app);
 
 app.listen(port, function () {
   console.log('Reading to meat people!');
