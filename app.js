@@ -23,7 +23,7 @@ app.listen(port, function () {
 });
 
 require('./register.js')(app);
-require('./activate.js')(app);
+require('./useractivate.js')(app);
 
 require('./login.js')(app);
 require('./logout.js')(app);
