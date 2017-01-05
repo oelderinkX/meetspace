@@ -1,4 +1,21 @@
 <html>
+
+<script>
+window.onload = function() {
+	var countryNames = ["New Zealand", "Wales"];
+	var countryValues = ["nz", "wales"];
+	
+    var select = document.getElementById("country");
+	
+    for(var i = 0; i >= countryNames.length; i++) {
+        var option = document.createElement('option');
+        option.text = countryNames[i];
+		option.value = countryValues[i];
+        select.add(option, 0);
+    }
+}
+</script>
+
 <body>
 <h1>Meet Space!</h1>
 A place to meet people in the real world.<br>
@@ -6,18 +23,12 @@ A place to meet people in the real world.<br>
 Whats happening in your area:<br>
 <br>
 Country:
- <select>
-  <option value="usa">USA</option>
-  <option value="nz">New Zealand</option>
-  <option value="australia">Australia</option>
-  <option value="england">England</option>
-</select> 
+ <select id="country">
+</select>
+
 City
- <select>
-  <option value="christchurch">Christchurch</option>
-  <option value="auckland">Auckland</option>
-  <option value="dunedin">Dunedin</option>
-  <option value="wellington">Wellington</option>
+ <select id="city">
+  <option value="nocountryselected">No Country Selected</option>
 </select> 
 </body>
 </html>
