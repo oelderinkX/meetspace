@@ -1,16 +1,26 @@
 <html>
 
+<script type="application/javascript">
+function loadCity(file) {
+    var jsElm = document.createElement("script");
+    jsElm.type = "application/javascript";
+    jsElm.src = file;
+    document.body.appendChild(jsElm);
+}
+</script>
+
 <script>
 window.onload = function() {
-	var countryNames = ["New Zealand", "Wales"];
-	var countryValues = ["nz", "wales"];
+	var countries = ["New Zealand", "nz", 
+					 "Wales", "wales"];
+
 	
     var select = document.getElementById("country");
 	
-    for(var i = 0; i < countryNames.length; i++) {
+    for(var i = 0; i < countryNames.length; i+=2) {
         var option = document.createElement('option');
-        option.text = countryNames[i];
-		option.value = countryValues[i];
+        option.text = countries[i];
+		option.value = countries[i+1];
         select.appendChild(option, 0);
     }
 }
@@ -28,7 +38,7 @@ Country:
 
 City
  <select id="city">
-  <option value="nocountryselected">No Country Selected</option>
+  <option>-----</option>
 </select> 
 </body>
 </html>
