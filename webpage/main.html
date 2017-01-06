@@ -2,6 +2,11 @@
 
 <script type="application/javascript">
 function loadCity(country) {
+
+	if (!country) {
+		return;
+	}
+
 	var file = "/script/country/" + country + "/cities.js";
     var script = document.createElement("script");
     script.type = "application/javascript";
