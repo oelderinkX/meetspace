@@ -22,6 +22,9 @@ function loadCity(country) {
 				option.value = cities[i+1];
 				select.appendChild(option, 0);
 			}
+			
+			var citycombo = document.getElementById("citycombo");
+			citycombo.style.visibility = "visible";
 		}
 	};	
 }
@@ -63,9 +66,10 @@ Country:
  <select id="country" onchange="getCities()">
 </select>
 
-City
+<a id="citycombo" style="visibility: hidden;">City
  <select id="city">
   <option>-----</option>
 </select> 
+</a>
 </body>
 </html>
