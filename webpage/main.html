@@ -8,20 +8,24 @@ function loadCity(country) {
 		citycombo.style.visibility = "hidden";	
 		return;
 	}
-
+	
+	var select = document.getElementById("city");
+	
+	while (select.firstChild) {
+		select.removeChild(select.firstChild);
+	}		
+	
 	var file = "/script/country/" + country + "/cities.js";
     var script = document.createElement("script");
     script.type = "application/javascript";
     script.src = file;
     document.body.appendChild(script);
+
+
 	
 	script.onload = function () {
 		var select = document.getElementById("city");
-		
-		while (select.firstChild) {
-			select.removeChild(select.firstChild);
-		}		
-		
+	
 		if(cities) {
 			for(var i = 0; i < cities.length; i+=2) {
 				var option = document.createElement('option');
