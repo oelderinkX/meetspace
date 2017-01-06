@@ -3,10 +3,23 @@
 <script type="application/javascript">
 function loadCity(country) {
 	var file = "/script/country/" + country + "/cities.js";
-    var jsElm = document.createElement("script");
-    jsElm.type = "application/javascript";
-    jsElm.src = file;
-    document.body.appendChild(jsElm);
+    var script = document.createElement("script");
+    script.type = "application/javascript";
+    script.src = file;
+    document.body.appendChild(script);
+	
+	script.onload = function () {
+		alert("loaded");
+		var select = document.getElementById("city");
+		
+		for(var i = 0; i < cities.length; i+=2) {
+			alert("city");
+			var option = document.createElement('option');
+			option.text = cities[i];
+			option.value = cities[i+1];
+			select.appendChild(option, 0);
+		}		
+	};	
 }
 </script>
 
