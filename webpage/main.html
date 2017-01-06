@@ -9,11 +9,13 @@ function loadCity(country) {
     document.body.appendChild(script);
 	
 	script.onload = function () {
-		alert("loaded");
 		var select = document.getElementById("city");
 		
+		while (select.firstChild) {
+			select.removeChild(select.firstChild);
+		}		
+		
 		for(var i = 0; i < cities.length; i+=2) {
-			alert("city");
 			var option = document.createElement('option');
 			option.text = cities[i];
 			option.value = cities[i+1];
@@ -40,8 +42,10 @@ window.onload = function() {
 </script>
 
 <script type="application/javascript">
-function getCities(country) {
-	loadCity(country);
+function getCities() {
+	var combobox document.getElementById("city");
+	 
+	loadCity(combobox.value);
 }
 </script>
 
@@ -53,12 +57,17 @@ A place to meet people in the real world.<br>
 Whats happening in your area:<br>
 <br>
 Country:
- <select id="country" onchange="getCities(this.value)">
+ <select id="country" onchange="getCities()">
 </select>
 
 City
  <select id="city">
   <option>-----</option>
 </select> 
+
+<script>
+getCities()
+</script>
+
 </body>
 </html>
