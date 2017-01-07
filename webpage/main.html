@@ -27,6 +27,12 @@ function loadCity(country) {
 		var select = document.getElementById("city");
 	
 		if(cities) {
+		
+			var option = document.createElement('option');
+			option.text = "";
+			option.value = "";
+			select.appendChild(option, 0);		
+		
 			for(var i = 0; i < cities.length; i+=2) {
 				var option = document.createElement('option');
 				option.text = cities[i];
@@ -79,7 +85,6 @@ Country:
 
 <a id="citycombo" style="visibility: hidden;">City
  <select id="city">
-  <option>-----</option>
 </select> 
 <img src="/images/search1.png"/>
 </a>
