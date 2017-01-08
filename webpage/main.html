@@ -6,8 +6,10 @@ function loadRegion(country) {
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
+		var regioncombo = document.getElementById("regioncombo");
 		citycombo.style.visibility = "hidden";
 		searchbutton.style.visibility = "hidden";
+		regioncombo.style.visibility = "hidden";
 		return;
 	}
 	
@@ -41,8 +43,10 @@ function loadRegion(country) {
 			
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
+			var regioncombo = document.getElementById("regioncombo");
 			citycombo.style.visibility = "visible";
 			searchbutton.style.visibility = "visible";
+			regioncombo.style.visibility = "visible";
 		}
 	};	
 }
