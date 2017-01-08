@@ -1,11 +1,61 @@
 <html>
 
 <script type="application/javascript">
+function loadRegion(country) {
+
+	if (!country) {
+		var citycombo = document.getElementById("citycombo");
+		var searchbutton = document.getElementById("searchbutton");
+		citycombo.style.visibility = "hidden";
+		searchbutton.style.visibility = "hidden";
+		return;
+	}
+	
+	var select = document.getElementById("region");
+	
+	while (select.firstChild) {
+		select.removeChild(select.firstChild);
+	}		
+	
+	var file = "/script/country/" + country + "/regions.js";
+    var script = document.createElement("script");
+    script.type = "application/javascript";
+    script.src = file;
+    document.body.appendChild(script);
+	
+	script.onload = function () {
+		var select = document.getElementById("region");
+	
+		if(regions) {
+			var option = document.createElement('option');
+			option.text = "";
+			option.value = "";
+			select.appendChild(option, 0);		
+		
+			for(var i = 0; i < regions.length; i+=2) {
+				var option = document.createElement('option');
+				option.text = regions[i];
+				option.value = regions[i+1];
+				select.appendChild(option, 0);
+			}
+			
+			var citycombo = document.getElementById("citycombo");
+			var searchbutton = document.getElementById("searchbutton");
+			citycombo.style.visibility = "visible";
+			searchbutton.style.visibility = "visible";
+		}
+	};	
+}
+</script>
+
+<script type="application/javascript">
 function loadCity(country) {
 
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
-		citycombo.style.visibility = "hidden";	
+		var searchbutton = document.getElementById("searchbutton");
+		citycombo.style.visibility = "hidden";
+		searchbutton.style.visibility = "hidden";
 		return;
 	}
 	
@@ -20,14 +70,11 @@ function loadCity(country) {
     script.type = "application/javascript";
     script.src = file;
     document.body.appendChild(script);
-
-
 	
 	script.onload = function () {
 		var select = document.getElementById("city");
 	
 		if(cities) {
-		
 			var option = document.createElement('option');
 			option.text = "";
 			option.value = "";
@@ -41,7 +88,9 @@ function loadCity(country) {
 			}
 			
 			var citycombo = document.getElementById("citycombo");
+			var searchbutton = document.getElementById("searchbutton");
 			citycombo.style.visibility = "visible";
+			searchbutton.style.visibility = "visible";
 		}
 	};	
 }
@@ -51,7 +100,8 @@ function loadCity(country) {
 window.onload = function() {
 	var countries = ["", "",
 					 "New Zealand", "nz", 
-					 "Wales", "wales"];
+					 "Wales", "wales",
+					 "USA", "usa" ];
 	
     var select = document.getElementById("country");
 	
@@ -65,6 +115,22 @@ window.onload = function() {
 </script>
 
 <script type="application/javascript">
+function getRegionsOrCities() {
+	var combobox = document.getElementById("country");
+	
+	if(country == "USA") {
+		getRegions();
+	} else {
+		getCities();
+	}
+}
+
+function getRegions() {
+	var combobox = document.getElementById("country");
+	 
+	loadRegion(combobox.value);
+}
+
 function getCities() {
 	var combobox = document.getElementById("country");
 	 
@@ -77,16 +143,21 @@ function getCities() {
 <h1>Meet Space!</h1>
 A place to meet people in the real world.<br>
 <br>
+<br>
 Whats happening in your area:<br>
 <br>
-Country:
- <select id="country" onchange="getCities()">
-</select>
+Country: <select id="country" onchange="getRegionsOrCities()"></select>
 
-<a id="citycombo" style="visibility: hidden;">City
- <select id="city">
-</select> 
-<img src="/images/search1.png"/>
+<a id="regioncombo" style="visibility: hidden;">
+Region: <select id="region" onchange="getCities()></select> 
+</a>
+
+<a id="citycombo" style="visibility: hidden;">
+City: <select id="city"></select> 
+</a>
+
+<a id="searchbutton" style="visibility: hidden;">
+<input type=button value="Search"/>
 </a>
 </body>
 </html>
