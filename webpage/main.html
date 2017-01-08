@@ -147,7 +147,7 @@ function getCities() {
 	
 	if (countrycombobox.value == "usa") {
 		var regioncombobox = document.getElementById("region");
-		loadCity(countrycombobox.value, regioncombobox);
+		loadCity(countrycombobox.value, regioncombobox.value);
 	} else {
 		loadCity(countrycombobox.value);
 	}
