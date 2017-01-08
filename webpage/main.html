@@ -10,18 +10,13 @@ function loadRegion(country) {
 		var searchbutton = document.getElementById("searchbutton");
 		citycombo.style.visibility = "hidden";
 		searchbutton.style.visibility = "hidden";
-		regioncombo.style.visibility = "hidden";
-		regioncombo.innerHTML = "";
+		hideRegionCombo();
 		return;
 	}
 	
 	regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
 	
-	var select = document.getElementById("region");
-	
-	while (select.firstChild) {
-		select.removeChild(select.firstChild);
-	}		
+	clearRegions();
 	
 	var file = "/script/country/" + country + "/regions.js";
     var script = document.createElement("script");
@@ -67,11 +62,7 @@ function loadCity(country, region) {
 		return;
 	}
 	
-	var select = document.getElementById("city");
-	
-	while (select.firstChild) {
-		select.removeChild(select.firstChild);
-	}		
+	clearCities();
 	
 	var file = "/script/country/" + country;
 	
@@ -134,10 +125,10 @@ function getRegionsOrCities() {
 	var combobox = document.getElementById("country");
 	
 	if(combobox.value == "usa") {
+		clearCities();
 		getRegions();
 	} else {
-		var regioncombo = document.getElementById("regioncombo");
-		regioncombo.innerHTML = "";
+		hideRegionCombo();
 		getCities();
 	}
 }
@@ -158,6 +149,27 @@ function getCities() {
 		loadCity(countrycombobox.value);
 	}
 }
+
+function clearRegions() {
+	var select = document.getElementById("region");
+	
+	while (select.firstChild) {
+		select.removeChild(select.firstChild);
+	}
+}
+
+function clearCities() {
+	var select = document.getElementById("city");
+	
+	while (select.firstChild) {
+		select.removeChild(select.firstChild);
+	}
+}
+
+function hideRegionCombo() {
+	var regioncombo = document.getElementById("regioncombo");
+	regioncombo.innerHTML = "";
+}
 </script>
 
 
@@ -171,7 +183,6 @@ Whats happening in your area:<br>
 Country: <select id="country" onchange="getRegionsOrCities()"></select>
 
 <a id="regioncombo" style="visibility: hidden;">
-
 </a>
 
 <a id="citycombo" style="visibility: hidden;">
