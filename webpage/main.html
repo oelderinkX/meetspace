@@ -1,6 +1,28 @@
 <html>
 
 <script type="application/javascript">
+function search() {
+	var link = "https://meetspacev1.herokuapp.com/"
+	var country = document.getElementById("country");
+	var region = document.getElementById("region");
+	var city = document.getElementById("city");
+	
+	if (country && country.value) {
+		link += country.value;
+	}
+	
+	if (region && region.value) {
+		link += region.value;
+	}
+	
+	if (city && city.value) {
+		link += city.value;
+	}
+	
+}
+</script>
+
+<script type="application/javascript">
 function loadRegion(country) {
 
 	var regioncombo = document.getElementById("regioncombo");
@@ -191,7 +213,7 @@ City: <select id="city"></select>
 </a>
 
 <a id="searchbutton" style="visibility: hidden;">
-<input type=button value="Search"/>
+<input type=button value="Search" onclick="search();"/>
 </a>
 </body>
 </html>
