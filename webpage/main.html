@@ -118,7 +118,7 @@ window.onload = function() {
 function getRegionsOrCities() {
 	var combobox = document.getElementById("country");
 	
-	if(country == "USA") {
+	if(combobox.value == "usa") {
 		getRegions();
 	} else {
 		getCities();
