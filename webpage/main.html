@@ -53,7 +53,7 @@ function loadRegion(country) {
 </script>
 
 <script type="application/javascript">
-function loadCity(country) {
+function loadCity(country, region) {
 
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
@@ -136,9 +136,14 @@ function getRegions() {
 }
 
 function getCities() {
-	var combobox = document.getElementById("country");
-	 
-	loadCity(combobox.value);
+	var countrycombobox = document.getElementById("country");
+	
+	if (countrycombobox.value == "usa") {
+		var regioncombobox = document.getElementById("region");
+		loadCity(countrycombobox.value, regioncombobox);
+	} else {
+		loadCity(countrycombobox.value);
+	}
 }
 </script>
 
