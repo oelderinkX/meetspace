@@ -3,15 +3,19 @@
 <script type="application/javascript">
 function loadRegion(country) {
 
+	var regioncombo = document.getElementById("regioncombo");
+
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
-		var regioncombo = document.getElementById("regioncombo");
 		citycombo.style.visibility = "hidden";
 		searchbutton.style.visibility = "hidden";
 		regioncombo.style.visibility = "hidden";
+		regioncombo.innerHTML = "";
 		return;
 	}
+	
+	regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
 	
 	var select = document.getElementById("region");
 	
@@ -165,7 +169,7 @@ Whats happening in your area:<br>
 Country: <select id="country" onchange="getRegionsOrCities()"></select>
 
 <a id="regioncombo" style="visibility: hidden;">
-Region: <select id="region" onchange="getCities()"></select> 
+
 </a>
 
 <a id="citycombo" style="visibility: hidden;">
