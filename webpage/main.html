@@ -69,7 +69,14 @@ function loadCity(country, region) {
 		select.removeChild(select.firstChild);
 	}		
 	
-	var file = "/script/country/" + country + "/cities.js";
+	var file = "/script/country/" + country;
+	
+	if (region) {
+		file += "/" + region + "/cities.js";
+	} else {
+		file += "/cities.js";
+	}
+
     var script = document.createElement("script");
     script.type = "application/javascript";
     script.src = file;
