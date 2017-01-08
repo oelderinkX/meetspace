@@ -136,6 +136,8 @@ function getRegionsOrCities() {
 	if(combobox.value == "usa") {
 		getRegions();
 	} else {
+		var regioncombo = document.getElementById("regioncombo");
+		regioncombo.innerHTML = "";
 		getCities();
 	}
 }
