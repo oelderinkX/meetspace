@@ -12,12 +12,14 @@ function search() {
 	}
 	
 	if (region && region.value) {
-		link += region.value;
+		link += "/" + region.value;
 	}
 	
 	if (city && city.value) {
-		link += city.value;
+		link += "/" + city.value;
 	}
+	
+	window.location.href = link;
 	
 }
 </script>
