@@ -259,9 +259,6 @@ module.exports = function(app) {
 		} else {
 			city = params[2];
 			game = params[3];
-		} else {
-			//details = 'unknown activity';
-			//res.send(details);
 		}
 		
 		renderPage(country, region, city, game, req, res);
