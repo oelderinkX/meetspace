@@ -247,16 +247,18 @@ module.exports = function(app) {
 		var city = '';
 		var region = '';
 		var game = '';
+
+		if (params.length > 1) {
+			country = params[1];
+		}
 		
-		if(params.length === 4) {
-			country = params[1];
-			city = params[2];
-			game = params[3];
-		} else if (params.length === 5) {
-			country = params[1];
+		if(country == 'usa') {
 			region = params[2];
 			city = params[3];
 			game = params[4];
+		} else {
+			city = params[2];
+			game = params[3];
 		} else {
 			//details = 'unknown activity';
 			//res.send(details);
