@@ -150,8 +150,13 @@ function renderPage(country, region, city, game, req, res) {
 						});
 					});
 				} else if (result.rows.length == 0) {
-					//display 'would you like to create'
-					var details = 'no activty for ' + game + '.  Would you like to create it?';
+					var details = '';
+					
+					if (game) {
+						details += 'no activty for ' + game + '.  Would you like to create it?';
+					} else {
+						details += 'no activties in your area';
+					}
 					details += '</body></html>';
 					res.send(details);
 				} else if (result.rows.length > 1) {
