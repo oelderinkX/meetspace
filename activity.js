@@ -123,6 +123,10 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
+					
+					webpage = webpage.replace('!%DISABLED%!', disabled);
+					webpage = webpage.replace('!%DISABLED%!', disabled);
+					webpage = webpage.replace('!%DISABLED%!', disabled);
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
