@@ -104,6 +104,7 @@ function renderPage(country, region, city, game, req, res) {
 					var time = result.rows[0].time;
 					var day = result.rows[0].day;
 					var activityId = result.rows[0].activityid;
+					var disabled = 'disabled';
 					
 					game = result.rows[0].game;
 					description = result.rows[0].description;
@@ -114,10 +115,15 @@ function renderPage(country, region, city, game, req, res) {
 					actionlink += '/' + city;
 					actionlink += '/' + game;
 					
+					if (username && sessionId) {
+						disabled = '';
+					}
+					
 					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
+					webpage = webpage.replace('!%DISABLED%!', disabled);
 					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
