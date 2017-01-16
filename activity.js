@@ -129,6 +129,8 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					
+					res.cookie('activity' , actionlink);
+					
 					var whosgoingsql = "SELECT meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 					
 					pool.connect(function(err, client, done) {
