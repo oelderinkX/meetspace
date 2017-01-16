@@ -63,7 +63,7 @@ module.exports = function(app){
 						res.cookie('username', result.rows[0].ret_username);
 						res.cookie('email' , email);
 						res.cookie('sessionId' , sessionId);
-						res.send('<html><body>successful? ' + 'hello' + '</body></html>');
+						//res.send('<html><body>successful? ' + 'hello' + '</body></html>');
 						
 						var backUrl = req.header('Referer') || '/';
 						res.redirect(backUrl);
