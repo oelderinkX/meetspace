@@ -4,8 +4,9 @@ var from_email = new helper.Email('meetspace.noreply@gmail.com');
 var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 function sendRegistrationEmail(email, encodedEmail) {
-	var emailContent = 'Thank you for registering for meetspace.co.nz.  Click the link below to activate your account<br/><br/>'
-	emailContent += '<a href="meetspace.co.nz/activate/' + encodedEmail + '">Activate your account</a><br/><br/>';
+	var emailContent = 'Thank you for registering for meetspace.co.nz.<br><br>\n\n';
+	var emailContent = 'Click the link below to activate your account<br><br>\n\n';
+	emailContent += '<a href="meetspace.co.nz/activate/' + encodedEmail + '">Activate your account</a><br><br>';
 
 	var to_email = new helper.Email(email);
 	var subject = 'Meetspace Registration';
