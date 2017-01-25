@@ -49,10 +49,12 @@ module.exports = function(app){
 		var response = '<html><body>';
 
 		pool.connect(function(err, client, done) {
-			client.query('SELECT email FROM meetspace.user WHERE active = false AND email = ? LIMIT 1;', [email], function(err, result) {
+			var sql = "SELECT email FROM meetspace.user WHERE active = false AND email = '" + email +  "' LIMIT 1;";
+			client.query(sql, function(err, result) {
 				done();
 				
-				console.log(result);
+				console.log('active sql: ' + sql);
+				console.log('active result: ' + result);
 				
 				if (result && result.rows[0]) {
 					var encodedEmail = encode(result.rows[0].email);
