@@ -1,6 +1,7 @@
 var pg = require('pg');
 var querystring = require('querystring');
 var common = require('./script/common.js');
+var notifications = require('./notifications.js');
 
 var pool = new pg.Pool(common.postgresConfig());
 
@@ -53,11 +54,12 @@ module.exports = function(app){
 				
 				if (result.rows[0]) {
 					var encodedEmail = encode(result.rows[0].email);
-					var encodedEmail = '';
-			
-					response = response + 'Your activation link is: <a href="/activate/' + encodedEmail + '">Activate</a><br/><br/>email: ' + decode(encodedEmail) + '<br/>encoded: ' + encodedEmail;
+
+					notifications.sendRegistrationEmail(email, encodedEmail);
+					
+					response += 'An email has been sent to your email account with activation details.  Click <a href="http://meetspace.co.nz/login>here</a> to access the login page after you have registered.';
 				} else {
-					response = response + 'Invalid user';
+					response = response + 'You are attempting to activate an invalid user';
 				}
 				
 				response = response + '</body></html>';
