@@ -52,7 +52,7 @@ module.exports = function(app){
 			client.query('SELECT email FROM meetspace.user WHERE active = false AND email = ? LIMIT 1;', [email], function(err, result) {
 				done();
 				
-				if (result.rows[0]) {
+				if (result && result.rows[0]) {
 					var encodedEmail = encode(result.rows[0].email);
 
 					notifications.sendRegistrationEmail(email, encodedEmail);
