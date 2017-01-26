@@ -88,7 +88,7 @@ module.exports = function(app){
 				client.query('UPDATE meetspace.user SET active = true WHERE email = ? AND active = true;', [email], function(err, result) {
 					done();
 
-					response = response + 'Email ' + email + ' activivated.';
+					response = response + 'Email ' + email + ' has been activivated.  Please proceed to <a href="/login">login page</a>';
 				
 					response = response + '</body></html>';
 					res.send(response);
