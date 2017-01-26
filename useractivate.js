@@ -62,7 +62,6 @@ module.exports = function(app){
 					notifications.sendRegistrationEmail(email, encodedEmail);
 					
 					response += 'An email has been sent to your email account with activation details.  Click <a href="http://meetspace.co.nz/login">here</a> to access the login page after you have registered.<br/><br/>';
-					response += 'Currently we are having email problems so please click here to <a href="/useractivate/' + encodedEmail + '">active</a>';
 				} else {
 					response = response + 'You are attempting to activate an invalid user';
 				}
