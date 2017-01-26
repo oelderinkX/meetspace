@@ -85,7 +85,7 @@ module.exports = function(app){
 		try {
 			email = decode(activationCode);
 		
-			pool.connect(function(err, client) {
+			pool.connect(function(err, client, done) {
 				client.query('UPDATE meetspace.user SET active = true WHERE email = ? AND active = false;', [email], function(err, result) {
 					done();
 
