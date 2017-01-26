@@ -26,7 +26,7 @@ module.exports = function(app){
 	app.post('/register', urlencodedParser, function(req, res) {
 		
 		var registrationStatus = 'OK';
-		var insert = 'INSERT INTO user (username, password, email, active) ';
+		var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
 		insert = insert + 'VALUES($1,$2,$3,false);';
 		
 		var username = req.body.username;
