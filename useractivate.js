@@ -85,7 +85,7 @@ module.exports = function(app){
 			email = decode(activationCode);
 		
 			pool.connect(function(err, client, done) {
-				client.query('UPDATE meetspace.user SET active = true WHERE email = ? AND active = true;', [email], function(err, result) {
+				client.query("UPDATE meetspace.user SET active = true WHERE email = '" + email + "' AND active = false;" , function(err, result) {
 					done();
 
 					response = response + 'Email ' + email + ' has been activivated.  Please proceed to <a href="/login">login page</a>';
