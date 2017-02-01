@@ -29,7 +29,7 @@ module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
 function sendPostEmail(email, fromUser, emailContent) {
 	var to_email = new helper.Email(email);
-	var subject = 'You Been Emailed from ' + fromUser;
+	var subject = 'Post from ' + fromUser;
 	var content = new helper.Content('text/plain', emailContent);
 	var mail = new helper.Mail(from_email, subject, to_email, content);	
 	
