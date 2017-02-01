@@ -261,10 +261,17 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 					
+					console.log('gonna send some emails!');
+					
 					for (var i = 0; i < result.rows.length; i++) {
 						var toEmail = result.rows[i].ret_email;
+						
+						console.log('to: ' + toEmail);
+						
 						notifications.sendPostEmail(toEmail, username, req.body.postmessage);
 					}
+					
+					console.log('ok, thats done!');
 					
 					renderPage(country, region, city, game, req, res);
 				});
