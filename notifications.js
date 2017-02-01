@@ -26,3 +26,24 @@ function sendRegistrationEmail(email, encodedEmail) {
 	});	
 }
 module.exports.sendRegistrationEmail = sendRegistrationEmail;
+
+function sendPostEmail(email, fromUser, emailContent) {
+	var to_email = new helper.Email(email);
+	var subject = 'You Been Emailed from ' + fromUser;
+	var content = new helper.Content('text/plain', emailContent);
+	var mail = new helper.Mail(from_email, subject, to_email, content);	
+	
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON(),
+	});	
+	
+	sg.API(request, function(error, response) {
+		console.log(response.statusCode);
+		console.log(response.body);
+		console.log(response.headers);
+	});	
+}
+module.exports.sendPostEmail = sendPostEmail;
+
