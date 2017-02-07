@@ -107,6 +107,7 @@ function renderPage(country, region, city, game, req, res) {
 					var activityId = result.rows[0].activityid;
 					var disabled = 'disabled';
 					var showpost = 'none'; 
+					var showinvite = 'none'; 
 					
 					game = result.rows[0].game;
 					description = result.rows[0].description;
@@ -120,12 +121,14 @@ function renderPage(country, region, city, game, req, res) {
 					if (username && sessionId) {
 						disabled = '';
 						showpost = 'inline';
+						showinvite = 'inline';
 					}
 					
 					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
+					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					
@@ -136,6 +139,7 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					
 					webpage = webpage.replace('!%SHOWPOST%!', showpost);
+					webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
 					
 					res.cookie('activity' , actionlink);
 					
