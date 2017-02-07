@@ -48,12 +48,12 @@ function sendPostEmail(email, fromUser, emailContent) {
 module.exports.sendPostEmail = sendPostEmail;
 
 function sendInviteEmail(email, activityUrl, activityTitle) {
-	var emailContent = 'You have been invited to ' + activityTitle + '\n\n';
+	var emailContent = 'You have been invited to "' + activityTitle + '"\n\n';
 	emailContent += 'Click the link below to visit the activity\n\n';
 	emailContent += activityUrl + '\n\n';
 
 	var to_email = new helper.Email(email);
-	var subject = 'You have been invited to ' + activityTitle;
+	var subject = 'You have been invited to "' + activityTitle + '"';
 	var content = new helper.Content('text/plain', emailContent);
 	var mail = new helper.Mail(from_email, subject, to_email, content);	
 	
