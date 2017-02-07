@@ -71,7 +71,7 @@ function renderPage(country, region, city, game, req, res) {
 	var loginForm = '<form action="' + common.webpage_url + 'login"><input type="submit" value="Login" /></form>';
 	var logoutForm = '<form action="' + common.webpage_url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>';
 	
-	 getUrl(country, region, city, game);
+	getUrl(country, region, city, game);
 	
 	if (username) {
 		webpage = webpage.replace('!%LOGIN%!', logoutForm);
@@ -270,7 +270,26 @@ function performAction(country, region, city, game, action, req, res) {
 					
 					renderPage(country, region, city, game, req, res);
 				});
-			});			
+			});		
+		} else if (action == 'invite') {
+			sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
+			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+				
+					if (result && result.rows && result.rows.length == 1)
+						var isValid = result.rows[0].ret_valid;
+						var activityTitle = result.rows[0].ret_title;
+					
+						if (isValid) {
+							notifications.sendInviteEmail(req.body.toemail, getUrl(country, region, city, game), activityTitle);
+						}
+					}
+					
+					renderPage(country, region, city, game, req, res);
+				});
+			});				
 		} else if (action == 'reset') {
 			sql = "select * FROM meetspace.reset_acitivty('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
