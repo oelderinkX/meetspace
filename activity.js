@@ -128,6 +128,7 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
 					webpage = webpage.replace('!%ACTION%!', actionlink);
+					webpage = webpage.replace('!%ACTION%!', actionlink);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
 					webpage = webpage.replace('!%ACTIVITYID%!', activityId);
