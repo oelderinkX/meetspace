@@ -133,6 +133,7 @@ function renderPage(country, region, city, game, req, res) {
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					webpage = webpage.replace('!%DISABLED%!', disabled);
 					webpage = webpage.replace('!%DISABLED%!', disabled);
+					webpage = webpage.replace('!%DISABLED%!', disabled);
 					
 					webpage = webpage.replace('!%SHOWPOST%!', showpost);
 					
@@ -260,24 +261,26 @@ function performAction(country, region, city, game, action, req, res) {
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
 					done();
-					
-					console.log('gonna send some emails!');
-					
+				
 					for (var i = 0; i < result.rows.length; i++) {
 						var toEmail = result.rows[i].ret_email;
-						
-						console.log('to: ' + toEmail);
-						
+					
 						notifications.sendPostEmail(toEmail, username, req.body.postmessage);
 					}
-					
-					console.log('ok, thats done!');
 					
 					renderPage(country, region, city, game, req, res);
 				});
 			});			
+		} else if (action == 'reset') {
+			sql = "select * FROM meetspace.reset_acitivty('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
-			
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+					
+					renderPage(country, region, city, game, req, res);
+				});
+			});
 		} else {
 			renderPage(country, region, city, game, req, res);
 		}
