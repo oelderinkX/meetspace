@@ -50,7 +50,7 @@ module.exports.sendPostEmail = sendPostEmail;
 function sendInviteEmail(email, activityUrl, activityTitle) {
 	var emailContent = 'You have been invited to ' + activityTitle + '\n\n';
 	emailContent += 'Click the link below to visit the activity\n\n';
-	emailContent += 'http://meetspace.co.nz/' + activityUrl + '\n\n';
+	emailContent += activityUrl + '\n\n';
 
 	var to_email = new helper.Email(email);
 	var subject = 'You have been invited to ' + activityTitle;
