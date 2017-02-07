@@ -282,7 +282,7 @@ function performAction(country, region, city, game, action, req, res) {
 				client.query(sql, function(err, result) {
 					done();
 				
-					if (result && result.rows && result.rows.length == 1)
+					if (result && result.rows && result.rows.length == 1) {
 						var isValid = result.rows[0].ret_valid;
 						var activityTitle = result.rows[0].ret_title;
 					
