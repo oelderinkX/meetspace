@@ -47,3 +47,26 @@ function sendPostEmail(email, fromUser, emailContent) {
 }
 module.exports.sendPostEmail = sendPostEmail;
 
+function sendInviteEmail(email, activityUrl, activityTitle) {
+	var emailContent = 'You have been invited to ' + activityTitle + '\n\n';
+	emailContent += 'Click the link below to visit the activity\n\n';
+	emailContent += 'http://meetspace.co.nz/' + activityUrl + '\n\n';
+
+	var to_email = new helper.Email(email);
+	var subject = 'You have been invited to ' + activityTitle;
+	var content = new helper.Content('text/plain', emailContent);
+	var mail = new helper.Mail(from_email, subject, to_email, content);	
+	
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON(),
+	});	
+	
+	sg.API(request, function(error, response) {
+		console.log(response.statusCode);
+		console.log(response.body);
+		console.log(response.headers);
+	});	
+}
+module.exports.sendInviteEmail = sendInviteEmail;
