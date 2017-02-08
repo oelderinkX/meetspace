@@ -163,7 +163,7 @@ function renderPage(country, region, city, game, req, res) {
 									if (status == 1) {
 										whosgoinglist += '<li>' + username + '</li>';
 									} else {
-										notattendinglist += '<li style="color:#B4B4B4">' + username + '</li>';
+										notattendinglist += '<li style="color:#CCCCCC">' + username + '</li>';
 									}
 								}
 								
