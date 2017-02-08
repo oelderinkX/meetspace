@@ -10,11 +10,15 @@ body {
 var timeoutTime = 10000;
 
 function reloadPage() {
-	//location.reload(true);
 	var postMessageValue = document.getElementById("postmessage").value;
 	var toEmailValue = document.getElementById("toemail").value;
 	
-	alert('"' + postMessageValue + '" - "' + toEmailValue + '"');
+	if (postMessageValue.length == 0 && toEmailValue.length == 0) {
+		console.log('update page');
+		//location.reload(true);
+	} else {
+		console.log('dont update');
+	}
 	
 	setTimeout("reloadPage()", timeoutTime);
 }
