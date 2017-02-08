@@ -14,10 +14,7 @@ function reloadPage() {
 	var toEmailValue = document.getElementById("toemail").value;
 	
 	if (postMessageValue.length == 0 && toEmailValue.length == 0) {
-		console.log('update page');
-		//location.reload(true);
-	} else {
-		console.log('dont update');
+		location.reload(true);
 	}
 	
 	setTimeout("reloadPage()", timeoutTime);
