@@ -40,19 +40,11 @@ setTimeout("reloadPage()", timeoutTime);
 !%DESCRIPTION%!
 <br/>
 <br/>
+<table width="100%" border="0">
+<tr><td width="50%" valign="top">
 Whos going:<br/>
 !%WHOSGOING%!
 !%NOTATTEND%!
-<br>
-<br>
-<br>
-<br>
-<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
-<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-Notifications:<br/>
-<textarea rows="4" cols="50" name="postmessage" id="postmessage"></textarea><br/>
-<button type="submit" name="action" value="post">Post</button>
-</form>
 
 <form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
 <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input><br/>
@@ -61,7 +53,16 @@ Notifications:<br/>
 Invite:<br/>
 <input type=email name="toemail" size=30/ id="toemail"> <button type="submit" name="action" value="invite">Invite</button>
 </form>
-
+</td>
+<td width="50%" valign="top">
+<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
+<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+<textarea rows="4" cols="50" maxlength="256" name="postmessage" id="postmessage"></textarea><br/>
+<button type="submit" name="action" value="post">Post</button>
+</form>
+</td>
+</tr>
+</table>
 
 </body>
 </html>
