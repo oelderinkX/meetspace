@@ -266,14 +266,20 @@ function performAction(country, region, city, game, action, req, res) {
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
 					done();
-				
+
 					for (var i = 0; i < result.rows.length; i++) {
 						var toEmail = result.rows[i].ret_email;
 					
 						notifications.sendPostEmail(toEmail, username, req.body.postmessage);
 					}
 					
-					renderPage(country, region, city, game, req, res);
+					sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+
+					pool.connect(function(err, client, done) {
+						client.query(sql, [ email, sessionId, activityId, req.body.postmessage], function(err, result) {
+							renderPage(country, region, city, game, req, res);
+						});
+					});
 				});
 			});		
 		} else if (action == 'invite') {
