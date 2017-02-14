@@ -171,7 +171,28 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist + '</ul>');
 							}
 
-							res.send(webpage);
+							var posts = '';
+							var postsql = "SELECT username, message, postdate FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC;";
+							
+							pool.connect(function(err, client, done) {
+								client.query(postsql, [activityId], function(err, result) {
+									done();
+							
+									if(!result) {
+										posts = '';
+									} else {
+										foreach(var i = 0; i < result.rows.length; i++) {
+											var postusername = result.rows[i].username;
+											var postmessage = result.rows[i].message;
+											var postdate = result.rows[i].postdate;
+											
+											posts += postdate + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
+										}
+									}
+							
+									res.send(webpage);
+								});
+							});
 						});
 					});
 				} else if (result.rows.length == 0) {
