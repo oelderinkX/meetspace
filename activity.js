@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var fs = require("fs");
 var common = require('./script/common.js');
 var notifications = require('./notifications.js');
+var dateFormat = require('dateformat');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -186,7 +187,7 @@ function renderPage(country, region, city, game, req, res) {
 											var postmessage = result.rows[i].message;
 											var postdate = result.rows[i].postdate;
 											
-											posts += postdate + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
+											posts += dateFormat(postdate, "dddd, mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
 										}
 									}
 							
