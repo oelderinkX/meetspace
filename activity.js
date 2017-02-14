@@ -190,6 +190,8 @@ function renderPage(country, region, city, game, req, res) {
 										}
 									}
 							
+									webpage = webpage.replace('!%POSTS%!', posts);
+							
 									res.send(webpage);
 								});
 							});
