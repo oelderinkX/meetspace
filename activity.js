@@ -187,7 +187,7 @@ function renderPage(country, region, city, game, req, res) {
 											var postmessage = result.rows[i].message;
 											var postdate = result.rows[i].postdate;
 											
-											posts += dateFormat(postdate, "dddd, mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
+											posts += dateFormat(postdate, "m/d/Y H:M:S") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
 										}
 									}
 							
