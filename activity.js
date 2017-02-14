@@ -181,7 +181,7 @@ function renderPage(country, region, city, game, req, res) {
 									if(!result) {
 										posts = '';
 									} else {
-										foreach(var i = 0; i < result.rows.length; i++) {
+										for (var i = 0; i < result.rows.length; i++) {
 											var postusername = result.rows[i].username;
 											var postmessage = result.rows[i].message;
 											var postdate = result.rows[i].postdate;
