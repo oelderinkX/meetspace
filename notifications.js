@@ -27,9 +27,9 @@ function sendRegistrationEmail(email, encodedEmail) {
 }
 module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
-function sendPostEmail(email, fromUser, emailContent) {
+function sendPostEmail(email, fromUser, activityName, emailContent) {
 	var to_email = new helper.Email(email);
-	var subject = 'Post from ' + fromUser;
+	var subject = fromUser ' has posed on activity "' + activityName + '"';
 	var content = new helper.Content('text/plain', emailContent);
 	var mail = new helper.Mail(from_email, subject, to_email, content);	
 	
