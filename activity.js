@@ -285,7 +285,7 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'post') {
-			sql = "select * FROM meetspace.get_emails_for_acitivty('" + email + "', '" + sessionId + "', " + activityId + ");";
+			sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 			
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
@@ -293,8 +293,9 @@ function performAction(country, region, city, game, action, req, res) {
 
 					for (var i = 0; i < result.rows.length; i++) {
 						var toEmail = result.rows[i].ret_email;
+						var activityTitle = result.rows[i].ret_activitytitle;
 					
-						notifications.sendPostEmail(toEmail, username, req.body.postmessage);
+						notifications.sendPostEmail(toEmail, username, activityTitle, req.body.postmessage);
 					}
 					
 					sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
