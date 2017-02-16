@@ -23,7 +23,7 @@ function getDay(day) {
 
 function activityTitle(webpage, title, day, time) {
   
-  webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
+  webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
   
   return webpage;
 }
