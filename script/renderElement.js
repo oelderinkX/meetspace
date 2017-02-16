@@ -59,3 +59,4 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	
 	return webpage;
 }
+module.exports.whosgoing = whosgoing;
