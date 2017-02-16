@@ -104,7 +104,6 @@ function renderPage(country, region, city, game, req, res) {
 					}
 					
 					webpage = renderElement.activityTitle(webpage, title, day, time);
-					//webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
 					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
@@ -150,19 +149,27 @@ function renderPage(country, region, city, game, req, res) {
 								client.query(postsql, [activityId], function(err, result) {
 									done();
 							
+									var postdates  = [];
+									var postusernames  = [];
+									var postmessages  = [];
+							
 									if(!result) {
-										posts = '';
+										//posts = '';
 									} else {
 										for (var i = 0; i < result.rows.length; i++) {
 											var postusername = result.rows[i].username;
 											var postmessage = result.rows[i].message;
 											var postdate = result.rows[i].postdate;
 											
-											posts += dateFormat(postdate, "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
+											//posts += dateFormat(postdate, "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
+											postdates.push(postdate);
+											postusernames.push(postusername);
+											postmessages.push(postmessage);
 										}
 									}
 							
-									webpage = webpage.replace('!%POSTS%!', posts);
+									//webpage = webpage.replace('!%POSTS%!', posts);
+									webpage = renderElement.posts(webpage, postdates, postusernames, postmessages);
 							
 									res.send(webpage);
 								});
