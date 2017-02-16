@@ -25,29 +25,6 @@ function addWhereClause(sql, fieldName, fieldValue) {
 	return newSql;
 }
 
-function getTime(time) {
-	var strTime = time;
-	return strTime;
-}
-
-function getDay(day) {
-	if (day == 0) {
-		return "Sunday";
-	} else if (day == 1) {
-		return "Monday";
-	} else if (day == 2) {
-		return "Tuesday";
-	} else if (day == 3) {
-		return "Wednesday";
-	} else if (day == 4) {
-		return "Thursday";
-	} else if (day == 5) {
-		return "Friday";
-	} else {
-		return "Saturday";
-	}
-}
-
 function getUrl(country, region, city, game) {
 	var url = common.webpage_url;
 	
@@ -125,7 +102,8 @@ function renderPage(country, region, city, game, req, res) {
 						showinvite = 'inline';
 					}
 					
-					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
+					webpage = renderElement.activityTime(webpage, title, day, time);
+					//webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
 					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
