@@ -127,10 +127,10 @@ function renderPage(country, region, city, game, req, res) {
 					
 					webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
-					//webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
-					//webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
+					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
+					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
 										
-					//webpage = common.replaceAll(webpage, '!%DISABLED%!', disabled);
+					webpage = common.replaceAll(webpage, '!%DISABLED%!', disabled);
 					
 					webpage = webpage.replace('!%SHOWPOST%!', showpost);
 					webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
