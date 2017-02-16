@@ -125,7 +125,6 @@ function renderPage(country, region, city, game, req, res) {
 							var whosnot = [];
 							
 							if (!result) {
-								//webpage = webpage.replace('!%WHOSGOING%!', 'No body');
 								whosnot.push('no body');
 							} else {
 								for (var i = 0; i < result.rows.length; i++) {
@@ -134,20 +133,14 @@ function renderPage(country, region, city, game, req, res) {
 									
 									if (status == 1) {
 										whosgoing.push(username);
-										//whosgoinglist += '<li>' + username + '</li>';
 									} else {
 										whosnot.push(username);
-										//notattendinglist += '<li style="color:#CCCCCC">' + username + '</li>';
 									}
 								}
 								
 								webpage = renderElement.whosgoing(webpage, whosgoing, whosnot);
-								
-								//webpage = webpage.replace('!%WHOSGOING%!', '<ul>' + whosgoinglist);
-								//webpage = webpage.replace('!%NOTATTEND%!', notattendinglist + '</ul>');
 							}
 
-							var posts = '';
 							var postsql = "SELECT username, message, postdate FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC;";
 							
 							pool.connect(function(err, client, done) {
