@@ -45,17 +45,21 @@ module.exports.posts = posts;
 
 function whosgoing(webpage, whosgoing, whosnot) {
 	var whosgoingElement = '<ol>';
+	var whosnotElement = '<ul>';
 	
 	for(var i = 0; i < whosgoing.length; i++) {
 		whosgoingElement += '<li>' + whosgoing[i] + '</li>';
 	}
-	whosgoingElement += '</ol><ul>';
+	whosgoingElement += '</ol>';
 
 	for(var i = 0; i < whosnot.length; i++) {
-		'<li style="color:#CCCCCC">' + whosnot[i] + '</li>';
+		whosnotElement += '<li style="color:#CCCCCC">' + whosnot[i] + '</li>';
 	}
-
-	whosgoingElement += '</ul>';
+	whosnotElement += '</ul>';
+	
+	webpage = webpage.replace('!%WHOSGOING%!',whosgoingElement);
+	webpage = webpage.replace('!%NOTATTEND%!', whosnotElement);	
+	
 	
 	return webpage;
 }
