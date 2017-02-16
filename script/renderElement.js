@@ -1,3 +1,5 @@
+var dateFormat = require('dateformat');
+
 function getTime(time) {
 	var strTime = time;
 	return strTime;
@@ -28,3 +30,13 @@ function activityTitle(webpage, title, day, time) {
   return webpage;
 }
 module.exports.activityTitle = activityTitle;
+
+function posts(webpage, postdates, postusernames, postmessages) {
+	var postElement = '';
+	for(var i = 0; i < postdates.length; i++) {
+		postElement += dateFormat(postdate, "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/><br/>';
+	}
+	
+	webpage = webpage.replace('!%POSTS%!', postElement);
+}
+module.exports.posts = posts;
