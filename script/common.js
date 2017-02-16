@@ -29,3 +29,16 @@ function postgresConfig() {
   return config;
 }
 module.exports.postgresConfig = postgresConfig;
+
+function replaceAll(str, searchValue, replaceWith) {
+	if (searchValue == replaceWith) {
+		return str;
+	}
+	
+	while(str.indexOf(searchValue)) {
+		src = str.replace(searchValue, replaceWith);
+	}
+	
+	return str;
+}
+module.exports.replaceAll = replaceAll;
