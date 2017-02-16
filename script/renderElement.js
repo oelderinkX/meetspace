@@ -34,7 +34,8 @@ module.exports.activityTitle = activityTitle;
 function posts(webpage, postdates, postusernames, postmessages) {
 	var postElement = '';
 	for(var i = 0; i < postdates.length; i++) {
-		postElement += dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusernames[i] + ' wrote: ' + postmessages[i] + '<br/><br/>';
+		//postElement += dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusernames[i] + ' wrote: ' + postmessages[i] + '<br/><br/>';
+		postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ' ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote><br/><br/>';
 	}
 	
 	webpage = webpage.replace('!%POSTS%!', postElement);
