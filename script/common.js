@@ -35,7 +35,7 @@ function replaceAll(str, searchValue, replaceWith) {
 		return str;
 	}
 	
-	while(str.indexOf(searchValue)) {
+	while(str.indexOf(searchValue) >= 0) {
 		str = str.replace(searchValue, replaceWith);
 	}
 	
