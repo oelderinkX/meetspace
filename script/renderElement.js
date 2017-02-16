@@ -34,7 +34,6 @@ module.exports.activityTitle = activityTitle;
 function posts(webpage, postdates, postusernames, postmessages) {
 	var postElement = '';
 	for(var i = 0; i < postdates.length; i++) {
-		//postElement += dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusernames[i] + ' wrote: ' + postmessages[i] + '<br/><br/>';
 		postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote><br/>';
 	}
 	
@@ -43,3 +42,20 @@ function posts(webpage, postdates, postusernames, postmessages) {
 	return webpage;
 }
 module.exports.posts = posts;
+
+function whosgoing(webpage, whosgoing, whosnot) {
+	var whosgoingElement = '<ol>';
+	
+	for(var i = 0; i < whosgoing.length; i++) {
+		whosgoingElement += '<li>' + whosgoing[i] + '</li>';
+	}
+	whosgoingElement += '</ol><ul>';
+
+	for(var i = 0; i < whosnot.length; i++) {
+		'<li style="color:#CCCCCC">' + whosnot[i] + '</li>';
+	}
+
+	whosgoingElement += '</ul>';
+	
+	return webpage;
+}
