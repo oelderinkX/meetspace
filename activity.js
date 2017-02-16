@@ -121,25 +121,30 @@ function renderPage(country, region, city, game, req, res) {
 						client.query(whosgoingsql , function(err, result) {
 							done();
 							
-							var whosgoinglist = '';
-							var notattendinglist = '';
+							var whosgoing = [];
+							var whosnot = [];
 							
 							if (!result) {
-								webpage = webpage.replace('!%WHOSGOING%!', 'No body');
+								//webpage = webpage.replace('!%WHOSGOING%!', 'No body');
+								whosnot.push('no body');
 							} else {
 								for (var i = 0; i < result.rows.length; i++) {
 									var username = result.rows[i].username;
 									var status = result.rows[i].status;
 									
 									if (status == 1) {
-										whosgoinglist += '<li>' + username + '</li>';
+										whosgoing.push(username);
+										//whosgoinglist += '<li>' + username + '</li>';
 									} else {
-										notattendinglist += '<li style="color:#CCCCCC">' + username + '</li>';
+										whosnot.push(username);
+										//notattendinglist += '<li style="color:#CCCCCC">' + username + '</li>';
 									}
 								}
 								
-								webpage = webpage.replace('!%WHOSGOING%!', '<ul>' + whosgoinglist);
-								webpage = webpage.replace('!%NOTATTEND%!', notattendinglist + '</ul>');
+								webpage = renderElement.whosgoing(webpage, whosgoing, whosnot);
+								
+								//webpage = webpage.replace('!%WHOSGOING%!', '<ul>' + whosgoinglist);
+								//webpage = webpage.replace('!%NOTATTEND%!', notattendinglist + '</ul>');
 							}
 
 							var posts = '';
@@ -153,22 +158,18 @@ function renderPage(country, region, city, game, req, res) {
 									var postusernames  = [];
 									var postmessages  = [];
 							
-									if(!result) {
-										//posts = '';
-									} else {
+									if(result) {
 										for (var i = 0; i < result.rows.length; i++) {
 											var postusername = result.rows[i].username;
 											var postmessage = result.rows[i].message;
 											var postdate = result.rows[i].postdate;
 											
-											//posts += dateFormat(postdate, "mmmm dS, yyyy, h:MM:ss TT") + ' ' + postusername + ' wrote: ' + postmessage + '<br/>';
 											postdates.push(postdate);
 											postusernames.push(postusername);
 											postmessages.push(postmessage);
 										}
 									}
 							
-									//webpage = webpage.replace('!%POSTS%!', posts);
 									webpage = renderElement.posts(webpage, postdates, postusernames, postmessages);
 							
 									res.send(webpage);
