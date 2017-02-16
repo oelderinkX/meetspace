@@ -38,5 +38,7 @@ function posts(webpage, postdates, postusernames, postmessages) {
 	}
 	
 	webpage = webpage.replace('!%POSTS%!', postElement);
+	
+	return webpage;
 }
 module.exports.posts = posts;
