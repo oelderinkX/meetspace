@@ -26,17 +26,19 @@ setTimeout("reloadPage()", timeoutTime);
 </script>
 
 <body>
+<div class="jumbotron text-right">
+!%LOGIN%!
+</div>
 <div class="jumbotron text-center">
-	!%LOGIN%!
 	<h1>!%TITLE%!</h1>
 	<p>!%DESCRIPTION%!</p>
 	<form action="!%ACTION%!" method="post">
 		<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-		<button type="submit" name="action" value="join" !%DISABLED%!>Join</button>
-		<button type="submit" name="action" value="unjoin" !%DISABLED%!>Unjoin</button>
-		<button type="submit" name="action" value="attend" !%DISABLED%!>Attend</button>
-		<button type="submit" name="action" value="unattend" !%DISABLED%!>Unattend</button>
-		<button type="submit" name="action" value="reset" !%DISABLED%!>Reset</button>
+		<button type="submit" name="action" value="join" style="display: !%SHOWJOIN%!">Join</button>
+		<button type="submit" name="action" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
+		<button type="submit" name="action" value="attend" style="display: !%SHOWATTEND%!">Attend</button>
+		<button type="submit" name="action" value="unattend" style="display: !%SHOWUNATTEND%!">Unattend</button>
+		&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" style="display: !%SHOWRESET%!">Reset</button>
 	</form>
 </div>
 
