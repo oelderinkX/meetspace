@@ -38,11 +38,11 @@ setTimeout("reloadPage()", timeoutTime);
 	<h1>!%TITLE%!</h1>
 	<p>!%DESCRIPTION%!</p>
 	<form action="!%ACTION%!" method="post">
+		<button type="submit" name="action" value="attend" style="display: !%SHOWATTEND%!">Attend</button>
+		<button type="submit" name="action" value="unattend" style="display: !%SHOWUNATTEND%!">Unattend</button>
 		<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
 		<button type="submit" name="action" value="join" style="display: !%SHOWJOIN%!">Join</button>
 		<button type="submit" name="action" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
-		<button type="submit" name="action" value="attend" style="display: !%SHOWATTEND%!">Attend</button>
-		<button type="submit" name="action" value="unattend" style="display: !%SHOWUNATTEND%!">Unattend</button>
 		&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" style="display: !%SHOWRESET%!">Reset</button>
 	</form>
 </div>
@@ -56,13 +56,15 @@ setTimeout("reloadPage()", timeoutTime);
 		</div>
 
 		<div class="col-sm-6">
-			<h3>Posts</h3>
 			<p>
-				<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
-					<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-					<textarea rows="4" cols="50" maxlength="256" name="postmessage" id="postmessage"></textarea><br/>
-					<button type="submit" name="action" value="post">Post</button>
-				</form>
+				<div class="form-group">
+					<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
+						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+						<label for="comment">Post:</label>
+						<textarea class="form-control" rows="3" maxlength="256" name="postmessage" id="postmessage"></textarea>
+						<button type="submit" name="action" value="post">Post</button>
+					</form>
+				</div>
 			</p>
 			<p>!%POSTS%!</p>
 		</div>		
