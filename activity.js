@@ -104,7 +104,7 @@ function renderPage(country, region, city, game, req, res) {
 					actionlink += '/' + game;
 					
 					if (username && sessionId) {
-						disabled = '';
+						//disabled = '';
 						showpost = 'inline';
 						showinvite = 'inline';
 					}
