@@ -2,13 +2,13 @@ var dateFormat = require('dateformat');
 
 function getTime(time) {
 	var datetime = new Date();
-	//12:05:00
+
 	var timeSplit = time.split(":");
 	
 	datetime.setHours(timeSplit[0]);
 	datetime.setMinutes(timeSplit[1]);
 	
-	var strTime = dateFormat(datetime, "h:MM:ss tt");
+	var strTime = dateFormat(datetime, "h:MM tt");
 	
 	return strTime;
 }
@@ -40,10 +40,13 @@ function activityTitle(webpage, title, day, time) {
 module.exports.activityTitle = activityTitle;
 
 function posts(webpage, postdates, postusernames, postmessages) {
-	var postElement = '';
+	//var postElement = '';
+	var postElement = '<dl>';
 	for(var i = 0; i < postdates.length; i++) {
-		postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote>';
+		//postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote>';
+		postElement += '<dt>' + postmessages[i] + '</dt><dd> - ' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</dd>';
 	}
+	postElement = '</dl>';
 	
 	webpage = webpage.replace('!%POSTS%!', postElement);
 	
