@@ -83,7 +83,6 @@ function renderPage(country, region, city, game, req, res) {
 					var time = result.rows[0].time;
 					var day = result.rows[0].day;
 					var activityId = result.rows[0].activityid;
-					//var disabled = 'disabled';
 					
 					var showjoin = 'none';
 					var showunjoin = 'none';
@@ -104,19 +103,20 @@ function renderPage(country, region, city, game, req, res) {
 					actionlink += '/' + game;
 					
 					if (username && sessionId) {
-						//disabled = '';
+						showjoin = 'inline';
+						showunjoin = 'inline';
+						showattend = 'inline';
+						showunattend = 'inline';
+						showreset = 'inline';
 						showpost = 'inline';
 						showinvite = 'inline';
 					}
-					
-					
 					
 					webpage = renderElement.activityTitle(webpage, title, day, time);
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
 					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
 										
-					//webpage = common.replaceAll(webpage, '!%DISABLED%!', disabled);
 					webpage = common.replaceAll(webpage, '!%SHOWJOIN%!', showjoin);
 					webpage = common.replaceAll(webpage, '!%SHOWUNJOIN%!', showunjoin);
 					webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
