@@ -212,34 +212,22 @@ function hideRegionCombo() {
 }
 </script>
 
-
 <body>
 <div class="jumbotron text-center">
   <h1>Meetspace</h1>
   <p>A place to meet people in the real world</p>
 </div>
-<br>
-<br>
-<br>
-Whats happening in your area:<br>
-<br>
-Country: <select id="country" onchange="getRegionsOrCities()"></select>
-
-<a id="regioncombo" style="visibility: hidden;">
-</a>
-
-<a id="citycombo" style="visibility: hidden;">
-City: <select id="city"></select> 
-</a>
-
-<a id="searchbutton" style="visibility: hidden;">
-<input type=button value="Search" onclick="search();"/>
-</a>
-
-<br/>
-<br/>
-<br/>
+<div class="container">
+	<div class="row">
+		 <div class="col-sm-4">
+			<h3>Whats happening in your area</h3>
+			<p>Country: <select id="country" onchange="getRegionsOrCities()"></select><a id="regioncombo" style="visibility: hidden;"></a>
+			<a id="citycombo" style="visibility: hidden;">City: <select id="city"></select></a>
+			<a id="searchbutton" style="visibility: hidden;"><input type=button value="Search" onclick="search();"/></a>
+			</p>
+		</div>
+	</div>
+</div>
 <form action="/login"><input type="submit" value="Login"/></form>
-
 </body>
 </html>
