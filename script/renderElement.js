@@ -8,7 +8,7 @@ function getTime(time) {
 	datetime.setHours(timeSplit[0]);
 	datetime.setMinutes(timeSplit[1]);
 	
-	var strTime = dateFormat(datetime, "mmmm dS, yyyy, h:MM:ss TT");
+	var strTime = dateFormat(datetime, "h:MM:ss tt");
 	
 	return strTime;
 }
