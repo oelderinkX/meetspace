@@ -46,7 +46,7 @@ function posts(webpage, postdates, postusernames, postmessages) {
 		//postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote>';
 		postElement += '<dt>' + postmessages[i] + '</dt><dd> - ' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</dd>';
 	}
-	postElement = '</dl>';
+	postElement += '</dl>';
 	
 	webpage = webpage.replace('!%POSTS%!', postElement);
 	
