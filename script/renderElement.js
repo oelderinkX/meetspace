@@ -1,10 +1,15 @@
 var dateFormat = require('dateformat');
 
 function getTime(time) {
-	var datetime = new Date(time);
-	console.log(datetime);
-	console.log(time);
+	var datetime = new Date();
+	//12:05:00
+	var timeSplit = time.split(":");
+	
+	datetime.setHours(timeSplit[0]);
+	datetime.setMinutes(timeSplit[1]);
+	
 	var strTime = dateFormat(datetime, "mmmm dS, yyyy, h:MM:ss TT");
+	
 	return strTime;
 }
 
