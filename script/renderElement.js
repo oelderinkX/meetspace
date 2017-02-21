@@ -2,7 +2,7 @@ var dateFormat = require('dateformat');
 
 function getTime(time) {
 	var datetime = new Date(time);
-	var strTime = dateFormat(datetime, "h:MM TT");
+	var strTime = dateFormat(datetime, "mmmm dS, yyyy, h:MM:ss TT");
 	return strTime;
 }
 
