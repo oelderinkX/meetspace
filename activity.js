@@ -4,7 +4,6 @@ var fs = require("fs");
 var common = require('./script/common.js');
 var renderElement = require('./script/renderElement.js');
 var notifications = require('./notifications.js');
-var dateFormat = require('dateformat');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -84,7 +83,14 @@ function renderPage(country, region, city, game, req, res) {
 					var time = result.rows[0].time;
 					var day = result.rows[0].day;
 					var activityId = result.rows[0].activityid;
-					var disabled = 'disabled';
+					//var disabled = 'disabled';
+					
+					var showjoin = 'none';
+					var showunjoin = 'none';
+					var showattend = 'none';
+					var showunattend = 'none';
+					var showreset = 'none';
+					
 					var showpost = 'none'; 
 					var showinvite = 'none'; 
 					
@@ -103,12 +109,19 @@ function renderPage(country, region, city, game, req, res) {
 						showinvite = 'inline';
 					}
 					
+					
+					
 					webpage = renderElement.activityTitle(webpage, title, day, time);
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
 					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
 										
-					webpage = common.replaceAll(webpage, '!%DISABLED%!', disabled);
+					//webpage = common.replaceAll(webpage, '!%DISABLED%!', disabled);
+					webpage = common.replaceAll(webpage, '!%SHOWJOIN%!', showjoin);
+					webpage = common.replaceAll(webpage, '!%SHOWUNJOIN%!', showunjoin);
+					webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
+					webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
+					webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', SHOWRESET);
 					
 					webpage = webpage.replace('!%SHOWPOST%!', showpost);
 					webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
