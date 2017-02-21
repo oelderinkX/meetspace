@@ -26,16 +26,21 @@ setTimeout("reloadPage()", timeoutTime);
 </script>
 
 <body>
+<div class="jumbotron text-center">
+	<h1>!%TITLE%!</h1>
+	<p>!%DESCRIPTION%!</p>
+	<form action="!%ACTION%!" method="post">
+		<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+		<button type="submit" name="action" value="join" !%DISABLED%!>Join</button>
+		<button type="submit" name="action" value="unjoin" !%DISABLED%!>Unjoin</button>
+		<button type="submit" name="action" value="attend" !%DISABLED%!>Attend</button>
+		<button type="submit" name="action" value="unattend" !%DISABLED%!>Unattend</button>
+		<button type="submit" name="action" value="reset" !%DISABLED%!>Reset</button>
+	</form>
+</div>
+
 <table border=0 width="100%">
 <tr><td align="left" valign="top">
-<form action="!%ACTION%!" method="post">
-	<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-    <button type="submit" name="action" value="join" !%DISABLED%!>Join</button>
-    <button type="submit" name="action" value="unjoin" !%DISABLED%!>Unjoin</button>
-	<button type="submit" name="action" value="attend" !%DISABLED%!>Attend</button>
-	<button type="submit" name="action" value="unattend" !%DISABLED%!>Unattend</button>
-	<button type="submit" name="action" value="reset" !%DISABLED%!>Reset</button>
-</form>
 </td><td align="right" valign="top">!%LOGIN%!</td>
 </tr></table>
 <h2>!%TITLE%!</h2>
