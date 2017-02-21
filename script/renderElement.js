@@ -44,7 +44,7 @@ function posts(webpage, postdates, postusernames, postmessages) {
 	var postElement = '<dl>';
 	for(var i = 0; i < postdates.length; i++) {
 		//postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote>';
-		postElement += '<dt>' + postmessages[i] + '</dt><dd> - ' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</dd>';
+		postElement += '<dt>' + postmessages[i] + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
 	}
 	postElement += '</dl>';
 	
