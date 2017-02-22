@@ -93,3 +93,4 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 	
 	return webpage;
 }
+module.exports.activities = activities;
