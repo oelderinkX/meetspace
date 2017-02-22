@@ -11,6 +11,11 @@
 <script>
 var timeoutTime = 60000;
 
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	alert('its mobile');
+	timeoutTime = 60000 * 3;
+}
+
 function reloadPage() {
 	var postMessageValue = document.getElementById("postmessage").value;
 	var toEmailValue = document.getElementById("toemail").value;
