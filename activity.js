@@ -10,6 +10,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var pool = new pg.Pool(common.postgresConfig());
 
 var style1Page = fs.readFileSync(__dirname + "/webpage/activity_style1.html", "utf8");
+var listPage = fs.readFileSync(__dirname + "/webpage/activity_list.html", "utf8");
 
 function addWhereClause(sql, fieldName, fieldValue) {
 	var newSql = sql;
@@ -194,7 +195,16 @@ function renderPage(country, region, city, game, req, res) {
 					details += '</body></html>';
 					res.send(details);
 				} else if (result.rows.length > 1) {
-					var details = 'Activities in your area:<br/><br/>';
+					//!%ACTIVITYLIST%!
+					webpage = listPage;
+					
+					var titlelist = [];
+					var gamelist = [];
+					var citylist = [];
+					var regionlist = [];
+					var countrylist = [];
+					var descriptionlist = [];
+					var linklist = [];
 					
 					for (var i = 0; i < result.rows.length; i++) {
 						var title = result.rows[i].title
@@ -206,11 +216,18 @@ function renderPage(country, region, city, game, req, res) {
 						
 						var link = getUrl(country, region, city, game);
 						
-						details += title + ' <a href="' + link + '">' + link + '</a><br/>';
+						titlelist.push(title);
+						gamelist.push(game);
+						citylist.push(city);
+						regionlist.push(region);
+						countrylist.push(country);
+						descriptionlist.push(description);
+						linklist.push(link);
 					}
 					
-					details += '</body></html>';
-					res.send(details);
+					webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist);
+					
+					res.send(webpage);
 				}
 			}
 		});
