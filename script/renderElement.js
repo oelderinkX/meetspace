@@ -91,6 +91,8 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 	
 	activitieElement += '</div>';
 	
+	webpage = webpage.replace('!%ACTIVITYLIST%!', activitieElement);
+	
 	return webpage;
 }
 module.exports.activities = activities;
