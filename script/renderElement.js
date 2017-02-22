@@ -77,16 +77,16 @@ function whosgoing(webpage, whosgoing, whosnot) {
 module.exports.whosgoing = whosgoing;
 
 function activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist) {
-	var activitieElement = '<div class="list-group">';
+	var activitieElement = '<div class="list-group">\n';
 	
 	for(var i = 0; i < titlelist.length; i++) {
-		activitieElement += '<a href="' + linklist[i] + '" class="list-group-item list-group-item-action flex-column align-items-start">';
-		activitieElement += '<div class="d-flex w-100 justify-content-between">';
-		activitieElement += '<h5 class="mb-1">' + titlelist[i] + '</h5>';
-		activitieElement += '<small class="text-muted">' + citylist[i] + '</small>';
-		activitieElement += '</div>';
-		activitieElement += '<p class="mb-1">' + descriptionlist[i] + '</p>';
-		activitieElement += '</a>';
+		activitieElement += '\t<a href="' + linklist[i] + '" class="list-group-item list-group-item-action flex-column align-items-start">\n';
+		activitieElement += '\t\t<div class="d-flex w-100 justify-content-between">\n';
+		activitieElement += '\t\t\t<h5 class="mb-1">' + titlelist[i] + '</h5>\n';
+		activitieElement += '\t\t\t\t<small class="text-muted">' + citylist[i] + '</small>\n';
+		activitieElement += '\t\t</div>\n';
+		activitieElement += '\t<p class="mb-1">' + descriptionlist[i] + '</p>\n';
+		activitieElement += '\t</a>\n';
 	}
 	
 	activitieElement += '</div>';
