@@ -96,3 +96,14 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 	return webpage;
 }
 module.exports.activities = activities;
+
+function error(webpage, error) {
+	var errorElement = '<a class="list-group-item list-group-item-action list-group-item-danger">';
+	errorElement += error;
+	errorElement += '</a>';
+	
+	webpage = webpage.replace('!%ERROR STATUS%!', errorElement);
+	
+	return webpage;
+}
+module.exports.error = error;
