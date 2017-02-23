@@ -55,7 +55,8 @@ module.exports = function(app){
 					formatted = formatted.replace('!%PASSWORD%!', password);
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
-					formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
+					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
+					formatted = common.error(formatted, errorMessage);
 				
 					res.send(formatted);
 				} else {
@@ -71,7 +72,8 @@ module.exports = function(app){
 						formatted = formatted.replace('!%PASSWORD%!', password);
 						formatted = formatted.replace('!%EMAIL%!', email);
 						
-						formatted = formatted.replace('!%ERROR STATUS%!','Unknown user or password');
+						//formatted = formatted.replace('!%ERROR STATUS%!',);
+						formatted = common.error(formatted, 'Unknown user or password');
 						
 						res.send(formatted);
 					}
