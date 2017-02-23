@@ -98,9 +98,9 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 module.exports.activities = activities;
 
 function error(webpage, error) {
-	var errorElement = '<a class="list-group-item list-group-item-action list-group-item-danger">';
+	var errorElement = '<span class="list-group-item list-group-item-action list-group-item-danger">';
 	errorElement += error;
-	errorElement += '</a>';
+	errorElement += '</span>';
 	
 	webpage = webpage.replace('!%ERROR STATUS%!', errorElement);
 	
