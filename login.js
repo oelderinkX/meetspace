@@ -2,6 +2,7 @@ var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 const util = require('util');
+var renderElement = require('./script/renderElement.js');
 var common = require('./script/common.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -56,7 +57,7 @@ module.exports = function(app){
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
 					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
-					formatted = common.error(formatted, errorMessage);
+					formatted = renderElement.error(formatted, errorMessage);
 				
 					res.send(formatted);
 				} else {
@@ -73,7 +74,7 @@ module.exports = function(app){
 						formatted = formatted.replace('!%EMAIL%!', email);
 						
 						//formatted = formatted.replace('!%ERROR STATUS%!',);
-						formatted = common.error(formatted, 'Unknown user or password');
+						formatted = renderElement.error(formatted, 'Unknown user or password');
 						
 						res.send(formatted);
 					}
