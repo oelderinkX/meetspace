@@ -1,7 +1,9 @@
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
+var renderElement = require('./script/renderElement.js');
 var common = require('./script/common.js');
+
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -18,7 +20,8 @@ module.exports = function(app){
 		formatted = formatted.replace('!%PASSWORD%!', '');
 		formatted = formatted.replace('!%EMAIL%!', '');
 		
-		formatted = formatted.replace('!%ERROR STATUS%!', '');
+		//formatted = formatted.replace('!%ERROR STATUS%!', '');
+		formatted = renderElement.error(formatted, errorMessage);
 		
 		res.send(formatted);
 	});	
@@ -57,7 +60,8 @@ module.exports = function(app){
 					formatted = formatted.replace('!%PASSWORD%!', password);
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
-					formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
+					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
+					formatted = renderElement.error(formatted, errorMessage);
 					
 					res.send(formatted);
 				} else {
