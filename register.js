@@ -20,8 +20,7 @@ module.exports = function(app){
 		formatted = formatted.replace('!%PASSWORD%!', '');
 		formatted = formatted.replace('!%EMAIL%!', '');
 		
-		//formatted = formatted.replace('!%ERROR STATUS%!', '');
-		formatted = renderElement.error(formatted, errorMessage);
+		formatted = formatted.replace('!%ERROR STATUS%!', '');
 		
 		res.send(formatted);
 	});	
