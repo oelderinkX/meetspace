@@ -11,7 +11,16 @@ var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 module.exports = function(app){
 	
 	app.get('/', function(req, res) {
+		var showjoin = 'inline';
+		var username = req.cookies['username'];
+		var sessionId = req.cookies['sessionId'];
 		var webpage = mainPage;
+
+		if (username && sessionId) {
+			showjoin = 'none';
+		}
+		
+		webpage = webpage.replace('!%SHOWLOGIN%!', showjoin);
 		
 		res.send(webpage);
 	});	
