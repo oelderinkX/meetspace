@@ -5,6 +5,8 @@ var notifications = require('./notifications.js');
 
 var pool = new pg.Pool(common.postgresConfig());
 
+var infoPage = fs.readFileSync(__dirname + "/webpage/infopage.html", "utf8");
+
 function decode(activationcode) {
 	var decoded = querystring.unescape(activationcode);
 	
@@ -46,7 +48,7 @@ module.exports = function(app){
 	///	
     app.get('/getactivationcode/:email', function(req, res){
 		var email = req.params.email;
-		var response = '<html><body>';
+		var response = '';
 
 		pool.connect(function(err, client, done) {
 			var sql = "SELECT email FROM meetspace.user WHERE active = false AND email = '" + email +  "' LIMIT 1;";
@@ -61,9 +63,11 @@ module.exports = function(app){
 
 					notifications.sendRegistrationEmail(email, encodedEmail);
 					
-					response += 'An email has been sent to your email account with activation details.  Click <a href="http://meetspace.co.nz/login">here</a> to access the login page after you have registered.<br/><br/>';
+					response = infoPage;
+					response = response.replace('!%MESSAGE%!', 'An email has been sent to your email account with activation details');
 				} else {
-					response = response + 'You are attempting to activate an invalid user';
+					response = infoPage;
+					response = response.replace(You are attempting to activate an invalid user');
 				}
 				
 				response = response + '</body></html>';
@@ -78,7 +82,7 @@ module.exports = function(app){
 	///	
 	app.get('/useractivate/:activationcode', function(req, res) {
 		var activationCode = req.params.activationcode;
-		var response = '<html><body>';
+		var response = '';
 		var email = '';
 
 		try {
@@ -88,17 +92,18 @@ module.exports = function(app){
 				client.query("UPDATE meetspace.user SET active = true WHERE email = '" + email + "' AND active = false;" , function(err, result) {
 					done();
 
-					response = response + 'Email ' + email + ' has been activivated.  Please proceed to <a href="/login">login page</a>';
-				
-					response = response + '</body></html>';
-					res.send(response);
+					response = infoPage;
+					response = response.replace('!%MESSAGE%!', 'You are now a player.');
+					
+					res.send(response));
 				});
 			});
 		} catch (err) {
 			console.log(err);
-			response = response + 'Invalid activation code';
 			
-			response = response + '</body></html>';
+			response = infoPage;
+			response = response.replace('!%MESSAGE%!', 'Invalid activation code');
+			
 			res.send(response);
 		}
 	});
