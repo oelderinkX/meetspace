@@ -2,6 +2,7 @@ var pg = require('pg');
 var querystring = require('querystring');
 var common = require('./script/common.js');
 var notifications = require('./notifications.js');
+var fs = require("fs");
 
 var pool = new pg.Pool(common.postgresConfig());
 
