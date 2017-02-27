@@ -95,7 +95,7 @@ module.exports = function(app){
 					response = infoPage;
 					response = response.replace('!%MESSAGE%!', 'You are now a player.');
 					
-					res.send(response));
+					res.send(response);
 				});
 			});
 		} catch (err) {
