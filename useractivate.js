@@ -67,7 +67,7 @@ module.exports = function(app){
 					response = response.replace('!%MESSAGE%!', 'An email has been sent to your email account with activation details');
 				} else {
 					response = infoPage;
-					response = response.replace(You are attempting to activate an invalid user');
+					response = response.replace('You are attempting to activate an invalid user');
 				}
 				
 				response = response + '</body></html>';
