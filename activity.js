@@ -178,7 +178,7 @@ function renderPage(country, region, city, game, req, res) {
 										}
 									}
 							
-									webpage = renderElement.posts(webpage, postdates, postusernames, postmessages);
+									webpage = renderElement.posts(webpage, country, region, postdates, postusernames, postmessages);
 							
 									res.send(webpage);
 								});
