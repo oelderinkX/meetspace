@@ -186,15 +186,15 @@ function renderPage(country, region, city, game, req, res) {
 						});
 					});
 				} else if (result.rows.length == 0) {
-					var webpage = infoPage;
+					var noactivityPage = infoPage;
 					
 					if (game) {
-						webpage = webpage.replace('!%MESSAGE%!', 'no activty for ' + game + '.  Would you like to create it?');
+						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'no activty for ' + game + '.  Would you like to create it?');
 					} else {
-						webpage = webpage.replace('!%MESSAGE%!', 'no activties in your area');
+						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'no activties in your area');
 					}
 
-					res.send(webpage);
+					res.send(noactivityPage);
 				} else if (result.rows.length > 1) {
 					webpage = listPage;
 					
