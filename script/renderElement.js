@@ -35,7 +35,7 @@ function getDay(day) {
 /// Need to add daylight savings
 ///
 function getGmtAdjustedDateTime(datetime, country, region) {
-	int daylightsavings = 0;
+	var daylightsavings = 0;
 	
 	if (country == 'nz') {
 		if (datetime.getMonth() > 9 && datetime.getMonth() < 4) {
