@@ -31,6 +31,17 @@ function getDay(day) {
 	}
 }
 
+///
+/// Need to add daylight savings
+///
+function getGmtAdjustedDateTime(datetime, country, region) {
+	if (country == 'nz') {
+		datetime.setHours(datetime.getHours() + 12);
+	}
+	
+	return datetime;
+}
+
 function activityTitle(webpage, title, day, time) {
   
   webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
@@ -39,12 +50,11 @@ function activityTitle(webpage, title, day, time) {
 }
 module.exports.activityTitle = activityTitle;
 
-function posts(webpage, postdates, postusernames, postmessages) {
-	//var postElement = '';
+function posts(webpage, country, region, postdates, postusernames, postmessages) {
 	var postElement = '<dl>';
 	for(var i = 0; i < postdates.length; i++) {
-		//postElement += '<blockquote><p>' + postmessages[i] + '</p><footer>' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</footer></blockquote>';
-		postElement += '<dt>' + postmessages[i] + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postusernames[i] + ', ' +  dateFormat(postdates[i], "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
+		var adjustedDateTime = getGmtAdjustedDateTime(postdates[i], country, region);
+		postElement += '<dt>' + postmessages[i] + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postusernames[i] + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
 	}
 	postElement += '</dl>';
 	
