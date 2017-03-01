@@ -11,6 +11,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var style1Page = fs.readFileSync(__dirname + "/webpage/activity_style1.html", "utf8");
 var listPage = fs.readFileSync(__dirname + "/webpage/activity_list.html", "utf8");
+var infoPage = fs.readFileSync(__dirname + "/webpage/infopage.html", "utf8");
 
 function addWhereClause(sql, fieldName, fieldValue) {
 	var newSql = sql;
@@ -185,17 +186,16 @@ function renderPage(country, region, city, game, req, res) {
 						});
 					});
 				} else if (result.rows.length == 0) {
-					var details = '';
+					var webpage = infoPage;
 					
 					if (game) {
-						details += 'no activty for ' + game + '.  Would you like to create it?';
+						webpage = webpage.replace('!%MESSAGE%!', 'no activty for ' + game + '.  Would you like to create it?');
 					} else {
-						details += 'no activties in your area';
+						webpage = webpage.replace('!%MESSAGE%!', 'no activties in your area');
 					}
-					details += '</body></html>';
-					res.send(details);
+
+					res.send(webpage);
 				} else if (result.rows.length > 1) {
-					//!%ACTIVITYLIST%!
 					webpage = listPage;
 					
 					var titlelist = [];
