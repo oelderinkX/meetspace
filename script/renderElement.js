@@ -38,7 +38,7 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 	var daylightsavings = 0;
 	
 	if (country == 'nz') {
-		if (datetime.getMonth() > 9 && datetime.getMonth() < 4) {
+		if (datetime.getMonth() < 4 || datetime.getMonth() > 9 ) {
 			daylightsavings	= 1;
 		}
 		
