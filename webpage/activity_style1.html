@@ -70,6 +70,12 @@ setTimeout("reloadPage()", timeoutTime);
 			<h3>Whos going</h3>
 			<p>!%WHOSGOING%!</p>
 			<p>!%NOTATTEND%!</p>
+			
+			<form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
+				<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input><br/>
+				Invite:<br/>
+				<input type=email name="toemail" size=30/ id="toemail"> <button type="submit" name="action" value="invite">Invite</button>
+			</form>			
 		</div>
 
 		<div class="col-sm-6">
@@ -88,11 +94,5 @@ setTimeout("reloadPage()", timeoutTime);
 		
 	</div>
 </div>
-			
-<form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
-<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input><br/>
-Invite:<br/>
-<input type=email name="toemail" size=30/ id="toemail"> <button type="submit" name="action" value="invite">Invite</button>
-</form>
 </body>
 </html>
