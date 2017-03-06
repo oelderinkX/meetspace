@@ -48,16 +48,9 @@ function renderPage(country, region, city, game, req, res) {
 	var username = req.cookies['username'];
 	var sessionId = req.cookies['sessionId'];
 	
-	var loginForm = '<form action="' + common.webpage_url + 'login"><input type="submit" value="Login" /></form>';
-	var logoutForm = '<form action="' + common.webpage_url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>';
-	
 	getUrl(country, region, city, game);
 	
-	if (username) {
-		webpage = webpage.replace('!%LOGIN%!', logoutForm);
-	} else {
-		webpage = webpage.replace('!%LOGIN%!', loginForm);
-	}
+	webpage = renderElement.login(webpage, username, common.webpage_url);
 	
 	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
 	
