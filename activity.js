@@ -114,7 +114,8 @@ function renderPage(country, region, city, game, req, res) {
 						showinvite = 'inline';
 					}
 					
-					webpage = renderElement.activityTitle(webpage, title, day, time);
+					webpage = renderElement.activityTitle(webpage, title);
+					webpage = renderElement.activityTime(webpage, day, time);
 					webpage = webpage.replace('!%DESCRIPTION%!', description);
 					webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
 					webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
