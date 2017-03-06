@@ -66,9 +66,9 @@ module.exports.activityTime = activityTime;
 function login(webpage, username, url) {
 	
 	if (username) {
-		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');
-	} else {
 		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>');
+	} else {
+		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');		
 	}
 	
 	return webpage;
