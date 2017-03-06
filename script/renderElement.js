@@ -63,6 +63,18 @@ function activityTime(webpage, day, time) {
 }
 module.exports.activityTime = activityTime;  
 
+function login(webpage, username, url) {
+	
+	if (username) {
+		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');
+	} else {
+		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>');
+	}
+	
+	return webpage;
+}
+module.exports.login = login;
+
 function posts(webpage, country, region, postdates, postusernames, postmessages) {
 	var postElement = '<dl>';
 	for(var i = 0; i < postdates.length; i++) {
