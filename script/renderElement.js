@@ -48,14 +48,20 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 	return datetime;
 }
 
-function activityTitle(webpage, title, day, time) {
+function activityTitle(webpage, title) {
   
-  //webpage = webpage.replace('!%TITLE%!', title + ', ' + getDay(day) + ' ' + getTime(time));
   webpage = webpage.replace('!%TITLE%!', title);
   
   return webpage;
 }
 module.exports.activityTitle = activityTitle;
+
+function activityTime(webpage, day, time) {
+	webpage = webpage.replace('!%TIME%!', getDay(day) + ' ' + getTime(time));
+	
+	return webpage;
+}
+module.exports.activityTime = activityTime;  
 
 function posts(webpage, country, region, postdates, postusernames, postmessages) {
 	var postElement = '<dl>';
