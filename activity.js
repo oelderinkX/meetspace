@@ -67,7 +67,7 @@ function renderPage(country, region, city, game, req, res) {
 			console.log("ERROR! " + err)
 		}
 		
-		client.query(sql, [email, session, country, region, city, game], function(err, result) {
+		client.query(sql, [email, sessionId, country, region, city, game], function(err, result) {
 			done();
 			
 			if (err) {
