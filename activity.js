@@ -40,7 +40,7 @@ function getUrl(country, region, city, game) {
 }
 
 function renderPage(country, region, city, game, req, res) {
-	//var email = req.cookies['email'];
+	var email = req.cookies['email'];
 	//var sessionId = req.cookies['sessionId'];
 
 	var webpage = style1Page;
@@ -52,14 +52,14 @@ function renderPage(country, region, city, game, req, res) {
 	
 	webpage = renderElement.login(webpage, username, common.webpage_url);
 	
-	var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
+	//var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
 	
-	sql = addWhereClause(sql, 'country', country);
-	sql = addWhereClause(sql, 'region', region);
-	sql = addWhereClause(sql, 'city', city);
-	sql = addWhereClause(sql, 'game', game);
+	var sql = "SELECT * FROM meetspace.get_activity_details($1, $2, $3, $4, $5, $6);"
 	
-	sql += ' LIMIT 10';
+	//sql = addWhereClause(sql, 'country', country);
+	//sql = addWhereClause(sql, 'region', region);
+	//sql = addWhereClause(sql, 'city', city);
+	//sql = addWhereClause(sql, 'game', game);
 	
 	pool.connect(function(err, client, done) {
 		
@@ -67,13 +67,16 @@ function renderPage(country, region, city, game, req, res) {
 			console.log("ERROR! " + err)
 		}
 		
-		client.query(sql, function(err, result) {
+		client.query(sql, [email, session, country, region, city, game], function(err, result) {
 			done();
 			
 			if (err) {
 				console.log("errors!");
 			} else {
 				if (result.rows.length == 1) {
+					
+					console.log(result);
+					
 					var title = result.rows[0].title;
 					var time = result.rows[0].time;
 					var day = result.rows[0].day;
