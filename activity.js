@@ -77,10 +77,10 @@ function renderPage(country, region, city, game, req, res) {
 					
 					console.log(result);
 					
-					var title = result.rows[0].title;
-					var time = result.rows[0].time;
-					var day = result.rows[0].day;
-					var activityId = result.rows[0].activityid;
+					var title = result.rows[0].ret_title;
+					var time = result.rows[0].ret_time;
+					var day = result.rows[0].ret_day;
+					var activityId = result.rows[0].ret_activityid;
 					
 					var showjoin = 'none';
 					var showunjoin = 'none';
@@ -91,8 +91,8 @@ function renderPage(country, region, city, game, req, res) {
 					var showpost = 'none'; 
 					var showinvite = 'none'; 
 					
-					game = result.rows[0].game;
-					description = result.rows[0].description;
+					game = result.rows[0].ret_game;
+					description = result.rows[0].ret_description;
 					var actionlink = '/' + country;
 					if (region) {
 						actionlink += '/' + region;
