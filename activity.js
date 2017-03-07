@@ -204,12 +204,12 @@ function renderPage(country, region, city, game, req, res) {
 					var linklist = [];
 					
 					for (var i = 0; i < result.rows.length; i++) {
-						var title = result.rows[i].title
-						game = result.rows[i].game;
-						city = result.rows[i].city;
-						region = result.rows[i].region;
-						country = result.rows[i].country;
-						description = result.rows[i].description;
+						var title = result.rows[i].ret_title
+						game = result.rows[i].ret_game;
+						city = result.rows[i].ret_city;
+						region = result.rows[i].ret_region;
+						country = result.rows[i].ret_country;
+						description = result.rows[i].ret_description;
 						
 						var link = getUrl(country, region, city, game);
 						
