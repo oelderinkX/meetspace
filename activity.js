@@ -54,7 +54,7 @@ function renderPage(country, region, city, game, req, res) {
 	
 	//var sql = 'SELECT activityId, title, game, city, region, country, time, day, styleid, description FROM meetspace.activity';
 	
-	var sql = "SELECT * FROM meetspace.get_activity_details($1, $2, $3, $4, $5, $6);"
+	var sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
 	
 	//sql = addWhereClause(sql, 'country', country);
 	//sql = addWhereClause(sql, 'region', region);
@@ -67,7 +67,7 @@ function renderPage(country, region, city, game, req, res) {
 			console.log("ERROR! " + err)
 		}
 		
-		client.query(sql, [email, sessionId, country, region, city, game], function(err, result) {
+		client.query(sql, [country, region, city, game], function(err, result) {
 			done();
 			
 			if (err) {
@@ -76,11 +76,11 @@ function renderPage(country, region, city, game, req, res) {
 				if (result.rows.length == 1) {
 					
 					console.log(result);
-					
+
+					var activityId = result.rows[0].ret_activityid;					
 					var title = result.rows[0].ret_title;
 					var time = result.rows[0].ret_time;
 					var day = result.rows[0].ret_day;
-					var activityId = result.rows[0].ret_activityid;
 					
 					var showjoin = 'none';
 					var showunjoin = 'none';
