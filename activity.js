@@ -38,6 +38,8 @@ function renderPage(country, region, city, game, req, res) {
 	
 	webpage = renderElement.login(webpage, username, common.webpage_url);
 	
+	webpage = renderElement.breadcrumb(webpage, country, region, city, game);
+	
 	var sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
 
 	pool.connect(function(err, client, done) {
