@@ -149,7 +149,7 @@ function breadcrumb(webpage, country, region, city, game) {
 	
 	if (region) {
 		breadcrumbElement += '<a href="/' + region + '">' + region + '</a> /';
-		breadcrumbElement += '<a href="/' + country + '/' + region '/' city + '">' + city + '</a> /' ;
+		breadcrumbElement += '<a href="/' + country + '/' + region + '/' city + '">' + city + '</a> /' ;
 		breadcrumbElement += '<a href="/' + country + '/' + region + '/' city + '/' + game + '">' + game + '</a> /' ;
 	} else {
 		breadcrumbElement += '<a href="/' + country + '/' city + '">' + city + '</a> /' ;
