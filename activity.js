@@ -87,14 +87,26 @@ function renderPage(country, region, city, game, req, res) {
 							if (err) {
 								console.log("error fail");
 							} else {
-								if (username && sessionId) {
-									showjoin = 'inline';
+								var isJoined = result.rows[0].ret_joined;
+								var isAttending = result.rows[0].ret_attended;
+								var isAdmin = result.rows[0].ret_admin;
+								
+								if (isJoined) {
 									showunjoin = 'inline';
-									showattend = 'inline';
-									showunattend = 'inline';
-									showreset = 'inline';
 									showpost = 'inline';
 									showinvite = 'inline';
+									
+									if (isAttending) {
+										showunattend = 'inline';
+									} else {
+										showattend = 'inline';	
+									}
+								else {
+									showjoin = 'inline';
+								}
+
+								if (isJoined && isAdmin) {
+									showreset = 'inline';
 								}
 								
 								webpage = renderElement.activityTitle(webpage, title);
