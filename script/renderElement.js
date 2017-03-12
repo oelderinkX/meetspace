@@ -142,3 +142,18 @@ function error(webpage, error) {
 	return webpage;
 }
 module.exports.error = error;
+
+function breadcrumb(webpage, country, region, city, game) {
+	var breadcrumbElement = '<a href="/">Home</a>';
+	breadcrumbElement += '<a href="/' + country + '">' + country + '</a>';
+	
+	if (region) {
+		breadcrumbElement += '<a href="/' + region + '">' + region + '</a> /';
+		breadcrumbElement += '<a href="/' + country + '/' + region '/' city + '">' + city + '</a> /' ;
+		breadcrumbElement += '<a href="/' + country + '/' + region + '/' city + '/' + game + '">' + game + '</a> /' ;
+	} else {
+		breadcrumbElement += '<a href="/' + country + '/' city + '">' + city + '</a> /' ;
+		breadcrumbElement += '<a href="/' + country + '/' city + '/' + game + '">' + game + '</a> /' ;
+	}
+}
+module.exports.breadcrumb = breadcrumb;
