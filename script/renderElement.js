@@ -74,7 +74,7 @@ function login(webpage, username, url) {
 		element += '<span class="caret"></span>';
 		element += '</button>';
 		element += '<ul class="dropdown-menu">';
-		element += '<li><a href="' + url + 'logout">Logout</a></li>'
+		element += '<li><a href="' + url + 'logout">Logout</a></li>';
 		element += '</ul>';
 		element += '</div>';
 	} else {
