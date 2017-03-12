@@ -102,7 +102,9 @@ function renderPage(country, region, city, game, req, res) {
 										showattend = 'inline';	
 									}
 								} else {
-									showjoin = 'inline';
+									if (username && sessionId) {
+										showjoin = 'inline';
+									}
 								}
 
 								if (isJoined && isAdmin) {
