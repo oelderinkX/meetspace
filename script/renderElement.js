@@ -80,7 +80,7 @@ function login(webpage, username, url) {
 	} else {
 		//webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');
 		element = '<div class="btn-group">';
-		element += '<a href="' url + 'login' + '" class="btn btn-default" role="button">Login</a>';
+		element += '<a href="' + url + 'login' + '" class="btn btn-default" role="button">Login</a>';
 		element += '</div>';
 	}
 	
