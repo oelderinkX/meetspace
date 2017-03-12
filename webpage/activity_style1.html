@@ -35,6 +35,10 @@ setTimeout("reloadPage()", timeoutTime);
     margin-bottom: 30px;
     border-radius: 0;
 }
+
+.btn-toolbar{
+  text-align: center;
+}​
 </style>
 
 <body>
@@ -53,16 +57,14 @@ setTimeout("reloadPage()", timeoutTime);
 	<hr class="my-4">
 	<p class="lead">!%DESCRIPTION%!</p>
 	<form action="!%ACTION%!" method="post">
-		<div class="btn-toolbar btn-toolbar-centered">
-			<div class="btn-group">
-				<button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
-				<button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
-				<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-				<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
-				<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
-				&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
-				!%LOGIN%!
-			</div>
+		<div class="btn-toolbar">
+			<button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
+			<button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
+			<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+			<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
+			<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
+			&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
+			!%LOGIN%!
 		</div>
 	</form>
 </div>
