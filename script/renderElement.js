@@ -155,5 +155,9 @@ function breadcrumb(webpage, country, region, city, game) {
 		breadcrumbElement += '<a href="/' + country + '/' + city + '">' + city + '</a> /' ;
 		breadcrumbElement += '<a href="/' + country + '/' + city + '/' + game + '">' + game + '</a> /' ;
 	}
+	
+	webpage = webpage.replace('!%BREADCRUMB%!', breadcrumbElement);
+	
+	return webpage;
 }
 module.exports.breadcrumb = breadcrumb;
