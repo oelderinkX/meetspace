@@ -226,11 +226,13 @@ function hideRegionCombo() {
 	<div class="row">
 		 <div class="col-sm-6">
 			<h3>Search for activities in your area</h3>
-			<p><span>Country: <select id="country" onchange="getRegionsOrCities()"></select></span>
-			<span id="regioncombo" style="visibility: hidden;"></span>
-			<span id="citycombo" style="visibility: hidden;">City: <select id="city"></select></span>
-			<span id="searchbutton" style="visibility: hidden;">
-			<input type=button class="btn btn-default btn-primary" value="Search" onclick="search();"/></span>
+				<div class="input-group">
+					<p><span>Country: <select id="country" onchange="getRegionsOrCities()"></select></span>
+					<span id="regioncombo" style="visibility: hidden;"></span>
+					<span id="citycombo" style="visibility: hidden;">City: <select id="city"></select></span>
+					<span id="searchbutton" style="visibility: hidden;">
+					<input type=button class="btn btn-default btn-primary" value="Search" onclick="search();"/></span>
+				</div>
 			</p>
 		</div>
 	</div>
