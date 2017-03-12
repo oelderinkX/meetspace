@@ -51,9 +51,10 @@ setTimeout("reloadPage()", timeoutTime);
 	<h1 class="display-3">!%TITLE%!</h1>
 	<p>!%TIME%!</p>
 	<hr class="my-4">
-	<p class="lead">!%DESCRIPTION%!
-		<form action="!%ACTION%!" method="post">
-			<div class="btn-toolbar">
+	<p class="lead">!%DESCRIPTION%!</p>
+	<form action="!%ACTION%!" method="post">
+		<div class="btn-toolbar">
+			<div class="btn-group">
 				<button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
 				<button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
 				<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
@@ -62,8 +63,9 @@ setTimeout("reloadPage()", timeoutTime);
 				&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
 				!%LOGIN%!
 			</div>
-		</form>
-	</p>
+		</div>
+	</form>
+	
 </div>
 
 <div class="container">
