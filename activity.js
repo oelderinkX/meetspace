@@ -101,7 +101,7 @@ function renderPage(country, region, city, game, req, res) {
 									} else {
 										showattend = 'inline';	
 									}
-								else {
+								} else {
 									showjoin = 'inline';
 								}
 
