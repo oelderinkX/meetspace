@@ -144,7 +144,7 @@ function error(webpage, error) {
 module.exports.error = error;
 
 function breadcrumb(webpage, country, region, city, game) {
-	var breadcrumbElement = '<a href="/">Home</a>';
+	var breadcrumbElement = '<a href="/">Home</a> / ';
 	breadcrumbElement += '<a href="/' + country + '">' + country + '</a> / ';
 	
 	if (region) {
