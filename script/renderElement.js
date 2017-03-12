@@ -64,12 +64,27 @@ function activityTime(webpage, day, time) {
 module.exports.activityTime = activityTime;  
 
 function login(webpage, username, url) {
+	var element = '';
 	
 	if (username) {
-		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>');
+		//webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>');
+		element = '<div class="btn-group">';
+		element += '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+		element += username;
+		element += '<span class="caret"></span>';
+		element += '</button>';
+		element += '<ul class="dropdown-menu">';
+		element += '<li><a href="' + url + 'logout">Logout</a></li>'
+		element += '</ul>';
+		element += '</div>';
 	} else {
-		webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');		
+		//webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');
+		element = '<div class="btn-group">';
+		element += '<a href="' url + 'login' + '" class="btn btn-default" role="button">Login</a>';
+		element += '</div>';
 	}
+	
+	webpage = webpage.replace('!%LOGIN%!', element);
 	
 	return webpage;
 }
