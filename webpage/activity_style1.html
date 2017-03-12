@@ -59,7 +59,7 @@ setTimeout("reloadPage()", timeoutTime);
 			<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
 			<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
 			<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
-			&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
+			<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
 			!%LOGIN%!
 		</div>
 	</form>
@@ -76,9 +76,10 @@ setTimeout("reloadPage()", timeoutTime);
 			<form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
 				<div class="form-group">
 					<div class="input-group">
-						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input><br/>
+						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+						<span class = "input-group-addon">@</span>
 						<input type="email" name="toemail" id="toemail" class="form-control" placeholder="Invite">
-						<button type="submit" name="action" value="invite">Invite</button>
+						<button type="submit" name="action" class="btn btn-primary" value="invite">Invite</button>
 					</div>
 				</div>
 			</form>			
@@ -90,7 +91,7 @@ setTimeout("reloadPage()", timeoutTime);
 					<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
 						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
 						<textarea class="form-control" rows="3" maxlength="256" name="postmessage" id="postmessage" placeholder="Post"></textarea>
-						<button type="submit" name="action" value="post">Post</button>
+						<button type="submit" name="action" class="btn btn-primary" value="post">Post</button>
 					</form>
 				</div>
 			</p>
