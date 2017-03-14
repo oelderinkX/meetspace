@@ -85,7 +85,6 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 			var youtubeEmedded = postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
 			youtubeEmedded = youtubeEmedded.replace('watch?v=' ,'embed/');
 			
-			
 			youtubeEmedded = '<div class="embed-responsive embed-responsive-16by9"><iframe class="col-sm-6" frameborder="0" allowfullscreen src="' + youtubeEmedded;
 			youtubeEmedded += '"></iframe></div>';
 			
