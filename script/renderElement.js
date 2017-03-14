@@ -80,7 +80,8 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 			
 			//<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="">
 			var youtubeEmedded = '<div class="embed-container"><iframe class="col-sm-6" frameborder="0" src="';
-			youtubeEmedded += postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
+			//youtubeEmedded += postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
+			youtubeEmedded += "https://www.youtube.com/watch?v=mAP1S1Fei0M";
 			youtubeEmedded += '"></iframe></div>';
 			
 			postmessage = postmessage.substring(0,youtubeLinkStart) + youtubeEmedded + postmessage.substring(youtubeLinkEnd);
