@@ -63,6 +63,35 @@ function activityTime(webpage, day, time) {
 }
 module.exports.activityTime = activityTime;  
 
+function posts(webpage, country, region, postdates, postusernames, postmessages) {
+	var YOUTUBELINK_SEARCH = "https://www.youtube.com/watch?";
+	
+	var postElement = '<dl>';
+	for(var i = 0; i < postdates.length; i++) {
+		var postmessage = postmessages[i];
+		
+		var youtubeLinkStart = postmessage.indexOf(YOUTUBELINK_SEARCH);
+		if (youtubeLinkStart != -1) {
+			youtubeLinkEnd = postmessage.indexOf(" ", youtubeLinkStart);
+			
+			if (youtubeLinkEnd == -1) {
+				youtubeLinkEnd = postmessage.length;
+			}
+			
+			postmessage = postmessage.substring(0,youtubeLinkStart) + postmessage.substring(youtubeLinkEnd);
+		}
+		
+		var adjustedDateTime = getGmtAdjustedDateTime(postdates[i], country, region);
+		postElement += '<dt>' + postmessage + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postmessage + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
+	}
+	postElement += '</dl>';
+	
+	webpage = webpage.replace('!%POSTS%!', postElement);
+	
+	return webpage;
+}
+module.exports.posts = posts;
+
 function login(webpage, username, url) {
 	var element = '';
 	
@@ -89,20 +118,6 @@ function login(webpage, username, url) {
 	return webpage;
 }
 module.exports.login = login;
-
-function posts(webpage, country, region, postdates, postusernames, postmessages) {
-	var postElement = '<dl>';
-	for(var i = 0; i < postdates.length; i++) {
-		var adjustedDateTime = getGmtAdjustedDateTime(postdates[i], country, region);
-		postElement += '<dt>' + postmessages[i] + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postusernames[i] + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
-	}
-	postElement += '</dl>';
-	
-	webpage = webpage.replace('!%POSTS%!', postElement);
-	
-	return webpage;
-}
-module.exports.posts = posts;
 
 function whosgoing(webpage, whosgoing, whosnot) {
 	var whosgoingElement = '<ol>';
