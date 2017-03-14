@@ -79,9 +79,9 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 			}
 			
 			//<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="">
-			var youtubeEmedded = '<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="';
+			var youtubeEmedded = '<div class="embed-responsive embed-responsive-16by9"><iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="';
 			youtubeEmedded += postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
-			youtubeEmedded += '">';
+			youtubeEmedded += '"></iframe></div>';
 			
 			postmessage = postmessage.substring(0,youtubeLinkStart) + youtubeEmedded + postmessage.substring(youtubeLinkEnd);
 		}
