@@ -78,11 +78,13 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 				youtubeLinkEnd = postmessage.length;
 			}
 			
-			//<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="">
 			var youtubeEmedded = '<div class="embed-container"><iframe class="col-sm-6" frameborder="0" src="';
 			//youtubeEmedded += postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
 			youtubeEmedded += "https://www.youtube.com/watch?v=mAP1S1Fei0M";
 			youtubeEmedded += '"></iframe></div>';
+
+			console.log("EMBED: " + youtubeLinkStart + ' ' + youtubeLinkEnd);
+			console.log("EMBED: " + postmessage.substr(youtubeLinkStart, youtubeLinkEnd));
 			
 			postmessage = postmessage.substring(0,youtubeLinkStart) + youtubeEmedded + postmessage.substring(youtubeLinkEnd);
 		}
