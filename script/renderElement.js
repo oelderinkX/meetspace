@@ -78,7 +78,12 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 				youtubeLinkEnd = postmessage.length;
 			}
 			
-			postmessage = postmessage.substring(0,youtubeLinkStart) + postmessage.substring(youtubeLinkEnd);
+			//<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="">
+			var youtubeEmedded = '<iframe class="col-sm-12" frameborder="0" wmode="Opaque" allowfullscreen="" src="';
+			youtubeEmedded += postmessage.substr(youtubeLinkStart, youtubeLinkEnd);
+			youtubeEmedded += '">';
+			
+			postmessage = postmessage.substring(0,youtubeLinkStart) + youtubeEmedded + postmessage.substring(youtubeLinkEnd);
 		}
 		
 		var adjustedDateTime = getGmtAdjustedDateTime(postdates[i], country, region);
