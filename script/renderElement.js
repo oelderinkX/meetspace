@@ -82,7 +82,7 @@ function posts(webpage, country, region, postdates, postusernames, postmessages)
 		}
 		
 		var adjustedDateTime = getGmtAdjustedDateTime(postdates[i], country, region);
-		postElement += '<dt>' + postmessage + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postmessage + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
+		postElement += '<dt>' + postmessage + '</dt><dd>&nbsp;&nbsp;&nbsp;- ' + postusernames[i] + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
 	}
 	postElement += '</dl>';
 	
