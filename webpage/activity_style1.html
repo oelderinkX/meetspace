@@ -31,6 +31,7 @@ setTimeout("reloadPage()", timeoutTime);
 function submitReset() {
   document.actions.action.value = 'reset';
   document.actions.submit();
+  return true;
 }
 </script>
 
@@ -72,7 +73,7 @@ function submitReset() {
 				</button>
 				<ul class="dropdown-menu">
 					<li><a href="" data-value="reset" onclick="submitReset();">Reset</a></li>
-					<li><a href="#">Edit Activity</a></li>
+					<li><a href="">Edit Activity</a></li>
 				</ul>
 			</div>
 			!%LOGIN%!
