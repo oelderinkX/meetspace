@@ -27,6 +27,11 @@ function reloadPage() {
 }
 
 setTimeout("reloadPage()", timeoutTime);
+
+function submitReset() {
+  document.actions.action.value = 'reset';
+  document.actions.submit();
+}
 </script>
 
 <style>
@@ -52,25 +57,25 @@ setTimeout("reloadPage()", timeoutTime);
 	<p>!%TIME%!</p>
 	<hr class="my-4">
 	<p class="lead">!%DESCRIPTION%!</p>
-	<form action="!%ACTION%!" method="post">
+	<form name="actions" action="!%ACTION%!" method="post">
 		<div class="btn-toolbar">
 			<button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
 			<button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
 			<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
 			<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
 			<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
+
+			<input type="hidden" name="action" value=""/>
 			
-			<div class="dropdown dropdown-submit-input">
-				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: !%SHOWRESET%!">
-						Activity
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-					<li><a href="#" data-value="reset">Reset</a></li>
+			<div class="btn-group">			
+				<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: !%SHOWRESET%!">
+					Activity
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="" data-value="reset" onclick="submitReset();">Reset</a></li>
 					<li><a href="#">Edit Activity</a></li>
-					</ul>
-				</div>
+				</ul>
 			</div>
 			!%LOGIN%!
 		</div>
