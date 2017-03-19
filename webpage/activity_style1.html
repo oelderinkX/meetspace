@@ -27,12 +27,6 @@ function reloadPage() {
 }
 
 setTimeout("reloadPage()", timeoutTime);
-
-function submitReset() {
-  document.actions.action.value = 'reset';
-  document.actions.submit();
-  return true;
-}
 </script>
 
 <style>
@@ -65,17 +59,7 @@ function submitReset() {
 			<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
 			<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
 			<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
-			
-			<div class="btn-group">			
-				<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: !%SHOWRESET%!">
-					Activity
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li><a href="" data-value="reset" onclick="submitReset();">Reset</a></li>
-					<li><a href="">Edit Activity</a></li>
-				</ul>
-			</div>
+			<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
 			!%LOGIN%!
 		</div>
 	</form>
