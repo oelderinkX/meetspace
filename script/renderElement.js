@@ -185,17 +185,25 @@ module.exports.error = error;
 
 function breadcrumb(webpage, country, region, city, game) {
 	var breadcrumbElement = '<a href="/">Home</a> / ';
-	breadcrumbElement += '<a href="/' + country + '">' + country + '</a> / ';
+	
+	var url = '/' + country;
+	breadcrumbElement += '<a href="' + url + '">' + country + '</a> / ';
 	
 	if (region) {
-		breadcrumbElement += '<a href="/' + region + '">' + region + '</a> / ';
-		breadcrumbElement += '<a href="/' + country + '/' + region + '/' + city + '">' + city + '</a> / ' ;
-		breadcrumbElement += '<a href="/' + country + '/' + region + '/' + city + '/' + game + '">' + game + '</a> / ' ;
-	} else {
-		breadcrumbElement += '<a href="/' + country + '/' + city + '">' + city + '</a> / ' ;
-		breadcrumbElement += '<a href="/' + country + '/' + city + '/' + game + '">' + game + '</a>' ;
+		url += '/' + region;
+		breadcrumbElement += '<a href="' + url + '">' + region + '</a> / ';
 	}
 	
+	if (city) {
+		url += '/' + city;
+		breadcrumbElement += '<a href="' + url + '">' + city + '</a> / ';
+	}
+
+	if (game) {
+		url += '/' + game;
+		breadcrumbElement += '<a href="' + url + '">' + game + '</a> / ';
+	}
+
 	webpage = webpage.replace('!%BREADCRUMB%!', breadcrumbElement);
 	
 	return webpage;
