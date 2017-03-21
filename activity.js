@@ -200,7 +200,9 @@ function renderPage(country, region, city, game, req, res) {
 					res.send(noactivityPage);
 				} else if (result.rows.length > 1) {
 					webpage = listPage;
-					
+			
+					webpage = renderElement.breadcrumb(webpage, country, region, city, game);
+			
 					var titlelist = [];
 					var gamelist = [];
 					var citylist = [];
