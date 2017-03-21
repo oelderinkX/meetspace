@@ -156,13 +156,13 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 	var badgetype = 'badge-default';
 	
 	for(var i = 0; i < titlelist.length; i++) {
-		if (numberofplayers == 0) {
+		if (numberofplayerslist[i] == 0) {
 			badgetype = 'badge-default';
-		} else if (numberofplayers > 0) {
+		} else if (numberofplayerslist[i] > 0) {
 			badgetype = 'badge-primary';
-		} else if (numberofplayers > 5) {
+		} else if (numberofplayerslist[i] > 5) {
 			badgetype = 'badge-success';
-		} else if (numberofplayers > 10) {
+		} else if (numberofplayerslist[i] > 10) {
 			badgetype = 'badge-danger';
 		} else {
 			badgetype = 'badge-default';
