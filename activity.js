@@ -210,6 +210,7 @@ function renderPage(country, region, city, game, req, res) {
 					var countrylist = [];
 					var descriptionlist = [];
 					var linklist = [];
+					var numberofplayerslist = [];
 					
 					for (var i = 0; i < result.rows.length; i++) {
 						var title = result.rows[i].ret_title
@@ -218,6 +219,7 @@ function renderPage(country, region, city, game, req, res) {
 						region = result.rows[i].ret_region;
 						country = result.rows[i].ret_country;
 						description = result.rows[i].ret_description;
+						var numberofplayers = result.rows[i].ret_number_of_players;
 						
 						var link = getUrl(country, region, city, game);
 						
@@ -228,6 +230,7 @@ function renderPage(country, region, city, game, req, res) {
 						countrylist.push(country);
 						descriptionlist.push(description);
 						linklist.push(link);
+						numberofplayerslist.push(numberofplayers);
 					}
 					
 					webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist);
