@@ -153,13 +153,26 @@ module.exports.whosgoing = whosgoing;
 
 function activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist, numberofplayerslist) {
 	var activityElement = '<div class="list-group">\n';
+	var badgetype = 'badge-default';
 	
 	for(var i = 0; i < titlelist.length; i++) {
+		if (numberofplayers == 0) {
+			badgetype = 'badge-default';
+		} else if (numberofplayers > 0) {
+			badgetype = 'badge-primary';
+		} else if (numberofplayers > 5) {
+			badgetype = 'badge-success';
+		} else if (numberofplayers > 10) {
+			badgetype = 'badge-danger';
+		} else {
+			badgetype = 'badge-default';
+		}
+		
 		activityElement += '\t<a href="' + linklist[i] + '" class="list-group-item list-group-item-action flex-column align-items-start">\n';
 		activityElement += '\t\t<div class="d-flex w-100 justify-content-between">\n';
-		activityElement += '\t\t\t<h5 class="mb-1">' + titlelist[i] + '\n';
+		activityElement += '\t\t\t<h5 class="mb-1">' + titlelist[i] + ' | \n';
 		activityElement += '\t\t\t\t<small class="text-muted">' + citylist[i] + '</small>\n';
-		activityElement += '\t\t\t\t<span class="badge badge-default badge-pill">' + numberofplayerslist[i] + '</span>\n';
+		activityElement += '\t\t\t\t<span class="badge ' + badgetype + ' badge-pill">' + numberofplayerslist[i] + '</span>\n';
 		activityElement += '\t\t\t</h5>\n';
 		activityElement += '\t\t</div>\n';
 		activityElement += '\t<p class="mb-1">' + descriptionlist[i] + '</p>\n';
