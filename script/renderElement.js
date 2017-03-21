@@ -151,7 +151,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 }
 module.exports.whosgoing = whosgoing;
 
-function activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist) {
+function activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist, numberofplayerslist) {
 	var activitieElement = '<div class="list-group">\n';
 	
 	for(var i = 0; i < titlelist.length; i++) {
