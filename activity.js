@@ -213,7 +213,7 @@ function renderPage(country, region, city, game, req, res) {
 					var numberofplayerslist = [];
 					
 					for (var i = 0; i < result.rows.length; i++) {
-						var title = result.rows[i].ret_title
+						var title = result.rows[i].ret_title;
 						game = result.rows[i].ret_game;
 						city = result.rows[i].ret_city;
 						region = result.rows[i].ret_region;
@@ -233,7 +233,7 @@ function renderPage(country, region, city, game, req, res) {
 						numberofplayerslist.push(numberofplayers);
 					}
 					
-					webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist);
+					webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist, numberofplayerslist);
 					
 					res.send(webpage);
 				}
