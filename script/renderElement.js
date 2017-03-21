@@ -158,7 +158,8 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 		activitieElement += '\t<a href="' + linklist[i] + '" class="list-group-item list-group-item-action flex-column align-items-start">\n';
 		activitieElement += '\t\t<div class="d-flex w-100 justify-content-between">\n';
 		activitieElement += '\t\t\t<h5 class="mb-1">' + titlelist[i] + '</h5>\n';
-		activitieElement += '\t\t\t\t<small class="text-muted">' + citylist[i] + '</small>\n';
+		activitieElement += '\t\t\t<small class="text-muted">' + citylist[i] + '</small>\n';
+		activitieElement += '\t\t\t<span class="badge badge-default badge-pill">' + numberofplayerslist[i] + '</span>';
 		activitieElement += '\t\t</div>\n';
 		activitieElement += '\t<p class="mb-1">' + descriptionlist[i] + '</p>\n';
 		activitieElement += '\t</a>\n';
