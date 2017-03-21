@@ -159,8 +159,8 @@ function activities(webpage, titlelist, gamelist, citylist, regionlist, countryl
 		activityElement += '\t\t<div class="d-flex w-100 justify-content-between">\n';
 		activityElement += '\t\t\t<h5 class="mb-1">' + titlelist[i] + '\n';
 		activityElement += '\t\t\t\t<small class="text-muted">' + citylist[i] + '</small>\n';
+		activityElement += '\t\t\t\t<span class="badge badge-default badge-pill">' + numberofplayerslist[i] + '</span>\n';
 		activityElement += '\t\t\t</h5>\n';
-		activityElement += '\t\t\t<span class="badge badge-default badge-pill">' + numberofplayerslist[i] + '</span>\n';
 		activityElement += '\t\t</div>\n';
 		activityElement += '\t<p class="mb-1">' + descriptionlist[i] + '</p>\n';
 		activityElement += '\t</a>\n';
