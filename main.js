@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var fs = require("fs");
 const util = require('util');
 var common = require('./script/common.js');
+var renderElement = require('./script/renderElement.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -19,11 +20,11 @@ module.exports = function(app){
 		var webpage = mainPage;
 
 		if (username && sessionId) {
-			showjoin = 'none';
+			webpage = renderElement.mainheading(webpage, true, username);
+		} else {
+			webpage = renderElement.mainheading(webpage, false, username);
 		}
-		
-		webpage = webpage.replace('!%SHOWLOGIN%!', showjoin);
-		
+	
 		res.send(webpage);
 	});	
 }
