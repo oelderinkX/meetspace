@@ -226,3 +226,22 @@ function breadcrumb(webpage, country, region, city, game) {
 	return webpage;
 }
 module.exports.breadcrumb = breadcrumb;
+
+function mainheading(webpage, isLogin, username) {
+	var heading = '';
+	
+	if(isLogin) {
+		heading = '<form action="/login">\n';
+		heading += '\t<div class="btn-group">\n';
+		heading += '\t\t<input type="submit" value="Login" class="btn btn-default btn-primary"/>\n';
+		heading += '\t</div>\n';
+		heading += '</form>\n';
+	} else {
+		heading = 'Welcome ' + username;
+	}
+	
+	webpage = webpage.replace('!%MAINHEADING%!', heading);
+	
+	return webpage;
+}
+module.exports.mainheading = mainheading;
