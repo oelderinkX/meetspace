@@ -20,9 +20,9 @@ module.exports = function(app){
 		var webpage = mainPage;
 
 		if (username && sessionId) {
-			webpage = renderElement.mainheading(webpage, true, username);
-		} else {
 			webpage = renderElement.mainheading(webpage, false, username);
+		} else {
+			webpage = renderElement.mainheading(webpage, true, username);
 		}
 	
 		res.send(webpage);
