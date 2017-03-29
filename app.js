@@ -25,7 +25,6 @@ require('./useractivate.js')(app);
 require('./login.js')(app);
 require('./logout.js')(app);
 
-require('./activity.js')(app);
-
 require('./updateprofile.js')(app);
 
+require('./activity.js')(app);
