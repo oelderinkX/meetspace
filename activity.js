@@ -305,7 +305,7 @@ function performAction(country, region, city, game, action, req, res) {
 						var toEmail = result.rows[i].ret_email;
 						var activityTitle = result.rows[i].ret_activitytitle;
 					
-						notifications.sendPostEmail(toEmail, username, activityTitle, req.body.postmessage);
+						notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), req.body.postmessage);
 					}
 					
 					sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
