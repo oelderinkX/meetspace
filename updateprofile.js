@@ -12,8 +12,6 @@ var updateProfilePage = fs.readFileSync(__dirname + "/webpage/updateprofile.html
 
 module.exports = function(app){
 	app.get('/updateprofile', urlencodedParser, function(req, res) {
-		updateProfilePage = fs.readFileSync(__dirname + "/webpage/updateprofile.html", "utf8");
-		
 		var username = req.cookies['username'];
 		
 		var formatted = updateProfilePage;
@@ -25,8 +23,25 @@ module.exports = function(app){
 	});	
 	
 	app.post('/updateprofile', urlencodedParser, function(req, res) {
+		var formatted = updateProfilePage;
+
+		var action = req.body.action;
+		var newusername = req.body.username;
+		var oldpassword = req.body.oldpassword;
+		var newpassword = req.body.newpassword;
 		
 		var registrationStatus = 'OK';
+		
+		registrationStatus = action;
+		registrationStatus = oldpassword;
+		registrationStatus = action;
+		registrationStatus = action;
+		
+		formatted = formatted.replace('!%USERNAME%!', username);
+		formatted = formatted.replace('!%STATUS USERNAME%!', registrationStatus);
+		formatted = formatted.replace('!%STATUS PASSWORD%!', '');
+		
+		
 		/*var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
 		insert = insert + 'VALUES($1,$2,$3,false);';
 		
