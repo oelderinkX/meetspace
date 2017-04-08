@@ -18,8 +18,8 @@ module.exports = function(app){
 		
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%USERNAME%!', username);
-		formatted = formatted.replace('!%ERROR STATUS USERNAME%!', '');
-		formatted = formatted.replace('!%ERROR STATUS PASSWORD%!', '');
+		formatted = formatted.replace('!%STATUS USERNAME%!', '');
+		formatted = formatted.replace('!%STATUS PASSWORD%!', '');
 		
 		res.send(formatted);
 	});	
