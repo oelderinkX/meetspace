@@ -14,7 +14,7 @@ module.exports = function(app){
 	app.get('/updateprofile', urlencodedParser, function(req, res) {
 		updateProfilePage = fs.readFileSync(__dirname + "/webpage/updateprofile.html", "utf8");
 		
-		var username = req.body.username;
+		var username = req.cookies['username'];
 		
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%USERNAME%!', username);
