@@ -32,12 +32,12 @@ module.exports = function(app){
 		
 		var registrationStatus = 'OK';
 		
-		registrationStatus = action;
-		registrationStatus = oldpassword;
-		registrationStatus = action;
-		registrationStatus = action;
+		registrationStatus = action + ', ';
+		registrationStatus += newusername + ', ';
+		registrationStatus += oldpassword + ', ';
+		registrationStatus += newpassword;
 		
-		formatted = formatted.replace('!%USERNAME%!', username);
+		formatted = formatted.replace('!%USERNAME%!', newusername);
 		formatted = formatted.replace('!%STATUS USERNAME%!', registrationStatus);
 		formatted = formatted.replace('!%STATUS PASSWORD%!', '');
 		
