@@ -84,7 +84,7 @@ module.exports = function(app){
 		});
 		
 		*/
-		res.send(updateProfilePage);
+		res.send(formatted);
 	});
 }
 
