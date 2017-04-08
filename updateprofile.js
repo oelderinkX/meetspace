@@ -11,11 +11,13 @@ var pool = new pg.Pool(common.postgresConfig());
 var updateProfilePage = fs.readFileSync(__dirname + "/webpage/updateprofile.html", "utf8");
 
 module.exports = function(app){
-	app.get('/updateprofile', function(req, res) {
+	app.get('/updateprofile', urlencodedParser, function(req, res) {
 		updateProfilePage = fs.readFileSync(__dirname + "/webpage/updateprofile.html", "utf8");
 		
+		var username = req.body.username;
+		
 		var formatted = updateProfilePage;
-		formatted = formatted.replace('!%USERNAME%!', '');
+		formatted = formatted.replace('!%USERNAME%!', username);
 		formatted = formatted.replace('!%ERROR STATUS USERNAME%!', '');
 		formatted = formatted.replace('!%ERROR STATUS PASSWORD%!', '');
 		
