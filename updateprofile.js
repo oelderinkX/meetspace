@@ -53,9 +53,14 @@ module.exports = function(app){
 					console.log('newusername: ' + newusername);
 					console.log('email: ' + email);
 					console.log('sessionId: ' + sessionId);
+
+					if (err) {
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
+					} else {
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+					}
 					
 					formatted = formatted.replace('!%USERNAME%!', newusername);
-					formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
 					formatted = formatted.replace('!%STATUS PASSWORD%!', '');
 					
 					res.send(formatted);
