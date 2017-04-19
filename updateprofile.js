@@ -29,6 +29,9 @@ module.exports = function(app){
 	app.post('/updateprofile', urlencodedParser, function(req, res) {
 		var formatted = updateProfilePage;
 
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+		
 		var action = req.body.action;
 		var newusername = req.body.username;
 		var oldpassword = req.body.oldpassword;
@@ -45,50 +48,18 @@ module.exports = function(app){
 		formatted = formatted.replace('!%STATUS USERNAME%!', registrationStatus);
 		formatted = formatted.replace('!%STATUS PASSWORD%!', '');
 		
-		
-		/*var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
-		insert = insert + 'VALUES($1,$2,$3,false);';
-		
-		var username = req.body.username;
-		var password = req.body.password;
-		var email = req.body.email;
-		
-		console.log(insert);
-		
-		pool.connect(function(err, connection, done) {
-			connection.query(insert, 
-						[ username,
-						password,
-						email],
-						function(err) {
-				connection.release();
-				
-				if (err) {
-					console.error(err);
-					var errAsString = err.toString();
-					var errorMessage = 'Unknown error occured when created user.  Please try again.';
-					
-					if (errAsString.indexOf('Duplicate') > 0 && errAsString.indexOf('email') > 0) {
-						errorMessage = 'Email address already taken.  Please choose another';
-					}
-					
-					var formatted = registrationPage;
-					formatted = formatted.replace('!%USERNAME%!', username);
-					formatted = formatted.replace('!%PASSWORD%!', password);
-					formatted = formatted.replace('!%EMAIL%!', email);
-					
-					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
-					formatted = renderElement.error(formatted, errorMessage);
-					
+		if (action = 'updateusername' && newusername) {
+			updateUsernameSql = 'SELECT meetspace.update_username($1, $2, $3);';
+			pool.connect(function(err, connection, done) {
+				connection.query(updateUsernameSql, [newusername, email, sessionId], function(err) {
+					connection.release();
+
 					res.send(formatted);
-				} else {
-					res.redirect('/getactivationcode/' + email);
-				}
+				});
 			});
-		});
-		
-		*/
-		res.send(formatted);
+		} else {
+			res.send(formatted);
+		}
 	});
 }
 
