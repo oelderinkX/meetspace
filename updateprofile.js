@@ -46,6 +46,7 @@ module.exports = function(app){
 					if (err) {
 						formatted = formatted.replace('!%STATUS USERNAME%!', 'Username Failure!');
 					} else {
+						res.cookie('username' , newusername);
 						formatted = formatted.replace('!%STATUS USERNAME%!', 'Username Updated!');
 					}
 					
