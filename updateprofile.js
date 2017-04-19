@@ -43,21 +43,24 @@ module.exports = function(app){
 		registrationStatus += newusername + ', ';
 		registrationStatus += oldpassword + ', ';
 		registrationStatus += newpassword;
-		
-		formatted = formatted.replace('!%USERNAME%!', newusername);
-		formatted = formatted.replace('!%STATUS USERNAME%!', registrationStatus);
-		formatted = formatted.replace('!%STATUS PASSWORD%!', '');
-		
+	
 		if (action = 'updateusername' && newusername) {
 			updateUsernameSql = 'SELECT meetspace.update_username($1, $2, $3);';
 			pool.connect(function(err, connection, done) {
 				connection.query(updateUsernameSql, [newusername, email, sessionId], function(err) {
 					connection.release();
 
+					formatted = formatted.replace('!%USERNAME%!', newusername);
+					formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+					formatted = formatted.replace('!%STATUS PASSWORD%!', '');
+					
 					res.send(formatted);
 				});
 			});
 		} else {
+			formatted = formatted.replace('!%USERNAME%!', username);
+			formatted = formatted.replace('!%STATUS USERNAME%!', 'Failure');
+			formatted = formatted.replace('!%STATUS PASSWORD%!', 'Failure');			
 			res.send(formatted);
 		}
 	});
