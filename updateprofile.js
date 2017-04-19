@@ -37,27 +37,16 @@ module.exports = function(app){
 		var oldpassword = req.body.oldpassword;
 		var newpassword = req.body.newpassword;
 		
-		var registrationStatus = 'OK';
-		
-		registrationStatus = action + ', ';
-		registrationStatus += newusername + ', ';
-		registrationStatus += oldpassword + ', ';
-		registrationStatus += newpassword;
-	
 		if (action = 'updateusername' && newusername) {
 			updateUsernameSql = 'SELECT meetspace.update_username($1, $2, $3);';
 			pool.connect(function(err, connection, done) {
 				connection.query(updateUsernameSql, [newusername, email, sessionId], function(err) {
 					connection.release();
 
-					console.log('newusername: ' + newusername);
-					console.log('email: ' + email);
-					console.log('sessionId: ' + sessionId);
-
 					if (err) {
-						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Username Failure!');
 					} else {
-						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Username Updated!');
 					}
 					
 					formatted = formatted.replace('!%USERNAME%!', newusername);
@@ -66,6 +55,28 @@ module.exports = function(app){
 					res.send(formatted);
 				});
 			});
+		} else if (action = 'updatepassword' && newpassword && oldpassword) {
+			if (newpassword == oldpassword) {
+				updatePasswordSql = 'SELECT meetspace.update_password($1, $2, $3);';
+				pool.connect(function(err, connection, done) {
+					connection.query(updatePasswordSql, [oldpassword, newpassword, email, sessionId], function(err) {
+						connection.release();
+						
+						if (err) {
+							formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
+						} else {
+							formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+						}						
+						
+					});
+				});
+			} else {
+				formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password should match');
+			}
+			
+			formatted = formatted.replace('!%USERNAME%!', username);
+			formatted = formatted.replace('!%STATUS USERNAME%!', '');
+			res.send(formatted);
 		} else {
 			formatted = formatted.replace('!%USERNAME%!', username);
 			formatted = formatted.replace('!%STATUS USERNAME%!', 'Failure');
