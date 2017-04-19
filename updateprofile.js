@@ -50,6 +50,10 @@ module.exports = function(app){
 				connection.query(updateUsernameSql, [newusername, email, sessionId], function(err) {
 					connection.release();
 
+					console.log('newusername: ' + newusername);
+					console.log('email: ' + email);
+					console.log('sessionId: ' + sessionId);
+					
 					formatted = formatted.replace('!%USERNAME%!', newusername);
 					formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
 					formatted = formatted.replace('!%STATUS PASSWORD%!', '');
