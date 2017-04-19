@@ -14,6 +14,10 @@ module.exports = function(app){
 	app.get('/updateprofile', urlencodedParser, function(req, res) {
 		var username = req.cookies['username'];
 		
+		if(!username) {
+			username = '';
+		}
+		
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%USERNAME%!', username);
 		formatted = formatted.replace('!%STATUS USERNAME%!', '');
