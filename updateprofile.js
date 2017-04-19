@@ -58,23 +58,19 @@ module.exports = function(app){
 				});
 			});
 		} else if (action = 'updatepassword' && newpassword && oldpassword) {
-			if (newpassword == oldpassword) {
-				updatePasswordSql = 'SELECT meetspace.update_password($1, $2, $3);';
-				pool.connect(function(err, connection, done) {
-					connection.query(updatePasswordSql, [oldpassword, newpassword, email, sessionId], function(err) {
-						connection.release();
-						
-						if (err) {
-							formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
-						} else {
-							formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
-						}						
-						
-					});
+			updatePasswordSql = 'SELECT meetspace.update_password($1, $2, $3);';
+			pool.connect(function(err, connection, done) {
+				connection.query(updatePasswordSql, [oldpassword, newpassword, email, sessionId], function(err) {
+					connection.release();
+					
+					if (err) {
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
+					} else {
+						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+					}						
+					
 				});
-			} else {
-				formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password should match');
-			}
+			});
 			
 			formatted = formatted.replace('!%USERNAME%!', username);
 			formatted = formatted.replace('!%STATUS USERNAME%!', '');
