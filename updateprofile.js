@@ -31,6 +31,7 @@ module.exports = function(app){
 
 		var email = req.cookies['email'];
 		var sessionId = req.cookies['sessionId'];
+		var username = req.cookies['username'];
 		
 		var action = req.body.action;
 		var newusername = req.body.username;
