@@ -69,6 +69,7 @@ module.exports = function(app){
 					connection.release();
 					
 					if (err) {
+						console.log(err);
 						formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password Failure!');
 					} else {
 						formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password Updated!');
