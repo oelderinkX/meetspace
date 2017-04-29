@@ -73,13 +73,12 @@ module.exports = function(app){
 					} else {
 						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
 					}						
-					
+		
+					formatted = formatted.replace('!%USERNAME%!', username);
+					formatted = formatted.replace('!%STATUS USERNAME%!', '');
+					res.send(formatted);
 				});
 			});
-			
-			formatted = formatted.replace('!%USERNAME%!', username);
-			formatted = formatted.replace('!%STATUS USERNAME%!', '');
-			res.send(formatted);
 		} else {
 			formatted = formatted.replace('!%USERNAME%!', username);
 			formatted = formatted.replace('!%STATUS USERNAME%!', 'Failure');
