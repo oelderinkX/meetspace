@@ -69,9 +69,9 @@ module.exports = function(app){
 					connection.release();
 					
 					if (err) {
-						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Failure!');
+						formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password Failure!');
 					} else {
-						formatted = formatted.replace('!%STATUS USERNAME%!', 'Password Updated!');
+						formatted = formatted.replace('!%STATUS PASSWORD%!', 'Password Updated!');
 					}						
 		
 					formatted = formatted.replace('!%USERNAME%!', username);
