@@ -63,7 +63,7 @@ module.exports = function(app){
 				});
 			});
 		} else if (action = 'updatepassword' && newpassword && oldpassword) {
-			updatePasswordSql = 'SELECT meetspace.update_password($1, $2, $3);';
+			updatePasswordSql = 'SELECT meetspace.update_password($1, $2, $3, $4);';
 			pool.connect(function(err, connection, done) {
 				connection.query(updatePasswordSql, [oldpassword, newpassword, email, sessionId], function(err) {
 					connection.release();
