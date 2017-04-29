@@ -38,6 +38,11 @@ module.exports = function(app){
 		var oldpassword = req.body.oldpassword;
 		var newpassword = req.body.newpassword;
 		
+		console.log('action:' + action);
+		console.log('newusername:' + newusername);
+		console.log('oldpassword:' + oldpassword);
+		console.log('newpassword:' + newpassword);
+		
 		if (action = 'updateusername' && newusername) {
 			updateUsernameSql = 'SELECT meetspace.update_username($1, $2, $3);';
 			pool.connect(function(err, connection, done) {
