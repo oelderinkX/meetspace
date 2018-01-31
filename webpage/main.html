@@ -151,7 +151,8 @@ window.onload = function() {
 					 "USA", "usa" ];
 	
     var select = document.getElementById("country");
-	var nz;
+	var nzText;
+	var nzValue;
 	
     for(var i = 0; i < countries.length; i+=2) {
         var option = document.createElement('option');
@@ -159,13 +160,13 @@ window.onload = function() {
 		option.value = countries[i+1];
 		
 		if (countries[i+1] == 'nz') {
-			nz = option;
+			nzValue = countries[i+1];
 		}
 		
         select.appendChild(option, 0);
     }
 	
-	nz.click();
+	select.value = nzValue;
 }
 </script>
 
