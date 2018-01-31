@@ -133,7 +133,7 @@ function loadCity(country, region) {
 				select.appendChild(option, 0);
 			}
 			
-			select.value = "christchurch";
+			select.value = "christchurch"; //use cookie here
 			
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
@@ -153,7 +153,6 @@ window.onload = function() {
 					 "USA", "usa" ];
 	
     var select = document.getElementById("country");
-	var nzText;
 	var nzValue;
 	
     for(var i = 0; i < countries.length; i+=2) {
@@ -161,14 +160,10 @@ window.onload = function() {
         option.text = countries[i];
 		option.value = countries[i+1];
 		
-		if (countries[i+1] == 'nz') {
-			nzValue = countries[i+1];
-		}
-		
         select.appendChild(option, 0);
     }
 	
-	select.value = nzValue;
+	select.value = 'nz'; //use cookie here
 	getRegionsOrCities();
 }
 </script>
