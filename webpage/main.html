@@ -151,15 +151,21 @@ window.onload = function() {
 					 "USA", "usa" ];
 	
     var select = document.getElementById("country");
+	var nz;
 	
     for(var i = 0; i < countries.length; i+=2) {
         var option = document.createElement('option');
         option.text = countries[i];
 		option.value = countries[i+1];
+		
+		if (countries[i+1] == 'nz') {
+			nz = option;
+		}
+		
         select.appendChild(option, 0);
     }
 	
-	select[1].selected = true;
+	nz.click();
 }
 </script>
 
