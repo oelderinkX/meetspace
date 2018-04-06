@@ -2,7 +2,7 @@ const url = require('url')
 const params = url.parse(process.env.DATABASE_URL);
 const auth = params.auth.split(':');
 
-const webpage_url = 'http://meetspace.co.nz/';
+const webpage_url = 'http://www.meetspace.co.nz/';
 module.exports.webpage_url = webpage_url;
 
 function guid() {
