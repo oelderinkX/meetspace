@@ -11,42 +11,42 @@ function sendRegistrationEmail(email, encodedEmail) {
 	var to_email = new helper.Email(email);
 	var subject = 'Meetspace Registration';
 	var content = new helper.Content('text/plain', emailContent);
-	var mail = new helper.Mail(from_email, subject, to_email, content);	
-	
+	var mail = new helper.Mail(from_email, subject, to_email, content);
+
 	var request = sg.emptyRequest({
 	  method: 'POST',
 	  path: '/v3/mail/send',
 	  body: mail.toJSON(),
-	});	
-	
+	});
+
 	sg.API(request, function(error, response) {
 		console.log(response.statusCode);
 		console.log(response.body);
 		console.log(response.headers);
-	});	
+	});
 }
 module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
-function sendPostEmail(email, fromUser, activityTitle, url, emailContent) {
-	
+function sendPostEmail(email, fromUser, activityTitle, url, emailContent, emailTitle) {
+
 	emailContent = fromUser + ' posted:\n\n' + emailContent + '\n\n' + url;
-	
+
 	var to_email = new helper.Email(email);
-	var subject = 'Post for activity "' + activityTitle + '"';
+	var subject = 'Post for activity "' + activityTitle + '": ' + emailTitle;
 	var content = new helper.Content('text/plain', emailContent);
-	var mail = new helper.Mail(from_email, subject, to_email, content);	
-	
+	var mail = new helper.Mail(from_email, subject, to_email, content);
+
 	var request = sg.emptyRequest({
 	  method: 'POST',
 	  path: '/v3/mail/send',
 	  body: mail.toJSON(),
-	});	
-	
+	});
+
 	sg.API(request, function(error, response) {
 		console.log(response.statusCode);
 		console.log(response.body);
 		console.log(response.headers);
-	});	
+	});
 }
 module.exports.sendPostEmail = sendPostEmail;
 
@@ -58,18 +58,18 @@ function sendInviteEmail(email, activityUrl, activityTitle) {
 	var to_email = new helper.Email(email);
 	var subject = 'You have been invited to "' + activityTitle + '"';
 	var content = new helper.Content('text/plain', emailContent);
-	var mail = new helper.Mail(from_email, subject, to_email, content);	
-	
+	var mail = new helper.Mail(from_email, subject, to_email, content);
+
 	var request = sg.emptyRequest({
 	  method: 'POST',
 	  path: '/v3/mail/send',
 	  body: mail.toJSON(),
-	});	
-	
+	});
+
 	sg.API(request, function(error, response) {
 		console.log(response.statusCode);
 		console.log(response.body);
 		console.log(response.headers);
-	});	
+	});
 }
 module.exports.sendInviteEmail = sendInviteEmail;
