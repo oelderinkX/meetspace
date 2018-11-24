@@ -8,11 +8,12 @@ console.log('port number is: ' + port);
 
 app.use(favicon(__dirname + '/favicon.ico'));
 
+app.disable('etag');
+
 app.use(cookieParser())
 app.use('/images', express.static('images'));
 app.use('/script', express.static('script'));
 app.use('/webpage', express.static('webpage'));
-
 require('./main.js')(app);
 
 app.listen(port, function () {
