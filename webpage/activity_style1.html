@@ -1,106 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <html>
 <script>
-var timeoutTime = 60000 * 3;
+    var timeoutTime = 60000 * 3;
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-	timeoutTime = 60000 * 5;
-}
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        timeoutTime = 60000 * 5;
+    }
 
-function reloadPage() {
-	var postMessageValue = document.getElementById("postmessage").value;
-	var toEmailValue = document.getElementById("toemail").value;
-	
-	if (postMessageValue.length == 0 && toEmailValue.length == 0) {
-		window.location.href = window.location.href;
-	}
-	
-	setTimeout("reloadPage()", timeoutTime);
-}
+    function reloadPage() {
+        var postMessageValue = document.getElementById("postmessage").value;
+        var toEmailValue = document.getElementById("toemail").value;
 
-setTimeout("reloadPage()", timeoutTime);
+        if (postMessageValue.length == 0 && toEmailValue.length == 0) {
+            window.location.href = window.location.href;
+        }
+
+        setTimeout("reloadPage()", timeoutTime);
+    }
+
+    setTimeout("reloadPage()", timeoutTime);
+
 </script>
 
 <style>
-.jumbotron {
-    padding: 15px;
-    margin-bottom: 30px;
-    border-radius: 0;
-}
+    .jumbotron {
+        padding: 15px;
+        margin-bottom: 30px;
+        border-radius: 0;
+    }
+
 </style>
 
 <body>
-<div class="jumbotron text-center">
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<span class="pull-left">
+    <div class="jumbotron text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="pull-left">
 					!%BREADCRUMB%!
 				</span>
-			</div>
-		</div>
-	</div>
-	<h1 class="display-3">!%TITLE%!</h1>
-	<p>!%TIME%!</p>
-	<hr class="my-4">
-	<p class="lead">!%DESCRIPTION%!</p>
-	<form name="actions" action="!%ACTION%!" method="post">
-		<div class="btn-toolbar">
-			<button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
-			<button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
-			<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-			<button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
-			<button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
-			<button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
-			!%LOGIN%!
-		</div>
-	</form>
-	
-</div>
+                </div>
+            </div>
+        </div>
+        <h1 class="display-3">!%TITLE%!</h1>
+        <p>!%TIME%!</p>
+        <hr class="my-4">
+        <p class="lead">!%DESCRIPTION%!</p>
+        <form name="actions" action="!%ACTION%!" method="post">
+            <div class="btn-toolbar">
+                <button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Attend</button>
+                <button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">Unattend</button>
+                <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+                <button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
+                <button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Unjoin</button>
+                <button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button> !%LOGIN%!
+            </div>
+        </form>
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-6">
-			<h3>Whos going</h3>
-			<p>!%WHOSGOING%!</p>
-			<p>!%NOTATTEND%!</p>
-			
-			<form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
-				<div class="form-group">
-					<div class="input-group">
-						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-						<div class="input-group">
-							<span class = "input-group-addon">@</span>
-							<input type="email" name="toemail" id="toemail" class="form-control" placeholder="Invite">
-						</div>
-						<button type="submit" name="action" class="btn btn-primary" value="invite">Invite</button>
-					</div>
-				</div>
-			</form>			
-		</div>
+    </div>
 
-		<div class="col-sm-6">
-			<p>
-				<div class="form-group">
-					<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
-						<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-						<textarea class="form-control" rows="3" maxlength="256" name="postmessage" id="postmessage" placeholder="Post"></textarea>
-						<button type="submit" name="action" class="btn btn-primary" value="post">Post</button>
-					</form>
-				</div>
-			</p>
-			<p>!%POSTS%!</p>
-		</div>		
-		
-	</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Whos going</h3>
+                <p>!%WHOSGOING%!</p>
+                <p>!%NOTATTEND%!</p>
+
+                <form action="!%ACTION%!" method="post" style="display: !%SHOWINVITE%!">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input type="email" name="toemail" id="toemail" class="form-control" placeholder="Invite">
+                            </div>
+                            <button type="submit" name="action" class="btn btn-primary" value="invite">Invite</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-6">
+                <p>
+                    <div class="form-group">
+                        <form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
+                            <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+                            <textarea class="form-control" rows="1" maxlength="256" name="postTitle" id="postTitle" placeholder="Title"></textarea>
+                            <textarea class="form-control" rows="3" maxlength="256" name="postmessage" id="postmessage" placeholder="Post"></textarea>
+                            <button type="submit" name="action" class="btn btn-primary" value="post">Post</button>
+                        </form>
+                    </div>
+                </p>
+                <p>!%POSTS%!</p>
+            </div>
+
+        </div>
+    </div>
 </body>
+
 </html>
