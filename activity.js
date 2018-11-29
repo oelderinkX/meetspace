@@ -27,7 +27,6 @@ function getUrl(country, region, city, game) {
 
 function renderPage(country, region, city, game, req, res) {
 	var email = req.cookies['email'];
-	//var sessionId = req.cookies['sessionId'];
 
 	var webpage = style1Page;
 
@@ -161,16 +160,17 @@ function renderPage(country, region, city, game, req, res) {
 										pool.connect(function(err, client, done) {
 											client.query(postsql, [activityId], function(err, result) {
 												done();
-                        var posts = [];
+												
+												var posts = [];
 
 												if (result) {
 													for (var i = 0; i < result.rows.length; i++) {
-                            posts.push({
-                              username: result.rows[i].username,
-                              message: result.rows[i].message,
-                              title: result.rows[i].title,
-                              submissionDate: result.rows[i].postdate
-                            });
+														posts.push({
+														  username: result.rows[i].username,
+														  message: result.rows[i].message,
+														  title: result.rows[i].title,
+														  submissionDate: result.rows[i].postdate
+														});
 													}
 												}
 
@@ -352,7 +352,7 @@ function performAction(country, region, city, game, action, req, res) {
 }
 
 module.exports = function(app) {
-    app.get('*', urlencodedParser, function(req, res) {
+	app.get('*', urlencodedParser, function(req, res) {
 		var url = req.url;
 		var params = url.split("/");
 
@@ -375,7 +375,7 @@ module.exports = function(app) {
 		}
 
 		renderPage(country, region, city, game, req, res);
-    });
+	});
 
    app.post('*', urlencodedParser, function(req, res) {
 		var action = req.body.action;
@@ -403,5 +403,5 @@ module.exports = function(app) {
 		}
 
 		performAction(country, region, city, game, action, req, res);
-    });
+	});
 }
