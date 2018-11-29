@@ -67,33 +67,33 @@ function posts(webpage, country, region, posts) {
 	var YOUTUBELINK_SEARCH = "https://www.youtube.com/watch?";
 
 	var postElement = '<dl>';
-  posts.forEach(function(post) {
-    var youtubeLinkStart = post.message.indexOf(YOUTUBELINK_SEARCH);
-		if (youtubeLinkStart != -1) {
-			youtubeLinkEnd = post.message.indexOf(" ", youtubeLinkStart);
+	posts.forEach(function(post) {
+	var youtubeLinkStart = post.message.indexOf(YOUTUBELINK_SEARCH);
+	if (youtubeLinkStart != -1) {
+		youtubeLinkEnd = post.message.indexOf(" ", youtubeLinkStart);
 
-			if (youtubeLinkEnd == -1) {
-				youtubeLinkEnd = post.message.length;
-			}
-
-			while(post.message.substr(youtubeLinkStart, youtubeLinkEnd) == '.') {
-				youtubeLinkEnd--;
-			}
-
-			var youtubeEmbedded = post.message.substr(youtubeLinkStart, youtubeLinkEnd);
-			youtubeEmbedded = youtubeEmbedded.replace('watch?v=' ,'embed/');
-
-			youtubeEmbedded = '<div class="embed-responsive embed-responsive-16by9"><iframe class="col-sm-6" frameborder="0" allowfullscreen src="' + youtubeEmbedded;
-			youtubeEmbedded += '"></iframe></div>';
-
-			post.message = post.message.substring(0,youtubeLinkStart) + youtubeEmbedded + post.message.substring(youtubeLinkEnd);
+		if (youtubeLinkEnd == -1) {
+			youtubeLinkEnd = post.message.length;
 		}
 
-		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
-		postElement += '<dt>' + post.title + '</dt>' +
-    '<dd>&nbsp;&nbsp;&nbsp;- ' + post.message + '</dd><br/>' +
-    '<dd>&nbsp;&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
-  });
+		while(post.message.substr(youtubeLinkStart, youtubeLinkEnd) == '.') {
+			youtubeLinkEnd--;
+		}
+
+		var youtubeEmbedded = post.message.substr(youtubeLinkStart, youtubeLinkEnd);
+		youtubeEmbedded = youtubeEmbedded.replace('watch?v=' ,'embed/');
+
+		youtubeEmbedded = '<div class="embed-responsive embed-responsive-16by9"><iframe class="col-sm-6" frameborder="0" allowfullscreen src="' + youtubeEmbedded;
+		youtubeEmbedded += '"></iframe></div>';
+
+		post.message = post.message.substring(0,youtubeLinkStart) + youtubeEmbedded + post.message.substring(youtubeLinkEnd);
+	}
+
+	var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
+	postElement += '<dt>' + post.title + '</dt>' +
+		'<dd>&nbsp;&nbsp;&nbsp;- ' + post.message + '</dd><br/>' +
+		'<dd>&nbsp;&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</dd><br/>';
+	});
 	postElement += '</dl>';
 
 	webpage = webpage.replace('!%POSTS%!', postElement);
