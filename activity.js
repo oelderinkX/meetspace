@@ -303,8 +303,6 @@ function performAction(country, region, city, game, action, req, res) {
 
 						notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), req.body.postTitle, req.body.postmessage);
 					}
-
-					console.log('jared: ' + email + ', ' + sessionId+ ', ' + activityId+ ', ' + req.body.postmessage+ ', ' + req.body.postTitle);
 					
 					sql = "SELECT meetspace.post_message($1, $2, $3, $4, $5);";
 
