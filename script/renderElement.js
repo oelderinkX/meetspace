@@ -81,12 +81,12 @@ function posts(webpage, country, region, posts) {
 			}
 
 			var youtubeEmbedded = post.message.substr(youtubeLinkStart, youtubeLinkEnd);
-			youtubeEmbedded = youtubeEmedded.replace('watch?v=' ,'embed/');
+			youtubeEmbedded = youtubeEmbedded.replace('watch?v=' ,'embed/');
 
 			youtubeEmbedded = '<div class="embed-responsive embed-responsive-16by9"><iframe class="col-sm-6" frameborder="0" allowfullscreen src="' + youtubeEmbedded;
 			youtubeEmbedded += '"></iframe></div>';
 
-			post.message = post.message.substring(0,youtubeLinkStart) + youtubeEmedded + post.message.substring(youtubeLinkEnd);
+			post.message = post.message.substring(0,youtubeLinkStart) + youtubeEmbedded + post.message.substring(youtubeLinkEnd);
 		}
 
 		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
