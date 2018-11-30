@@ -150,7 +150,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		
 		whosnotElement += '</li>';
 		
-		//need condition here
+		//need condition here 1
 		if (false) {
 			modalsElement += '<div class="modal fade" id="removeModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
 			modalsElement += '<div class="modal-dialog" role="document">';
