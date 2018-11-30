@@ -134,6 +134,7 @@ module.exports.login = login;
 function whosgoing(webpage, whosgoing, whosnot) {
 	var whosgoingElement = '<ol>';
 	var whosnotElement = '<ul>';
+	var modalsElement = '';
 
 	for(var i = 0; i < whosgoing.length; i++) {
 		whosgoingElement += '<li>' + whosgoing[i] + '</li>';
@@ -141,12 +142,18 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	whosgoingElement += '</ol>';
 
 	for(var i = 0; i < whosnot.length; i++) {
-		whosnotElement += '<li style="color:#CCCCCC">' + whosnot[i] + '</li> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">X</button>';
+		whosnotElement += '<li style="color:#CCCCCC">';
+		whosnotElement += whosnot[i];
+		whosnotElement += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">X</button>';
+		whosnotElement += '</li>';
+		
+		modalsElement += '';
 	}
 	whosnotElement += '</ul>';
 
 	webpage = webpage.replace('!%WHOSGOING%!',whosgoingElement);
 	webpage = webpage.replace('!%NOTATTEND%!', whosnotElement);
+	webpage = webpage.replace('!%MODALS%!', modalsElement);
 
 
 	return webpage;
