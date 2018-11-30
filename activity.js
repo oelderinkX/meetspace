@@ -155,7 +155,7 @@ function renderPage(country, region, city, game, req, res) {
 											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot);
 										}
 
-										var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC;";
+										var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
 
 										pool.connect(function(err, client, done) {
 											client.query(postsql, [activityId], function(err, result) {
