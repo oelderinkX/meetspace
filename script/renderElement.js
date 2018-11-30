@@ -141,7 +141,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	whosgoingElement += '</ol>';
 
 	for(var i = 0; i < whosnot.length; i++) {
-		whosnotElement += '<li style="color:#CCCCCC">' + whosnot[i] + '</li>';
+		whosnotElement += '<li style="color:#CCCCCC">' + whosnot[i] + '</li> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">X</button>';
 	}
 	whosnotElement += '</ul>';
 
