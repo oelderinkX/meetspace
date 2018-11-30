@@ -147,7 +147,8 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		//if(false) {	
 			//whosnotElement += '&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal' + i + '">X</button>';
 		//}
-		whosnotElement += '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+		//whosnotElement += '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+		whosnotElement += '<button type="button" class="close" aria-label="Close"></button>';
 		
 		whosnotElement += '</li>';
 		
