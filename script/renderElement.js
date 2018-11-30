@@ -154,7 +154,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		whosnotElement += '</li>';
 		
 		//need condition here 1
-		if (false) {
+		//if (false) {
 			modalsElement += '<div class="modal fade" id="removeModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
 			modalsElement += '<div class="modal-dialog" role="document">';
 			modalsElement += '<div class="modal-content">';
@@ -174,7 +174,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 			modalsElement += '</div>';
 			modalsElement += '</div>';
 			modalsElement += '</div>';
-		}
+		//}
 		
 	}
 	whosnotElement += '</ul>';
