@@ -161,7 +161,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		modalsElement += '</div>';
 		modalsElement += '<div class="modal-footer">';
 		modalsElement += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
-		modalsElement += '<button type="button" class="btn btn-primary onclick=\'alert("hi");\'">Remove</button>';
+		modalsElement += '<button type="button" class="btn btn-primary onclick="alert(\'hi\');">Remove</button>';
 		modalsElement += '</div>';
 		modalsElement += '</div>';
 		modalsElement += '</div>';
