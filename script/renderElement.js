@@ -107,7 +107,6 @@ function login(webpage, username, url) {
 	var element = '';
 
 	if (username) {
-		//webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'logout">' + username + ' <input type="submit" value="Logout" /></form>');
 		element = '<div class="btn-group">';
 		element += '<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
 		element += username;
@@ -119,7 +118,6 @@ function login(webpage, username, url) {
 		element += '</ul>';
 		element += '</div>';
 	} else {
-		//webpage = webpage.replace('!%LOGIN%!', '<form action="' + url + 'login"><input type="submit" value="Login" /></form>');
 		element = '<div class="btn-group">';
 		element += '<a href="' + url + 'login' + '" class="btn btn-default btn-primary" role="button">Login</a>';
 		element += '</div>';
@@ -144,28 +142,36 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	for(var i = 0; i < whosnot.length; i++) {
 		whosnotElement += '<li style="color:#CCCCCC">';
 		whosnotElement += whosnot[i];
-		whosnotElement += '&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal' + i + '">X</button>';
+		
+		//need condition here
+		if(false) {	
+			whosnotElement += '&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal' + i + '">X</button>';
+		}
+		
 		whosnotElement += '</li>';
 		
-		modalsElement += '<div class="modal fade" id="removeModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-		modalsElement += '<div class="modal-dialog" role="document">';
-		modalsElement += '<div class="modal-content">';
-		modalsElement += '<div class="modal-header">';
-		modalsElement += '<h5 class="modal-title" id="exampleModalLabel">Remove player</h5>';
-		modalsElement += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-		modalsElement += '<span aria-hidden="true">&times;</span>';
-		modalsElement += '</button>';
-		modalsElement += '</div>';
-		modalsElement += '<div class="modal-body">';
-		modalsElement += 'Remove player ' + whosnot[i] + ' ?';
-		modalsElement += '</div>';
-		modalsElement += '<div class="modal-footer">';
-		modalsElement += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
-		modalsElement += '<button type="button" class="btn btn-primary" onclick="alert(\'hi\');">Remove</button>';
-		modalsElement += '</div>';
-		modalsElement += '</div>';
-		modalsElement += '</div>';
-		modalsElement += '</div>';
+		//need condition here
+		if (false) {
+			modalsElement += '<div class="modal fade" id="removeModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
+			modalsElement += '<div class="modal-dialog" role="document">';
+			modalsElement += '<div class="modal-content">';
+			modalsElement += '<div class="modal-header">';
+			modalsElement += '<h5 class="modal-title" id="exampleModalLabel">Remove player</h5>';
+			modalsElement += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+			modalsElement += '<span aria-hidden="true">&times;</span>';
+			modalsElement += '</button>';
+			modalsElement += '</div>';
+			modalsElement += '<div class="modal-body">';
+			modalsElement += 'Remove player ' + whosnot[i] + ' ?';
+			modalsElement += '</div>';
+			modalsElement += '<div class="modal-footer">';
+			modalsElement += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>';
+			modalsElement += '<button type="button" class="btn btn-primary" onclick="alert(\'hi\');">Remove</button>';
+			modalsElement += '</div>';
+			modalsElement += '</div>';
+			modalsElement += '</div>';
+			modalsElement += '</div>';
+		}
 		
 	}
 	whosnotElement += '</ul>';
