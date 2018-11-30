@@ -149,7 +149,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		//}
 		//whosnotElement += '<button type="button" class="close " aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 		//whosnotElement += '<a class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a>';
-		whosnotElement += '<a style="text-decoration:none; cursor: pointer;" onclick="alert(\'hello\');"><span>&nbsp;X</span></a>';
+		whosnotElement += '<a style="text-decoration:none; cursor: pointer;" data-toggle="modal" data-target="#removeModal"><span>&nbsp;X</span></a>';
 		
 		whosnotElement += '</li>';
 		
