@@ -147,12 +147,12 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		//if(false) {	
 			//whosnotElement += '&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal' + i + '">X</button>';
 		//}
-		whosnotElement += '<a style="text-decoration:none; cursor: pointer;" data-toggle="modal" class="button" data-target="#removeModal"><span>&nbsp;X</span></a>';
+		//whosnotElement += '<a style="text-decoration:none; cursor: pointer;" data-toggle="modal" class="button" data-target="#removeModal"><span>&nbsp;X</span></a>';
 		
 		whosnotElement += '</li>';
 		
 		//need condition here 1
-		//if (false) {
+		if (false) {
 			modalsElement += '<div class="modal fade" id="removeModal' + i + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
 			modalsElement += '<div class="modal-dialog" role="document">';
 			modalsElement += '<div class="modal-content">';
@@ -172,7 +172,7 @@ function whosgoing(webpage, whosgoing, whosnot) {
 			modalsElement += '</div>';
 			modalsElement += '</div>';
 			modalsElement += '</div>';
-		//}
+		}
 		
 	}
 	whosnotElement += '</ul>';
