@@ -139,8 +139,14 @@
                 <button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>
                 <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
                 <button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
-                <button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Leave</button>
-                <button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
+				
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="?unjoin">Leave</a></li>
+						<li><a href="?reset">Reset</a></li>
+					</ul>
+				</div>
             </div>
         </form>
 
