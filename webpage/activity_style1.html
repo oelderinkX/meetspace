@@ -133,14 +133,21 @@
         <p>!%TIME%!</p>
         <hr class="my-4">
         <p class="lead">!%DESCRIPTION%!</p>
-        <form name="actions" action="!%ACTION%!" method="post">
+        <form name="actions" id="actionsForm" action="!%ACTION%!" method="post">
             <div class="btn-toolbar">
+				<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+				<input type="hidden" name="action" id="hiddenaction"></input>
+				
+				<div class="btn-group">				
+					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();">Join</a></li>
+						<li>><a onclick="document.getElementById('hiddenaction').value='reset'; document.getElementById('actionsForm').submit();">Reset</a></li>
+					</ul>
+				</div>
+				
                 <button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
-                <button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>
-                <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-                <button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
-                <button type="submit" name="action" class="btn btn-primary" value="unjoin" style="display: !%SHOWUNJOIN%!">Leave</button>
-                <button type="submit" name="action" value="reset" class="btn btn-primary" style="display: !%SHOWRESET%!">Reset</button>
+                <button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
             </div>
         </form>
 
