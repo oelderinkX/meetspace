@@ -146,8 +146,8 @@
 					</ul>
 				</div>
 				
-                <button type="submit" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
-                <button type="submit" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
+                <button onclick="document.getElementById('hiddenaction').value='attend'; document.getElementById('actionsForm').submit();" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
+                <button onclick="document.getElementById('hiddenaction').value='unattend'; document.getElementById('actionsForm').submit();" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
             </div>
         </form>
 
