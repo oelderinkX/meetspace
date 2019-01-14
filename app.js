@@ -7,9 +7,9 @@ var port = process.env.PORT || 80
 
 console.log('port number is: ' + port);
 
-var j = cron.scheduleJob('*/1 * * * *', function(fireDate){
-  console.log('This job was supposed to run at ' + fireDate + ', but actually ran at ' + new Date());
-});
+//var cronjob = cron.scheduleJob('*/59 * * * *', function(fireDate){
+// call reset of all activities!
+//});
 
 app.use(favicon(__dirname + '/favicon.ico'));
 
