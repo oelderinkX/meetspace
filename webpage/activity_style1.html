@@ -141,9 +141,11 @@
                 <button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
 				
 				<div class="btn-group">
+					<input class="span2" id="action" name="action" type="hidden">
+				
 					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><input type="submit" class="form-control btn btn-link" name="action" value="join">Join</li>
+						<li onclick="$('#action').val('join'); $('#actions').submit()">Join</li>
 						<li><a href="?action=reset">Reset</a></li>
 					</ul>
 				</div>
