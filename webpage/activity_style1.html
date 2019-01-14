@@ -137,15 +137,16 @@
             <div class="btn-toolbar">
                 <button type="submit" name="action" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
                 <button type="submit" name="action" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>
-                <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-                <button type="submit" name="action" class="btn btn-primary" value="join" style="display: !%SHOWJOIN%!">Join</button>
+                <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>		
+				<input type="hidden" name="action" id="hiddenaction"></input>
 				
 				<div class="btn-group">
 					<input class="span2" id="action" name="action" type="hidden">
 				
 					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a onclick="$('#action').val('join'); $('#actions').submit()">Join</a></li>
+						<li><a onclick="document.getElementById('hiddenaction').value='join'; getElementsByName('actions').submit();">Join</a></li>
+						<li><a onclick="$('#action').val('join'); $('#actions').submit()">Join aswell</a></li>
 						<li><a href="?action=reset">Reset</a></li>
 					</ul>
 				</div>
