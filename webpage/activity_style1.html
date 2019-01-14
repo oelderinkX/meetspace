@@ -133,7 +133,7 @@
         <p>!%TIME%!</p>
         <hr class="my-4">
         <p class="lead">!%DESCRIPTION%!</p>
-        <form name="actions" action="!%ACTION%!" method="post">
+        <form name="actions" id="actionsForm" action="!%ACTION%!" method="post">
             <div class="btn-toolbar">
                 <!-- <button type="submit" name="actionY" value="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
                 <button type="submit" name="actionZ" value="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button> -->
@@ -143,7 +143,7 @@
 				<div class="btn-group">				
 					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a onclick="document.getElementById('hiddenaction').value='join'; document.getElementsByName('actions').submit();">Join</a></li>
+						<li><a onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();">Join</a></li>
 						<li><a href="?action=reset">Reset</a></li>
 					</ul>
 				</div>
