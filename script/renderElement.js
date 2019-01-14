@@ -109,7 +109,7 @@ function login(webpage, username, url) {
 	if (username) {
 		element = '<div class="btn-group">';
 		element += '<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-		element += username;
+		element += username + ' ';
 		element += '<span class="caret"></span>';
 		element += '</button>';
 		element += '<ul class="dropdown-menu">';
