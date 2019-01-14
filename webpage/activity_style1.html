@@ -141,9 +141,9 @@
 				<div class="btn-group">				
 					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();">Join</li>
-						<li onclick="document.getElementById('hiddenaction').value='unjoin'; document.getElementById('actionsForm').submit();">Leave</li>
-						<li onclick="document.getElementById('hiddenaction').value='reset'; document.getElementById('actionsForm').submit();">Reset</li>
+						<li><a onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();" style="display: !%SHOWJOIN%!">Join</a></li>
+						<li><a onclick="document.getElementById('hiddenaction').value='unjoin'; document.getElementById('actionsForm').submit();" style="display: !%SHOWUNJOIN%!">Leave</a></li>
+						<li><a onclick="document.getElementById('hiddenaction').value='reset'; document.getElementById('actionsForm').submit();" style="display: !%SHOWRESET%!">Reset</a></li>
 					</ul>
 				</div>
 				
