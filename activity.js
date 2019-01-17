@@ -59,6 +59,7 @@ function renderPage(country, region, city, game, req, res) {
 					var showattend = 'none';
 					var showunattend = 'none';
 					var showreset = 'none';
+					var showchannel = 'none';
 					var showpost = 'none';
 					var showinvite = 'none';
 					var actionlink = '/' + country;
@@ -91,11 +92,12 @@ function renderPage(country, region, city, game, req, res) {
 								var isJoined = result.rows[0].ret_joined;
 								var isAttending = result.rows[0].ret_attended;
 								var isAdmin = result.rows[0].ret_admin;
-
+							
 								if (isJoined) {
 									showunjoin = 'inline';
 									showpost = 'inline';
 									showinvite = 'inline';
+									showchannel = 'inline';
 
 									if (isAttending) {
 										showunattend = 'inline';
@@ -123,6 +125,7 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
 								webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
 								webpage = common.replaceAll(webpage, '!%SHOWRESET%!', showreset);
+								webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showjoin);
 
 								webpage = webpage.replace('!%SHOWPOST%!', showpost);
 								webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
