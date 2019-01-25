@@ -107,12 +107,12 @@ function renderPage(country, region, city, game, req, res) {
 								} else {
 									if (username && sessionId) {
 										showjoin = 'inline';
+										showchannel = 'inline';
 									}
 								}
 
 								if (isJoined && isAdmin) {
 									showreset = 'inline';
-									showchannel = 'inline';
 								}
 
 								webpage = renderElement.activityTitle(webpage, title);
