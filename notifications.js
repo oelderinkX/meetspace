@@ -27,12 +27,12 @@ function sendRegistrationEmail(email, encodedEmail) {
 }
 module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
-function sendPostEmail(email, fromUser, activityTitle, url, emailContent, emailTitle) {
+function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 
 	emailContent = fromUser + ' posted:\n\n' + emailContent + '\n\n' + url;
 
 	var to_email = new helper.Email(email);
-	var subject = 'Post for activity "' + activityTitle + '": ' + emailTitle;
+	var subject = activity + ': ' + subject;
 	var content = new helper.Content('text/plain', emailContent);
 	var mail = new helper.Mail(from_email, subject, to_email, content);
 
