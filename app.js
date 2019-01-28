@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
 var cron = require('node-schedule');
 var pg = require('pg');
+var common = require('./script/common.js');
 var port = process.env.PORT || 80
 
 var pool = new pg.Pool(common.postgresConfig());
@@ -11,6 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 console.log('port number is: ' + port);
 
 var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
+	console.log('cron job running...');
 	var sql = "SELECT meetspace.reset_activities();"
 	pool.connect(function(err, connection, done) {
 		connection.query(sql, function(err, result) {
