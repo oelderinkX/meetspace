@@ -3,13 +3,24 @@ var app = express();
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
 var cron = require('node-schedule');
+var pg = require('pg');
 var port = process.env.PORT || 80
+
+var pool = new pg.Pool(common.postgresConfig());
 
 console.log('port number is: ' + port);
 
-//var cronjob = cron.scheduleJob('*/59 * * * *', function(fireDate){
-// call reset of all activities!
-//});
+var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
+	var sql = "SELECT meetspace.reset_activities();"
+	pool.connect(function(err, connection, done) {
+		connection.query(sql, function(err, result) {
+			done();
+			if (err) {
+				console.error(err);
+			}
+		});
+	});
+});
 
 app.use(favicon(__dirname + '/favicon.ico'));
 
@@ -22,7 +33,7 @@ app.use('/webpage', express.static('webpage'));
 require('./main.js')(app);
 
 app.listen(port, function () {
-  console.log('Reading to meat people!');
+	console.log('Reading to meat people!');
 });
 
 require('./register.js')(app);
