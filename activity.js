@@ -94,7 +94,7 @@ function renderPage(country, region, city, game, req, res) {
 								var isAdmin = result.rows[0].ret_admin;
 							
 								if (isJoined) {
-									showunjoin = 'inline';
+									showunjoin = '';
 									showpost = 'inline';
 									showinvite = 'inline';
 									showchannel = 'inline';
@@ -106,14 +106,14 @@ function renderPage(country, region, city, game, req, res) {
 									}
 								} else {
 									if (username && sessionId) {
-										showjoin = 'inline';
+										showjoin = '';
 										showchannel = 'inline';
 									}
 								}
 
 								if (isJoined && isAdmin) {
 									showreset = 'inline';
-									showreset = 'disabled';
+									showreset = ':disabled';
 								}
 
 								webpage = renderElement.activityTitle(webpage, title);
