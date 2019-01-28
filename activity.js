@@ -126,7 +126,7 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = common.replaceAll(webpage, '!%SHOWUNJOIN%!', showunjoin);
 								webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
 								webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
-								webpage = common.replaceAll(webpage, '!%SHOWRESET%!', showreset);
+								//webpage = common.replaceAll(webpage, '!%SHOWRESET%!', showreset);
 								webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showchannel);
 
 								webpage = webpage.replace('!%SHOWPOST%!', showpost);
