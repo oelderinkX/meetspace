@@ -113,6 +113,7 @@ function renderPage(country, region, city, game, req, res) {
 
 								if (isJoined && isAdmin) {
 									showreset = 'inline';
+									showreset = 'disabled';
 								}
 
 								webpage = renderElement.activityTitle(webpage, title);
