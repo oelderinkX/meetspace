@@ -361,8 +361,9 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'removefromactivity') {
-			console.log('removing stuff!');
-			sql = "select * FROM meetspace.remove_from_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+			var remove_email = req.body.remove_email;
+			
+			sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
 
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
