@@ -129,7 +129,7 @@ function login(webpage, username, url) {
 }
 module.exports.login = login;
 
-function whosgoing(webpage, whosgoing, whosnot) {
+function whosgoing(webpage, whosgoing, whosnot, showdelete) {
 	var whosgoingElement = '<ol>';
 	var whosnotElement = '<ul>';
 	var modalsElement = '';
@@ -142,8 +142,10 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	for(var i = 0; i < whosnot.length; i++) {
 		whosnotElement += '<li style="color:#CCCCCC">';
 		whosnotElement += whosnot[i];
-			
-		whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'red\';" onmouseout="this.style.color = \'lightgrey\';"></i>'
+		
+		if (showdelete) {
+			whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"></i>'
+		}
 		
 		whosnotElement += '</li>';
 		
