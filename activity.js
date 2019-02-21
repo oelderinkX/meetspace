@@ -144,7 +144,7 @@ function renderPage(country, region, city, game, req, res) {
 
 								res.cookie('activity' , actionlink);
 
-								var whosgoingsql = "SELECT meetspace.user.id, meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
+								var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
 
 								pool.connect(function(err, client, done) {
 									client.query(whosgoingsql , function(err, result) {
@@ -152,11 +152,13 @@ function renderPage(country, region, city, game, req, res) {
 
 										var whosgoing = [];
 										var whosnot = [];
+										var whosnot_id = [];
 
 										if (!result) {
 											whosnot.push('no body');
 										} else {
 											for (var i = 0; i < result.rows.length; i++) {
+												var email = result.rows[i].email;
 												var username = result.rows[i].username;
 												var status = result.rows[i].status;
 
@@ -164,10 +166,11 @@ function renderPage(country, region, city, game, req, res) {
 													whosgoing.push(username);
 												} else {
 													whosnot.push(username);
+													whosnot_id.push(email);
 												}
 											}
 
-											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot, showdelete);
+											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot, whosnot_id, showdelete);
 										}
 
 										var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
@@ -357,10 +360,19 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, req, res);
 				});
 			});
+		} else if (action == 'removefromactivity') {
+			sql = "select * FROM meetspace.remove_from_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+			pool.connect(function(err, client, done) {
+				client.query(sql, function(err, result) {
+					done();
+
+					renderPage(country, region, city, game, req, res);
+				});
+			});
 		} else {
 			renderPage(country, region, city, game, req, res);
 		}
-
 	} else {
 		renderPage(country, region, city, game, req, res);
 	}
