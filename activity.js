@@ -98,7 +98,7 @@ function renderPage(country, region, city, game, req, res) {
 									showpost = 'inline';
 									showinvite = 'inline';
 									showchannel = 'inline';
-									showedit = ':disabled';
+									showedit = 'none';
 
 									if (isAttending) {
 										showunattend = 'inline';
@@ -115,7 +115,7 @@ function renderPage(country, region, city, game, req, res) {
 								if (isJoined && isAdmin) {
 									showreset = 'inline';
 									showedit = 'inline';
-									showreset = ':disabled';
+									showreset = 'inline';
 								}
 
 								webpage = renderElement.activityTitle(webpage, title);
