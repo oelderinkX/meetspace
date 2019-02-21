@@ -32,6 +32,8 @@ function renderPage(country, region, city, game, req, res) {
 
 	var username = req.cookies['username'];
 	var sessionId = req.cookies['sessionId'];
+	
+	var action = req.body.action;
 
 	getUrl(country, region, city, game);
 
@@ -62,6 +64,8 @@ function renderPage(country, region, city, game, req, res) {
 					var showchannel = 'none';
 					var showpost = 'none';
 					var showinvite = 'none';
+					var showdelete = 'none';
+					var showedit = 'none';
 					var actionlink = '/' + country;
 					if (region) {
 						actionlink += '/' + region;
@@ -98,24 +102,27 @@ function renderPage(country, region, city, game, req, res) {
 									showpost = 'inline';
 									showinvite = 'inline';
 									showchannel = 'inline';
-									showedit = 'none';
 
 									if (isAttending) {
 										showunattend = 'inline';
 									} else {
 										showattend = 'inline';
 									}
+									
+									if (isAdmin) {
+										showreset = 'inline';
+										showedit = 'inline';
+										showreset = 'inline';
+										
+										if (action == 'editmode') {
+											showdelete = 'inline';
+										}
+									}
 								} else {
 									if (username && sessionId) {
 										showjoin = '';
 										showchannel = 'inline';
 									}
-								}
-
-								if (isJoined && isAdmin) {
-									showreset = 'inline';
-									showedit = 'inline';
-									showreset = 'inline';
 								}
 
 								webpage = renderElement.activityTitle(webpage, title);
@@ -130,6 +137,7 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
 								//webpage = common.replaceAll(webpage, '!%SHOWRESET%!', showreset);
 								webpage = common.replaceAll(webpage, '!%SHOWEDIT%!', showedit);
+								webpage = common.replaceAll(webpage, '!%SHOWDELETE%!', showdelete);
 								webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showchannel);
 
 								webpage = webpage.replace('!%SHOWPOST%!', showpost);
