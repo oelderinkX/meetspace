@@ -367,6 +367,8 @@ function performAction(country, region, city, game, action, req, res) {
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
 					done();
+					
+					console.log(err);
 
 					renderPage(country, region, city, game, req, res);
 				});
