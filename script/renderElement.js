@@ -149,6 +149,8 @@ function whosgoing(webpage, whosgoing, whosnot) {
 		//}
 		//whosnotElement += '<a style="text-decoration:none; cursor: pointer;" data-toggle="modal" class="button" data-target="#removeModal"><span>&nbsp;X</span></a>';
 		
+		whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove-sign"></i>'
+		
 		whosnotElement += '</li>';
 		
 		//need condition here 1
