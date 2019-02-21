@@ -142,14 +142,8 @@ function whosgoing(webpage, whosgoing, whosnot) {
 	for(var i = 0; i < whosnot.length; i++) {
 		whosnotElement += '<li style="color:#CCCCCC">';
 		whosnotElement += whosnot[i];
-		
-		//need condition here
-		//if(false) {	
-			//whosnotElement += '&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeModal' + i + '">X</button>';
-		//}
-		//whosnotElement += '<a style="text-decoration:none; cursor: pointer;" data-toggle="modal" class="button" data-target="#removeModal"><span>&nbsp;X</span></a>';
-		
-		whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove-sign" onmouseover="this.style.color = \'red\';" onmouseout="this.style.color = \'lightgrey\';"></i>'
+			
+		whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'red\';" onmouseout="this.style.color = \'lightgrey\';"></i>'
 		
 		whosnotElement += '</li>';
 		
