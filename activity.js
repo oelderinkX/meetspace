@@ -64,7 +64,7 @@ function renderPage(country, region, city, game, req, res) {
 					var showchannel = 'none';
 					var showpost = 'none';
 					var showinvite = 'none';
-					var showdelete = 'none';
+					var showdelete = false;
 					var showedit = 'none';
 					var actionlink = '/' + country;
 					if (region) {
@@ -115,7 +115,7 @@ function renderPage(country, region, city, game, req, res) {
 										showreset = 'inline';
 										
 										if (action == 'editmode') {
-											showdelete = 'inline';
+											showdelete = true;
 										}
 									}
 								} else {
@@ -137,7 +137,6 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
 								//webpage = common.replaceAll(webpage, '!%SHOWRESET%!', showreset);
 								webpage = common.replaceAll(webpage, '!%SHOWEDIT%!', showedit);
-								webpage = common.replaceAll(webpage, '!%SHOWDELETE%!', showdelete);
 								webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showchannel);
 
 								webpage = webpage.replace('!%SHOWPOST%!', showpost);
@@ -168,7 +167,7 @@ function renderPage(country, region, city, game, req, res) {
 												}
 											}
 
-											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot);
+											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot, showdelete);
 										}
 
 										var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
