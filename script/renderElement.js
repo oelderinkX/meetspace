@@ -145,7 +145,7 @@ function whosgoing(webpage, whosgoing, whosnot, whosnotemails, showdelete) {
 		
 		if (showdelete) {
 			whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
-			whosnotElement += ' onclick="document.getElementById(\'hiddenaction\').value=\'removefromactivity\'; document.getElementById(\'actionsForm\').submit();"></i>'
+			whosnotElement += ' onclick="document.getElementById(\'remove_email\').value=\'' + whosnotemails[i] + '\'; document.getElementById(\'hiddenaction\').value=\'removefromactivity\'; document.getElementById(\'actionsForm\').submit();"></i>'
 		}
 		
 		whosnotElement += '</li>';
