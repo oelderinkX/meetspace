@@ -129,7 +129,7 @@ function login(webpage, username, url) {
 }
 module.exports.login = login;
 
-function whosgoing(webpage, whosgoing, whosnot, showdelete) {
+function whosgoing(webpage, whosgoing, whosnot, whosnotemails, showdelete) {
 	var whosgoingElement = '<ol>';
 	var whosnotElement = '<ul>';
 	var modalsElement = '';
@@ -144,7 +144,8 @@ function whosgoing(webpage, whosgoing, whosnot, showdelete) {
 		whosnotElement += whosnot[i];
 		
 		if (showdelete) {
-			whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"></i>'
+			whosnotElement += '&nbsp;&nbsp;<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
+			whosnotElement += ' onclick="document.getElementById(\'hiddenaction\').value=\'removefromactivity\'; document.getElementById(\'actionsForm\').submit();"></i>'
 		}
 		
 		whosnotElement += '</li>';
