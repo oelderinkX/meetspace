@@ -95,7 +95,7 @@ module.exports = function(app) {
 module.exports = function(app) {
 	app.get('/citiesByRegionId', function(req, res) {
 		var region_id = req.query.id;
-		console.log(region_id);
+		console.log('region: ' + region_id);
 		var citiesByRegion = [];
 		
 		var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + region_id + ";";
@@ -116,8 +116,8 @@ module.exports = function(app) {
 					}
 				}
 
-				for (var i = 0; i < regions.length ; i++) {
-					if (regions[i].region_id == region_id) {
+				for (var i = 0; i < cities.length ; i++) {
+					if (cities[i].region_id == region_id) {
 						citiesByRegion.push({
 							id: regions[i].id,
 							region_id: regions[i].region_id,
