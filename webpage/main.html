@@ -98,7 +98,7 @@ function loadRegion(country) {
 </script>
 
 <script type="application/javascript">
-function loadCity(country, region) {
+function loadCity(region) {
 
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
@@ -109,44 +109,34 @@ function loadCity(country, region) {
 	}
 	
 	clearCities();
+
+	var select = document.getElementById("city");
+
+	var nameAndId = region.split(',');
+
+	var cities = getLocation('get=cities&id=' + nameAndId[1]);
 	
-	var file = "/script/country/" + country;
+	if(cities) {
+		var option = document.createElement('option');
+		option.text = "";
+		option.value = "";
+		select.appendChild(option, 0);		
 	
-	if (region) {
-		file += "/region/" + region + "/cities.js";
-	} else {
-		file += "/cities.js";
+		for(var i = 0; i < cities.length; i++) {
+			var option = document.createElement('option');
+			option.text = cities[i].name;
+			option.value = cities[i].name;
+			select.appendChild(option, 0);
+		}
+		
+		select.value = "christchurch"; //use cookie here
+		
+		var citycombo = document.getElementById("citycombo");
+		var searchbutton = document.getElementById("searchbutton");
+		citycombo.style.visibility = "visible";
+		searchbutton.style.visibility = "visible";
 	}
 
-    var script = document.createElement("script");
-    script.type = "application/javascript";
-    script.src = file;
-    document.body.appendChild(script);
-	
-	script.onload = function () {
-		var select = document.getElementById("city");
-	
-		if(cities) {
-			var option = document.createElement('option');
-			option.text = "";
-			option.value = "";
-			select.appendChild(option, 0);		
-		
-			for(var i = 0; i < cities.length; i+=2) {
-				var option = document.createElement('option');
-				option.text = cities[i];
-				option.value = cities[i+1];
-				select.appendChild(option, 0);
-			}
-			
-			select.value = "christchurch"; //use cookie here
-			
-			var citycombo = document.getElementById("citycombo");
-			var searchbutton = document.getElementById("searchbutton");
-			citycombo.style.visibility = "visible";
-			searchbutton.style.visibility = "visible";
-		}
-	};	
 }
 </script>
 
@@ -177,13 +167,11 @@ function getRegions() {
 }
 
 function getCities() {
-	var countrycombobox = document.getElementById("country");
-	
 	if (countrycombobox.value == "usa") {
 		var regioncombobox = document.getElementById("region");
-		loadCity(countrycombobox.value, regioncombobox.value);
+		loadCity(regioncombobox.value);
 	} else {
-		loadCity(countrycombobox.value);
+		loadCity(regioncombobox.value);
 	}
 }
 
