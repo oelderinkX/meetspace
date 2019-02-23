@@ -112,7 +112,7 @@ function loadCity(region) {
 
 	var select = document.getElementById("city");
 
-	var cities = getLocation('get=cities&id=' +region);
+	var cities = getLocation('cities&id=' +region);
 	
 	if(cities) {
 		var option = document.createElement('option');
