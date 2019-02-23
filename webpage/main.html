@@ -167,12 +167,7 @@ function getRegions() {
 }
 
 function getCities() {
-	if (countrycombobox.value == "usa") {
-		var regioncombobox = document.getElementById("region");
-		loadCity(regioncombobox.value);
-	} else {
-		loadCity(regioncombobox.value);
-	}
+	loadCity(regioncombobox.value);
 }
 
 function clearRegions() {
