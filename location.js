@@ -119,12 +119,12 @@ module.exports = function(app) {
 				for (var i = 0; i < cities.length ; i++) {
 					if (cities[i].region_id == region_id) {
 						citiesByRegion.push({
-							id: regions[i].id,
-							region_id: regions[i].region_id,
-							country_id: regions[i].country_id,
-							latitude: regions[i].latitude,
-							longitude: regions[i].longitude,
-							name: regions[i].name
+							id: cities[i].id,
+							region_id: cities[i].region_id,
+							country_id: cities[i].country_id,
+							latitude: cities[i].latitude,
+							longitude: cities[i].longitude,
+							name: cities[i].name
 						});
 					}
 				}
