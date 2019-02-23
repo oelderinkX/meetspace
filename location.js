@@ -41,7 +41,7 @@ function getRegionByCountry(res, id) {
 	
 	if (regions.length > 0) {
 		for (var i = 0; i < regions.length ; i++) {
-			if (regions[i].country_id == country_id) {
+			if (regions[i].country_id == id) {
 				regionByCountry.push({
 					id: regions[i].id,
 					name: regions[i].name,
@@ -69,7 +69,7 @@ function getRegionByCountry(res, id) {
 				}
 
 				for (var i = 0; i < regions.length ; i++) {
-					if (regions[i].country_id == country_id) {
+					if (regions[i].country_id == id) {
 						regionByCountry.push({
 							id: regions[i].id,
 							name: regions[i].name,
@@ -107,7 +107,7 @@ function getCitiesByRegion(res, id) {
 			}
 
 			for (var i = 0; i < cities.length ; i++) {
-				if (cities[i].region_id == region_id) {
+				if (cities[i].region_id == id) {
 					citiesByRegion.push({
 						id: cities[i].id,
 						region_id: cities[i].region_id,
