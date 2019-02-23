@@ -12,7 +12,7 @@ var countries = [];
 module.exports = function(app) {
 	app.get('/getcountries', function(req, res) {
 
-		if (countries) {
+		if (countries.length > 0) {
 			res.send(countries);
 		} else {
 			var postsql = "select id, name, code from meetspace.countries;";
