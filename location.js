@@ -15,7 +15,7 @@ function getCountries(res) {
 	if (countries.length > 0) {
 		res.send(countries);
 	} else {
-		var postsql = "select id, name, code from meetspace.countries;";
+		var postsql = "select id, name, code from meetspace.countries order by name;";
 		pool.connect(function(err, client, done) {
 			client.query(postsql, function(err, result) {
 				done();
@@ -52,7 +52,7 @@ function getRegionByCountry(res, id) {
 		}			
 		res.send(regionByCountry);
 	} else {
-		var postsql = "select id, name, code, country_id from meetspace.regions;";
+		var postsql = "select id, name, code, country_id from meetspace.regions order by name;";
 		pool.connect(function(err, client, done) {
 			client.query(postsql, function(err, result) {
 				done();
@@ -88,7 +88,7 @@ function getRegionByCountry(res, id) {
 function getCitiesByRegion(res, id) {
 	var citiesByRegion = [];
 	
-	var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + ";";
+	var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + " order by name;";
 	pool.connect(function(err, client, done) {
 		client.query(postsql, function(err, result) {
 			done();
