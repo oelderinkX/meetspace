@@ -167,7 +167,8 @@ function getRegions() {
 }
 
 function getCities() {
-	loadCity(regioncombobox.value);
+	var combobox = document.getElementById("region");
+	loadCity(combobox.value);
 }
 
 function clearRegions() {
