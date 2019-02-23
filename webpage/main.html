@@ -20,12 +20,11 @@
 function search() {
 	var link = "http://www.meetspace.co.nz/"
 	var country = document.getElementById("country");
-	country = country.split(',')[1];
 	var region = document.getElementById("region");
 	var city = document.getElementById("city");
 	
 	if (country && country.value) {
-		link += country.value;
+		link += country.value.split(,)[0];
 	}
 	
 	if (region && region.value) {
