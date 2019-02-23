@@ -69,9 +69,9 @@ function loadRegion(country) {
 
 	var select = document.getElementById("region");
 
-	var codeAndId = country.split(',');
+	var idAndCode = country.split(',');
 	
-	var regions =  getLocation('regions&id=' + codeAndId[1]);
+	var regions =  getLocation('regions&id=' + idAndCode[0]);
 	
 	if(regions) {
 		var option = document.createElement('option');
