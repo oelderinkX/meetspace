@@ -95,9 +95,27 @@ module.exports = function(app) {
 module.exports = function(app) {
 	app.get('/citiesByRegionId', function(req, res) {
 		var region_id = req.query.id;
+		console.log(region_id);
 		var citiesByRegion = [];
 		
-		if (cities.length > 0) {
+		var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + region_id + ";";
+		pool.connect(function(err, client, done) {
+			client.query(postsql, function(err, result) {
+			done();
+
+			if (result) {
+				for (var i = 0; i < result.rows.length; i++) {
+					cities.push({
+					  id: result.rows[i].id,
+					  region_id: result.rows[i].region_id,
+					  country_id: result.rows[i].country_id,
+					  latitude: result.rows[i].latitude,
+					  longitude: result.rows[i].longitude,
+					  name: result.rows[i].name
+					});
+				}
+			}
+
 			for (var i = 0; i < regions.length ; i++) {
 				if (regions[i].region_id == region_id) {
 					citiesByRegion.push({
@@ -109,43 +127,9 @@ module.exports = function(app) {
 						name: regions[i].name
 					});
 				}
-			}			
+			}
+			
 			res.send(citiesByRegion);
-		} else {
-			var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities;";
-			pool.connect(function(err, client, done) {
-				client.query(postsql, function(err, result) {
-					done();
-
-					if (result) {
-						for (var i = 0; i < result.rows.length; i++) {
-							cities.push({
-							  id: result.rows[i].id,
-							  region_id: result.rows[i].region_id,
-							  country_id: result.rows[i].country_id,
-							  latitude: result.rows[i].latitude,
-							  longitude: result.rows[i].longitude,
-							  name: result.rows[i].name
-							});
-						}
-					}
-
-					for (var i = 0; i < regions.length ; i++) {
-						if (regions[i].region_id == region_id) {
-							citiesByRegion.push({
-								id: regions[i].id,
-								region_id: regions[i].region_id,
-								country_id: regions[i].country_id,
-								latitude: regions[i].latitude,
-								longitude: regions[i].longitude,
-								name: regions[i].name
-							});
-						}
-					}
-					
-					res.send(citiesByRegion);
-				});
-			});
-		}
-	});	
+		});
+	});
 }
