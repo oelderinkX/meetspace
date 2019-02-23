@@ -42,6 +42,7 @@ module.exports = function(app) {
 module.exports = function(app) {
 	app.get('/regionsByCountryId', function(req, res) {
 		var country_id = req.query.id;
+		console.log(country_id);
 		var regionByCountry = [];
 		
 		if (regions.length > 0) {
@@ -68,7 +69,7 @@ module.exports = function(app) {
 							  id: result.rows[i].id,
 							  name: result.rows[i].name,
 							  code: result.rows[i].code,
-							  code: result.rows[i].country_id
+							  country_id: result.rows[i].country_id
 							});
 						}
 					}
