@@ -66,37 +66,34 @@ function loadRegion(country) {
 	regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
 	
 	clearRegions();
+
+	var select = document.getElementById("region");
+
+	var codeAndId = country.split(',');
 	
-	var file = "/script/country/" + country + "/regions.js";
-    var script = document.createElement("script");
-    script.type = "application/javascript";
-    script.src = file;
-    document.body.appendChild(script);
+	var regions =  getLocation('regions&id=' + codeAndId[1]);
 	
-	script.onload = function () {
-		var select = document.getElementById("region");
+	if(regions) {
+		var option = document.createElement('option');
+		option.text = "";
+		option.value = "";
+		select.appendChild(option, 0);		
 	
-		if(regions) {
+		for(var i = 0; i < regions.length; i++) {
 			var option = document.createElement('option');
-			option.text = "";
-			option.value = "";
-			select.appendChild(option, 0);		
-		
-			for(var i = 0; i < regions.length; i+=2) {
-				var option = document.createElement('option');
-				option.text = regions[i];
-				option.value = regions[i+1];
-				select.appendChild(option, 0);
-			}
-			
-			var citycombo = document.getElementById("citycombo");
-			var searchbutton = document.getElementById("searchbutton");
-			var regioncombo = document.getElementById("regioncombo");
-			citycombo.style.visibility = "visible";
-			searchbutton.style.visibility = "visible";
-			regioncombo.style.visibility = "visible";
+			option.text = regions[i].name;
+			option.value = regions[i].id;
+			select.appendChild(option, 0);
 		}
-	};	
+		
+		var citycombo = document.getElementById("citycombo");
+		var searchbutton = document.getElementById("searchbutton");
+		var regioncombo = document.getElementById("regioncombo");
+		citycombo.style.visibility = "visible";
+		searchbutton.style.visibility = "visible";
+		regioncombo.style.visibility = "visible";
+	}
+
 }
 </script>
 
@@ -162,29 +159,17 @@ window.onload = function() {
     for(var i = 0; i < countries.length; i++) {
         var option = document.createElement('option');
         option.text = countries[i].name;
-		option.value = countries[i].code;
+		option.value = countries[i].id + ',' + countries[i].code;
 		
         select.appendChild(option, 0);
     }
 	
 	select.value = 'nz'; //use cookie here
-	getRegionsOrCities();
+	getRegions();
 }
 </script>
 
 <script type="application/javascript">
-function getRegionsOrCities() {
-	var combobox = document.getElementById("country");
-	
-	if(combobox.value == "usa") {
-		clearCities();
-		getRegions();
-	} else {
-		hideRegionCombo();
-		getCities();
-	}
-}
-
 function getRegions() {
 	var combobox = document.getElementById("country");
 	 
