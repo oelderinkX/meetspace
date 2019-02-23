@@ -67,7 +67,7 @@ module.exports = function(app) {
 							regions.push({
 							  id: result.rows[i].id,
 							  name: result.rows[i].name,
-							  code: result.rows[i].code
+							  code: result.rows[i].code,
 							  code: result.rows[i].country_id
 							});
 						}
