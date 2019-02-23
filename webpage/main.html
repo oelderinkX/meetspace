@@ -38,6 +38,15 @@ function search() {
 	window.location.href = link;
 	
 }
+
+function getLocation(param){
+	var url = 'http://www.meetspace.co.nz/location?get=';
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open('GET' ,url + param,false);
+    Httpreq.send(null);
+	
+    return Httpreq.responseText;          
+}
 </script>
 
 <script type="application/javascript">
@@ -146,19 +155,14 @@ function loadCity(country, region) {
 
 <script type="application/javascript">
 window.onload = function() {
-	var countries = ["", "",
-					 "Australia", "australia",
-					 "New Zealand", "nz", 
-					 "Wales", "wales",
-					 "USA", "usa" ];
+	var countries = getLocation('countries');
 	
     var select = document.getElementById("country");
-	var nzValue;
 	
-    for(var i = 0; i < countries.length; i+=2) {
+    for(var i = 0; i < countries.length; i++) {
         var option = document.createElement('option');
-        option.text = countries[i];
-		option.value = countries[i+1];
+        option.text = countries[i].name;
+		option.value = countries[i].code;
 		
         select.appendChild(option, 0);
     }
