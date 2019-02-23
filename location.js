@@ -9,6 +9,26 @@ var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app){
 	app.get('/getcountries', function(req, res) {
-		res.send('New Zealand');
+		
+		var postsql = "select id, name, code from meetspace.countries;";
+		pool.connect(function(err, client, done) {
+			client.query(postsql, function(err, result) {
+				done();
+				
+				var countries = [];
+
+				if (result) {
+					for (var i = 0; i < result.rows.length; i++) {
+						countries.push({
+						  id: result.rows[i].id,
+						  name: result.rows[i].name,
+						  code: result.rows[i].code,
+						});
+					}
+				}
+
+				res.send(countries);
+			});
+		});
 	});	
 }
