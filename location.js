@@ -1,6 +1,7 @@
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
+var common = require('./script/common.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
