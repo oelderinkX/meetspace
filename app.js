@@ -47,3 +47,5 @@ require('./logout.js')(app);
 require('./updateprofile.js')(app);
 
 require('./activity.js')(app);
+
+require('./location.js')(app);
