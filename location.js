@@ -11,126 +11,133 @@ var countries = [];
 var regions = [];
 var cities = [];
 
-module.exports = function(app) {
-	app.get('/getcountries', function(req, res) {
-
-		if (countries.length > 0) {
-			res.send(countries);
-		} else {
-			var postsql = "select id, name, code from meetspace.countries;";
-			pool.connect(function(err, client, done) {
-				client.query(postsql, function(err, result) {
-					done();
-
-					if (result) {
-						for (var i = 0; i < result.rows.length; i++) {
-							countries.push({
-							  id: result.rows[i].id,
-							  name: result.rows[i].name,
-							  code: result.rows[i].code,
-							});
-						}
-					}
-
-					res.send(countries);
-				});
-			});
-		}
-	});	
-}
-
-module.exports = function(app) {
-	app.get('/regionsByCountryId', function(req, res) {
-		var country_id = req.query.id;
-		console.log(country_id);
-		var regionByCountry = [];
-		
-		if (regions.length > 0) {
-			for (var i = 0; i < regions.length ; i++) {
-				if (regions[i].country_id == country_id) {
-					regionByCountry.push({
-						id: regions[i].id,
-						name: regions[i].name,
-						code: regions[i].code,
-						country_id: regions[i].country_id
-					});
-				}
-			}			
-			res.send(regionByCountry);
-		} else {
-			var postsql = "select id, name, code, country_id from meetspace.regions;";
-			pool.connect(function(err, client, done) {
-				client.query(postsql, function(err, result) {
-					done();
-
-					if (result) {
-						for (var i = 0; i < result.rows.length; i++) {
-							regions.push({
-							  id: result.rows[i].id,
-							  name: result.rows[i].name,
-							  code: result.rows[i].code,
-							  country_id: result.rows[i].country_id
-							});
-						}
-					}
-
-					for (var i = 0; i < regions.length ; i++) {
-						if (regions[i].country_id == country_id) {
-							regionByCountry.push({
-								id: regions[i].id,
-								name: regions[i].name,
-								code: regions[i].code,
-								country_id: regions[i].country_id
-							});
-						}
-					}
-					
-					res.send(regionByCountry);
-				});
-			});
-		}
-	});	
-}
-
-module.exports = function(app) {
-	app.get('/citiesByRegionId', function(req, res) {
-		var region_id = req.query.id;
-		console.log('region: ' + region_id);
-		var citiesByRegion = [];
-		
-		var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + region_id + ";";
+function getCountries(res) {
+	if (countries.length > 0) {
+		res.send(countries);
+	} else {
+		var postsql = "select id, name, code from meetspace.countries;";
 		pool.connect(function(err, client, done) {
 			client.query(postsql, function(err, result) {
 				done();
 
 				if (result) {
 					for (var i = 0; i < result.rows.length; i++) {
-						cities.push({
+						countries.push({
 						  id: result.rows[i].id,
-						  region_id: result.rows[i].region_id,
-						  country_id: result.rows[i].country_id,
-						  latitude: result.rows[i].latitude,
-						  longitude: result.rows[i].longitude,
-						  name: result.rows[i].name
+						  name: result.rows[i].name,
+						  code: result.rows[i].code,
 						});
 					}
 				}
 
-				for (var i = 0; i < cities.length ; i++) {
-					if (cities[i].region_id == region_id) {
-						citiesByRegion.push({
-							id: cities[i].id,
-							region_id: cities[i].region_id,
-							country_id: cities[i].country_id,
-							latitude: cities[i].latitude,
-							longitude: cities[i].longitude,
-							name: cities[i].name
+				res.send(countries);
+			});
+		});
+	}
+}
+
+function getRegionByCountry(res, id) {
+	var regionByCountry = [];
+	
+	if (regions.length > 0) {
+		for (var i = 0; i < regions.length ; i++) {
+			if (regions[i].country_id == country_id) {
+				regionByCountry.push({
+					id: regions[i].id,
+					name: regions[i].name,
+					code: regions[i].code,
+					country_id: regions[i].country_id
+				});
+			}
+		}			
+		res.send(regionByCountry);
+	} else {
+		var postsql = "select id, name, code, country_id from meetspace.regions;";
+		pool.connect(function(err, client, done) {
+			client.query(postsql, function(err, result) {
+				done();
+
+				if (result) {
+					for (var i = 0; i < result.rows.length; i++) {
+						regions.push({
+						  id: result.rows[i].id,
+						  name: result.rows[i].name,
+						  code: result.rows[i].code,
+						  country_id: result.rows[i].country_id
+						});
+					}
+				}
+
+				for (var i = 0; i < regions.length ; i++) {
+					if (regions[i].country_id == country_id) {
+						regionByCountry.push({
+							id: regions[i].id,
+							name: regions[i].name,
+							code: regions[i].code,
+							country_id: regions[i].country_id
 						});
 					}
 				}
 				
-				res.send(citiesByRegion);
+				res.send(regionByCountry);
 			});
 		});
+	}
+}
+
+function getCitiesByRegion(res, id) {
+	var citiesByRegion = [];
+	
+	var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + ";";
+	pool.connect(function(err, client, done) {
+		client.query(postsql, function(err, result) {
+			done();
+
+			if (result) {
+				for (var i = 0; i < result.rows.length; i++) {
+					cities.push({
+					  id: result.rows[i].id,
+					  region_id: result.rows[i].region_id,
+					  country_id: result.rows[i].country_id,
+					  latitude: result.rows[i].latitude,
+					  longitude: result.rows[i].longitude,
+					  name: result.rows[i].name
+					});
+				}
+			}
+
+			for (var i = 0; i < cities.length ; i++) {
+				if (cities[i].region_id == region_id) {
+					citiesByRegion.push({
+						id: cities[i].id,
+						region_id: cities[i].region_id,
+						country_id: cities[i].country_id,
+						latitude: cities[i].latitude,
+						longitude: cities[i].longitude,
+						name: cities[i].name
+					});
+				}
+			}
+			
+			res.send(citiesByRegion);
+		});
 	});
+}
+
+module.exports = function(app) {
+	app.get('/location', function(req, res) {
+		var get = req.query.get;
+		var id = req.query.id;
+		var empty = [];
+		
+		if (get == "countries") {
+			getCountries(res);
+		} else if (get == "regions" && id) {
+			getRegionByCountry(res, id);
+		} else if (get == "cities" && id) {
+			getCitiesByRegion(res, id);
+		} else {
+			res.send(empty);
+		}
+	});	
 }
