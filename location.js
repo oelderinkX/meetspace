@@ -84,7 +84,7 @@ module.exports = function(app) {
 						}
 					}
 					
-					res.send(countries);
+					res.send(regionByCountry);
 				});
 			});
 		}
