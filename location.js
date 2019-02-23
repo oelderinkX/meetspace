@@ -9,7 +9,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var countries = [];
 
-module.exports = function(app){
+module.exports = function(app) {
 	app.get('/getcountries', function(req, res) {
 
 		if (countries) {
@@ -33,6 +33,6 @@ module.exports = function(app){
 					res.send(countries);
 				});
 			});
-		});	
-	}
+		}
+	});	
 }
