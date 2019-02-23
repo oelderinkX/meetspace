@@ -45,7 +45,7 @@ function getLocation(param){
     Httpreq.open('GET' ,url + param,false);
     Httpreq.send(null);
 	
-    return Httpreq.responseText;          
+    return JSON.parse(Httpreq.responseText);
 }
 </script>
 
