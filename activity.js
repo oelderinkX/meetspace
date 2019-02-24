@@ -16,11 +16,7 @@ var infoPage = fs.readFileSync(__dirname + "/webpage/infopage.html", "utf8");
 function getUrl(country, region, city, game) {
 	var url = common.webpage_url;
 
-	if (region) {
-		url += country + '/' + region + '/' + city + '/' + game;
-	} else {
-		url += country + '/' + city + '/' + game;
-	}
+	url += country + '/' + region + '/' + city + '/' + game;
 
 	return url;
 }
@@ -44,7 +40,6 @@ function renderPage(country, region, city, game, req, res) {
 	var sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
 
 	pool.connect(function(err, client, done) {
-
 		if(err) {
 			console.log("ERROR! " + err);
 		}
@@ -396,14 +391,9 @@ module.exports = function(app) {
 			country = params[1];
 		}
 
-		if(country == 'usa') {
-			region = params[2];
-			city = params[3];
-			game = params[4];
-		} else {
-			city = params[2];
-			game = params[3];
-		}
+		region = params[2];
+		city = params[3];
+		game = params[4];
 
 		renderPage(country, region, city, game, req, res);
 	});
