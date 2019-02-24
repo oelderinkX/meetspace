@@ -395,6 +395,11 @@ module.exports = function(app) {
 		city = params[3];
 		game = params[4];
 
+		console.log('country: ' + country );
+		console.log('region: ' + region );
+		console.log('city: ' + city);
+		console.log('game: ' + game);
+		
 		renderPage(country, region, city, game, req, res);
 	});
 
