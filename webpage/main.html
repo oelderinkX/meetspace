@@ -27,12 +27,12 @@ function search() {
 		link += country.value.split(',')[1];
 	}
 	
-	if (region && region.value) {
-		link += "/" + region.value;
+	if (region && region.text) {
+		link += "/" + region.text.toLower();
 	}
 	
-	if (city && city.value) {
-		link += "/" + city.value;
+	if (city && city.text) {
+		link += "/" + city.text.toLower();
 	}
 	
 	window.location.href = link;
