@@ -40,13 +40,13 @@ function search() {
 	window.location.href = link;
 }
 
-function getLocation(param){
+function getLocation(param, callback){
 	var url = 'http://www.meetspace.co.nz/location?get=';
     var Httpreq = new XMLHttpRequest(); // a new request
     Httpreq.open('GET' ,url + param,false);
     Httpreq.send(null);
 	
-    return JSON.parse(Httpreq.responseText);
+    callback(JSON.parse(Httpreq.responseText));
 }
 </script>
 
@@ -72,29 +72,28 @@ function loadRegion(country) {
 
 	var idAndCode = country.split(',');
 	
-	var regions =  getLocation('regions&id=' + idAndCode[0]);
-	
-	if(regions) {
-		var option = document.createElement('option');
-		option.text = "";
-		option.value = "";
-		select.appendChild(option, 0);		
-	
-		for(var i = 0; i < regions.length; i++) {
+	getLocation('regions&id=' + idAndCode[0], function(regions) {
+		if(regions) {
 			var option = document.createElement('option');
-			option.text = regions[i].name;
-			option.value = regions[i].id;
-			select.appendChild(option, 0);
-		}
+			option.text = "";
+			option.value = "";
+			select.appendChild(option, 0);		
 		
-		var citycombo = document.getElementById("citycombo");
-		var searchbutton = document.getElementById("searchbutton");
-		var regioncombo = document.getElementById("regioncombo");
-		citycombo.style.visibility = "visible";
-		searchbutton.style.visibility = "visible";
-		regioncombo.style.visibility = "visible";
-	}
-
+			for(var i = 0; i < regions.length; i++) {
+				var option = document.createElement('option');
+				option.text = regions[i].name;
+				option.value = regions[i].id;
+				select.appendChild(option, 0);
+			}
+			
+			var citycombo = document.getElementById("citycombo");
+			var searchbutton = document.getElementById("searchbutton");
+			var regioncombo = document.getElementById("regioncombo");
+			citycombo.style.visibility = "visible";
+			searchbutton.style.visibility = "visible";
+			regioncombo.style.visibility = "visible";
+		}
+	});
 }
 </script>
 
@@ -113,48 +112,47 @@ function loadCity(region) {
 
 	var select = document.getElementById("city");
 
-	var cities = getLocation('cities&id=' +region);
-	
-	if(cities) {
-		var option = document.createElement('option');
-		option.text = "";
-		option.value = "";
-		select.appendChild(option, 0);		
-	
-		for(var i = 0; i < cities.length; i++) {
+	getLocation('cities&id=' +region, function(cities) {
+		if(cities) {
 			var option = document.createElement('option');
-			option.text = cities[i].name;
-			option.value = cities[i].name;
-			select.appendChild(option, 0);
+			option.text = "";
+			option.value = "";
+			select.appendChild(option, 0);		
+		
+			for(var i = 0; i < cities.length; i++) {
+				var option = document.createElement('option');
+				option.text = cities[i].name;
+				option.value = cities[i].name;
+				select.appendChild(option, 0);
+			}
+			
+			select.value = "christchurch"; //use cookie here
+			
+			var citycombo = document.getElementById("citycombo");
+			var searchbutton = document.getElementById("searchbutton");
+			citycombo.style.visibility = "visible";
+			searchbutton.style.visibility = "visible";
 		}
-		
-		select.value = "christchurch"; //use cookie here
-		
-		var citycombo = document.getElementById("citycombo");
-		var searchbutton = document.getElementById("searchbutton");
-		citycombo.style.visibility = "visible";
-		searchbutton.style.visibility = "visible";
-	}
-
+	});
 }
 </script>
 
 <script type="application/javascript">
 window.onload = function() {
-	var countries = getLocation('countries');
-	
-    var select = document.getElementById("country");
-	
-    for(var i = 0; i < countries.length; i++) {
-        var option = document.createElement('option');
-        option.text = countries[i].name;
-		option.value = countries[i].id + ',' + countries[i].code;
+	getLocation('countries', function(countries) {
+		var select = document.getElementById("country");
 		
-        select.appendChild(option, 0);
-    }
-	
-	select.value = 'nz'; //use cookie here
-	getRegions();
+		for(var i = 0; i < countries.length; i++) {
+			var option = document.createElement('option');
+			option.text = countries[i].name;
+			option.value = countries[i].id + ',' + countries[i].code;
+			
+			select.appendChild(option, 0);
+		}
+		
+		select.value = 'nz'; //use cookie here
+		getRegions();
+	});
 }
 </script>
 
