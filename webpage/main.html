@@ -42,16 +42,16 @@ function search() {
 
 function getLocation(param, callback){
 	var url = 'http://www.meetspace.co.nz/location?get=';
-    var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open('GET' ,url + param,true);
+    var http = new XMLhttpuest(); // a new request
+    http.open('GET' ,url + param,true);
 	
-	Httpreq.onload = function(e) {
-		if (Httpreq.readyState === 4 && Httpreq.status === 200) {
-			callback(JSON.parse(Httpreq.responseText));
+	http.onload = function(e) {
+		if (http.readyState === 4 && http.status === 200) {
+			callback(JSON.parse(http.responseText));
 		}
 	};
 	
-	Httpreq.send(null);    
+	http.send(null);    
 }
 </script>
 
@@ -72,9 +72,7 @@ function loadRegion(country) {
 	regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
 	
 	clearRegions();
-
 	var select = document.getElementById("region");
-
 	var idAndCode = country.split(',');
 	
 	getLocation('regions&id=' + idAndCode[0], function(regions) {
@@ -114,7 +112,6 @@ function loadCity(region) {
 	}
 	
 	clearCities();
-
 	var select = document.getElementById("city");
 
 	getLocation('cities&id=' +region, function(cities) {
