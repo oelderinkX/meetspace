@@ -23,20 +23,21 @@ function search() {
 	var region = document.getElementById("region");
 	var city = document.getElementById("city");
 	
+	//region.options[region.selectedIndex].text
+	
 	if (country && country.value) {
 		link += country.value.split(',')[1];
 	}
 	
-	if (region && region.text) {
-		link += "/" + region.text.toLower();
+	if (region && region.selectedIndex >= 0) {
+		link += "/" + region.options[region.selectedIndex].text.toLower();
 	}
 	
-	if (city && city.text) {
-		link += "/" + city.text.toLower();
+	if (city && city.selectedIndex >= 0) {
+		link += "/" + city.options[city.selectedIndex].text.toLower();;
 	}
 	
 	window.location.href = link;
-	
 }
 
 function getLocation(param){
