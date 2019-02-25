@@ -30,11 +30,11 @@ function search() {
 	}
 	
 	if (region && region.selectedIndex >= 0) {
-		link += "/" + region.options[region.selectedIndex].text.toLower();
+		link += "/" + region.options[region.selectedIndex].text.toLowerCase();
 	}
 	
 	if (city && city.selectedIndex >= 0) {
-		link += "/" + city.options[city.selectedIndex].text.toLower();;
+		link += "/" + city.options[city.selectedIndex].text.toLowerCase();;
 	}
 	
 	window.location.href = link;
