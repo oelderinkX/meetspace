@@ -42,7 +42,7 @@ function search() {
 
 function getLocation(param, callback){
 	var url = 'http://www.meetspace.co.nz/location?get=';
-    var http = new XMLhttpuest(); // a new request
+    var http = new XMLHttpRequest(); // a new request
     http.open('GET' ,url + param,true);
 	
 	http.onload = function(e) {
