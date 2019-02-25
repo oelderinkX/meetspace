@@ -43,10 +43,15 @@ function search() {
 function getLocation(param, callback){
 	var url = 'http://www.meetspace.co.nz/location?get=';
     var Httpreq = new XMLHttpRequest(); // a new request
-    Httpreq.open('GET' ,url + param,false);
-    Httpreq.send(null);
+    Httpreq.open('GET' ,url + param,true);
 	
-    callback(JSON.parse(Httpreq.responseText));
+	Httpreq.onload = function(e) {
+		if (Httpreq.readyState === 4 && Httpreq.status === 200) {
+			callback(JSON.parse(Httpreq.responseText));
+		}
+	};
+	
+	Httpreq.send(null);    
 }
 </script>
 
