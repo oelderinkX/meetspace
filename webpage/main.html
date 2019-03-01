@@ -18,7 +18,7 @@
 
 <script type="application/javascript">
 function search() {
-	var link = "http://www.meetspace.co.nz/"
+	var link = '';
 	var country = document.getElementById("country");
 	var region = document.getElementById("region");
 	var city = document.getElementById("city");
@@ -27,17 +27,19 @@ function search() {
 	
 	if (country && country.value) {
 		link += country.value.split(',')[1];
+
+		if (region && region.value) {
+			link += "/" + region.options[region.selectedIndex].text.toLowerCase();
+
+			if (city && city.selectedIndex >= 0) {
+				link += "/" + city.options[city.selectedIndex].text.toLowerCase();;
+			}
+		}
 	}
 	
-	if (region && region.selectedIndex >= 0) {
-		link += "/" + region.options[region.selectedIndex].text.toLowerCase();
+	if (link.length > 0) {
+		window.location.href = 'http://www.meetspace.co.nz/' + link;
 	}
-	
-	if (city && city.selectedIndex >= 0) {
-		link += "/" + city.options[city.selectedIndex].text.toLowerCase();;
-	}
-	
-	window.location.href = link;
 }
 
 function getLocation(param, callback){
