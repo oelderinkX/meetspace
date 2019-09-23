@@ -38,6 +38,7 @@ app.listen(port, function () {
 	console.log('Reading to meat people!');
 });
 
+require('./newactivity.js')(app);
 require('./register.js')(app);
 require('./useractivate.js')(app);
 
