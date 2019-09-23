@@ -24,14 +24,24 @@ body {
 
 <form action="/newactivity" method="POST">
 
+//location
+
 	<div class="form-group">
 		<div class="input-group">
 			<span class = "input-group-addon">Activity Name</span>
-			<input type="text" value="!%ACTIVITYNAME%!" name="activityname" required class="form-control" placeholder="ActivityName">
+			<input type="text" value="!%ACTIVITYNAME%!" name="activityname" required class="form-control" placeholder="Activity Name">
 		</div>
 	</div>
+
+	<div class="form-group">
+		<div class="input-group">
+			<span class = "input-group-addon">Activity Title</span>
+			<input type="text" value="!%ACTIVITYTITLE%!" name="activitytitle" required class="form-control" placeholder="Activity Title">
+		</div>
+	</div>
+
 	
-	<input type="submit" class="btn btn-default btn-primary" value="NewActivity">
+	<input type="submit" class="btn btn-default btn-primary" value="Create Activity">
 	!%ERROR STATUS%!
 </form>
 </body>
