@@ -25,6 +25,18 @@ module.exports = function(app){
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
+		var html = req.body.activityname + '<br/>;
+		html += req.body.activitytitle + '<br/>;
+		html += req.body.day + '<br/>;
+		html += req.body.hour + '<br/>;
+		html += req.body.minute + '<br/>;
+		html += req.body.ampm + '<br/>;
+		html += req.body.activitydescription + '<br/>;
+		html += req.body.activitypublic + '<br/>;
+		html += req.body.activityprivate + '<br/>;
+		
+		res.send(html);
+		
 		
 		/*var registrationStatus = 'OK';
 		var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
