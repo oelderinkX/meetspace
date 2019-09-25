@@ -109,12 +109,26 @@ body {
 	
 	<div class="form-group">
 		<div class="input-group">
+			<span class = "input-group-addon">Activity</span>
+			<div class="custom-control custom-radio">
+				<input type="radio" id="activitypublic" name="activitypublic" class="custom-control-input">
+				<label class="custom-control-label" for="activitypublic">Public</label>
+			</div>
+			<div class="custom-control custom-radio">
+				<input type="radio" id="activityprivate" name="activityprivate" class="custom-control-input">
+				<label class="custom-control-label" for="activityprivate">Private</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="input-group">
 			<span class = "input-group-addon">Description</span>
 			<input type="text" value="!%ACTIVITYDESCRIPTION%!" name="activitydescription" required class="form-control" placeholder="Description">
 		</div>
 	</div>
-
-	public or private
+	
+	
 	
 	<input type="submit" class="btn btn-default btn-primary" value="Create Activity">
 	!%ERROR STATUS%!
