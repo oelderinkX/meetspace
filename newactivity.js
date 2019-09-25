@@ -15,7 +15,9 @@ module.exports = function(app){
 		newActivityPage = fs.readFileSync(__dirname + "/webpage/newactivity.html", "utf8");
 		
 		var formatted = newActivityPage;
-		formatted = formatted.replace('!%USERNAME%!', '');
+		formatted = formatted.replace('!%ACTIVITYNAME%!', '');
+		formatted = formatted.replace('!%ACTIVITYTITLE%!', '');
+		formatted = formatted.replace('!%ACTIVITYDESCRIPTION%!', '');
 		
 		formatted = formatted.replace('!%ERROR STATUS%!', '');
 		
