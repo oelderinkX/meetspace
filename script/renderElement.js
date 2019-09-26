@@ -51,6 +51,7 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 function activityTitle(webpage, title) {
 
   webpage = webpage.replace('!%TITLE%!', title);
+  webpage = webpage.replace('!%TITLE%!', title);
 
   return webpage;
 }
