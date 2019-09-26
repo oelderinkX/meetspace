@@ -212,11 +212,22 @@ function hideRegionCombo() {
 				</div>
 				
 				<div class="input-group">
-					<span class="input-group-addon" id="regioncombo" style="visibility: hidden;"></span>
+					<span class="input-group-addon" id="regioncombo" style="visibility: hidden;">\
+						<div class="input-group-prepend">
+							<label class="input-group-text">Region</label>
+						</div>
+					</span>
 				</div>
 				
 				<div class="input-group">
-					<span class="input-group-addon" id="citycombo" style="visibility: hidden;">City</span><select id="city"></select></span><br/>
+					<span class="input-group-addon" id="citycombo" style="visibility: hidden;">
+						<div class="input-group-prepend">
+							<label class="input-group-text">City</label>
+						</div>
+						<select id="city"></select>
+					</div>
+
+					</span></span>
 				</div>
 					<span id="searchbutton" style="visibility: hidden;"><br/>
 					<input type=button class="btn btn-default btn-primary" value="Search" onclick="search();"/></span>
