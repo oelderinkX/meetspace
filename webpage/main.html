@@ -205,8 +205,10 @@ function hideRegionCombo() {
 		 <div class="col-sm-6">
 			<h3>Search for activities in your area</h3>
 				<div class="input-group">
-					<span class="input-group-addon">Country</span>
-					<select id="country" onchange="getRegions()"></select>
+					<div class="input-group-prepend">
+						<label class="input-group-text">Country</label>
+					</div>
+					<select id="country" class="custom-select" onchange="getRegions()"></select>
 				</div>
 				
 				<div class="input-group">
