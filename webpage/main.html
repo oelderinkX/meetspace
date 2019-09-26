@@ -71,7 +71,8 @@ function loadRegion(country) {
 		return;
 	}
 	
-	regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
+	//regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
+	regioncombo.innerHTML = "<div class='input-group-prepend'><label class='input-group-text'>Region</label></div><select id='region' onchange='getCities()'></select>";
 	
 	clearRegions();
 	var select = document.getElementById("region");
