@@ -20,7 +20,7 @@ module.exports = function(app){
 		formatted = formatted.replace('!%ACTIVITYDESCRIPTION%!', '');
 		
 		var allCountries = '<option value="newzealand">New Zealand</option>';
-		var allCountries += '<option value="australia">Australia</option>';
+		allCountries += '<option value="australia">Australia</option>';
 		
 		formatted = formatted.replace('!%COUNTRIES%!', allCountries);
 		
