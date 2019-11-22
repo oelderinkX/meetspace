@@ -31,6 +31,8 @@ function postgresConfig() {
 module.exports.postgresConfig = postgresConfig;
 
 function replaceAll(str, searchValue, replaceWith) {
+	return str;
+	
 	if (searchValue == replaceWith) {
 		return str;
 	}
