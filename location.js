@@ -11,9 +11,9 @@ var countries = [];
 var regions = [];
 var cities = [];
 
-function getCountries(res) {
+function retrieveCountries() {
 	if (countries.length > 0) {
-		res.send(countries);
+		return;
 	} else {
 		var postsql = "select id, name, code from meetspace.countries order by name;";
 		pool.connect(function(err, client, done) {
@@ -30,10 +30,15 @@ function getCountries(res) {
 					}
 				}
 
-				res.send(countries);
+				return;
 			});
 		});
 	}
+}
+
+function getCountries(res) {
+	retrieveCountries();
+	res.send(countries);
 }
 
 function getRegionByCountry(res, id) {
