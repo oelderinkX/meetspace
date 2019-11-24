@@ -13,8 +13,10 @@ var cities = [];
 
 function retrieveCountries() {
 	if (countries.length > 0) {
+		console.log('all countries loaded - ' + countries.length);
 		return countries;
 	} else {
+		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries order by name;";
 		pool.connect(function(err, client, done) {
 			client.query(postsql, function(err, result) {
@@ -22,6 +24,7 @@ function retrieveCountries() {
 
 				if (result) {
 					for (var i = 0; i < result.rows.length; i++) {
+						console.log('loading country ' + result.rows[i].name);
 						countries.push({
 						  id: result.rows[i].id,
 						  name: result.rows[i].name,
