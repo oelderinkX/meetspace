@@ -10,7 +10,6 @@ var pool = new pg.Pool(common.postgresConfig());
 var countries = [];
 var regions = [];
 var cities = [];
-var countriesLoaded = false;
 
 function retrieveCountries() {
 	if (countriesLoaded) {
@@ -33,7 +32,6 @@ function retrieveCountries() {
 					}
 				}
 
-				countriesLoaded = true;
 				return;
 			});
 		});
@@ -42,7 +40,6 @@ function retrieveCountries() {
 
 function getCountries(res) {
 	retrieveCountries();
-	while(!countriesLoaded) {};
 	res.send(countries);
 }
 
