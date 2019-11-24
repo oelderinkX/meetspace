@@ -10,11 +10,11 @@ var pool = new pg.Pool(common.postgresConfig());
 var countries = [];
 var regions = [];
 var cities = [];
+var countriesLoaded = false;
 
 function retrieveCountries() {
-	if (countries.length > 0) {
-		console.log('all countries loaded - ' + countries.length);
-		return countries;
+	if (countriesLoaded) {
+		return;
 	} else {
 		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries order by name;";
@@ -33,14 +33,17 @@ function retrieveCountries() {
 					}
 				}
 
-				return countries;
+				countriesLoaded = true;
+				return;
 			});
 		});
 	}
 }
 
 function getCountries(res) {
-	res.send(retrieveCountries());
+	retrieveCountries();
+	while(!countriesLoaded) {};
+	res.send(countries);
 }
 
 function getRegionByCountry(res, id) {
