@@ -37,7 +37,7 @@ function retrieveCountries() {
 }
 
 function getCountries(res) {
-	res.send(retrieveCountries(););
+	res.send(retrieveCountries());
 }
 
 function getRegionByCountry(res, id) {
