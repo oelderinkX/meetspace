@@ -11,14 +11,6 @@ var countries = [];
 var regions = [];
 var cities = [];
 
-function wait (timeout) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, timeout)
-  })
-}
-
 function retrieveCountries(callback) {
 	if (countries.length > 0) {
 		return callback();
