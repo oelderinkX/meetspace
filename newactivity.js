@@ -20,6 +20,8 @@ module.exports = function(app){
 		formatted = formatted.replace('!%ACTIVITYTITLE%!', '');
 		formatted = formatted.replace('!%ACTIVITYDESCRIPTION%!', '');
 		
+		console.log(location.Countries.length);
+		
 		var allCountries = '';
 		for(var i in location.Countries) {
 			var code = location.Countries[i].code;
