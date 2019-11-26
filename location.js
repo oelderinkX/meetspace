@@ -12,8 +12,7 @@ exports.Countries = countries;
 var regions = [];
 var cities = [];
 
-//function retrieveCountries(callback) {
-exports.retrievesCountries = function (callback) {
+function retrieveCountries(callback) {
 	if (countries.length > 0) {
 		return callback();
 	} else {
@@ -39,6 +38,7 @@ exports.retrievesCountries = function (callback) {
 		});
 	}
 }
+exports.RetrieveCountries = retrieveCountries;
 
 function getCountries(res) {
 	retrieveCountries(function() {
