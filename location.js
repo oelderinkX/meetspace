@@ -11,9 +11,17 @@ var countries = [];
 var regions = [];
 var cities = [];
 
-function retrieveCountries() {
+function wait (timeout) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, timeout)
+  })
+}
+
+function retrieveCountries(callback) {
 	if (countriesLoaded) {
-		return;
+		return callback();
 	} else {
 		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries order by name;";
@@ -32,16 +40,19 @@ function retrieveCountries() {
 					}
 				}
 
-				return;
+				return callback();
 			});
 		});
 	}
 }
 
 function getCountries(res) {
-	retrieveCountries();
-	res.send(countries);
+	retrieveCountries() {
+		res.send(countries);
+	});
 }
+
+
 
 function getRegionByCountry(res, id) {
 	var regionByCountry = [];
