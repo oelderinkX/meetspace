@@ -38,7 +38,7 @@ function retrieveCountries(callback) {
 		});
 	}
 }
-exports.RetrieveCountries = retrieveCountries;
+module.exports.RetrieveCountries = retrieveCountries;
 
 function getCountries(res) {
 	retrieveCountries(function() {
