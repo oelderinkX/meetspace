@@ -20,22 +20,20 @@ module.exports = function(app){
 		formatted = formatted.replace('!%ACTIVITYTITLE%!', '');
 		formatted = formatted.replace('!%ACTIVITYDESCRIPTION%!', '');
 		
-		console.log(location.Countries.length);
-		
-		var allCountries = '';
-		for(var i in location.Countries) {
-			var code = location.Countries[i].code;
-			var name = location.Countries[i].name;
-			allCountries += '<option value="' + code + '">' + name + '</option>';
-		}
-		
 		formatted = formatted.replace('!%ERROR STATUS%!', '');
 		
-		//retrieveCountries(function() {
+		retrieveCountries(function() {
+			var allCountries = '';
+			for(var i in location.Countries) {
+				var code = location.Countries[i].code;
+				var name = location.Countries[i].name;
+				allCountries += '<option value="' + code + '">' + name + '</option>';
+			}
+
 			formatted = formatted.replace('!%COUNTRIES%!', allCountries);
 		
 			res.send(formatted);
-		//});
+		});
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
