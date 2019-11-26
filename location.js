@@ -47,7 +47,7 @@ function retrieveCountries(callback) {
 }
 
 function getCountries(res) {
-	retrieveCountries() {
+	retrieveCountries(function() {
 		res.send(countries);
 	});
 }
