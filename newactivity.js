@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var fs = require("fs");
 var renderElement = require('./script/renderElement.js');
 var common = require('./script/common.js');
+var location = require('./location.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -19,14 +20,20 @@ module.exports = function(app){
 		formatted = formatted.replace('!%ACTIVITYTITLE%!', '');
 		formatted = formatted.replace('!%ACTIVITYDESCRIPTION%!', '');
 		
-		var allCountries = '<option value="newzealand">New Zealand</option>';
-		allCountries += '<option value="australia">Australia</option>';
-		
-		formatted = formatted.replace('!%COUNTRIES%!', allCountries);
+		var allCountries = '';
+		for(var i in location.Countries) {
+			var code = location.Countries[i].code;
+			var name = location.Countries[i].name;
+			allCountries += '<option value="' + code + '">' + name + '</option>';
+		}
 		
 		formatted = formatted.replace('!%ERROR STATUS%!', '');
 		
-		res.send(formatted);
+		//retrieveCountries(function() {
+			formatted = formatted.replace('!%COUNTRIES%!', allCountries);
+		
+			res.send(formatted);
+		//});
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
