@@ -8,7 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var pool = new pg.Pool(common.postgresConfig());
 
 var countries = [];
-module.exports = function() { return countries; };
+exports.Countries = countries;
 var regions = [];
 var cities = [];
 
