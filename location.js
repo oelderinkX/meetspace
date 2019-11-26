@@ -8,6 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var pool = new pg.Pool(common.postgresConfig());
 
 var countries = [];
+module.exports.Countries = countries;
 var regions = [];
 var cities = [];
 
@@ -43,8 +44,6 @@ function getCountries(res) {
 		res.send(countries);
 	});
 }
-
-
 
 function getRegionByCountry(res, id) {
 	var regionByCountry = [];
