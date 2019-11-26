@@ -20,7 +20,7 @@ function wait (timeout) {
 }
 
 function retrieveCountries(callback) {
-	if (countriesLoaded) {
+	if (countries.length > 0) {
 		return callback();
 	} else {
 		console.log('loading all countries...');
