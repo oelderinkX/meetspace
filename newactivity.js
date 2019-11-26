@@ -22,7 +22,7 @@ module.exports = function(app){
 		
 		formatted = formatted.replace('!%ERROR STATUS%!', '');
 		
-		retrieveCountries(function() {
+		location.retrieveCountries(function() {
 			var allCountries = '';
 			for(var i in location.Countries) {
 				var code = location.Countries[i].code;
