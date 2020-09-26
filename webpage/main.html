@@ -93,8 +93,7 @@ function loadRegion(country) {
 		return;
 	}
 	
-	//regioncombo.innerHTML = "Region: <select id='region' onchange='getCities()'></select>";
-	regioncombo.innerHTML = "<div class='input-group-prepend'><label class='input-group-text'>Region</label></div><select id='region' onchange='getCities()'></select>";
+	regioncombo.innerHTML = "<div class='input-group-prepend'><label class='input-group-text'>Region</label></div><select id='region' onchange='setRegion()'></select>";
 	
 	clearRegions();
 	var select = document.getElementById("region");
@@ -173,22 +172,22 @@ window.onload = function() {
 			select.appendChild(option, 0);
 		}
 		
-		select.value = '158,nz'; //use cookie here
 		select.value = getCookie("country")
-		//getRegions();
 		loadRegion(select.value);
 	});
 }
 
-function getRegions() {
+function setCountry() {
 	var combobox = document.getElementById("country");
 	setCookie("country", combobox.value);
 	 
 	loadRegion(combobox.value);
 }
 
-function getCities() {
+function setRegion() {
 	var combobox = document.getElementById("region");
+	setCookie("region", combobox.value);
+	
 	loadCity(combobox.value);
 }
 
@@ -228,7 +227,7 @@ function hideRegionCombo() {
 					<div class="input-group-prepend">
 						<label class="input-group-text">Country</label>
 					</div>
-					<select id="country" class="custom-select" onchange="getRegions()"></select>
+					<select id="country" class="custom-select" onchange="setCountry()"></select>
 				</div>
 				
 				<div class="input-group">
