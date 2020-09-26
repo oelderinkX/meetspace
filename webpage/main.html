@@ -174,7 +174,9 @@ window.onload = function() {
 		}
 		
 		select.value = '158,nz'; //use cookie here
-		getRegions();
+		select.value = getCookie("country")
+		//getRegions();
+		loadRegion(select.value);
 	});
 }
 
