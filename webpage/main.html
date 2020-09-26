@@ -182,6 +182,7 @@ window.onload = function() {
 
 function getRegions() {
 	var combobox = document.getElementById("country");
+	setCookie("country", combobox.value);
 	 
 	loadRegion(combobox.value);
 }
