@@ -81,7 +81,6 @@ function getLocation(param, callback) {
 }
 
 function loadRegion(country) {
-
 	var regioncombo = document.getElementById("regioncombo");
 
 	if (!country) {
@@ -113,6 +112,8 @@ function loadRegion(country) {
 				select.appendChild(option, 0);
 			}
 			
+			select.value = getCookie("region")
+
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
 			var regioncombo = document.getElementById("regioncombo");
@@ -187,7 +188,7 @@ function setCountry() {
 function setRegion() {
 	var combobox = document.getElementById("region");
 	setCookie("region", combobox.value);
-	
+
 	loadCity(combobox.value);
 }
 
