@@ -180,14 +180,14 @@ window.onload = function() {
 
 function setCountry() {
 	var combobox = document.getElementById("country");
-	setCookie("country", combobox.value);
+	setCookie("country", combobox.value, 30);
 	 
 	loadRegion(combobox.value);
 }
 
 function setRegion() {
 	var combobox = document.getElementById("region");
-	setCookie("region", combobox.value);
+	setCookie("region", combobox.value, 30);
 
 	loadCity(combobox.value);
 }
