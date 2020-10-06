@@ -41,7 +41,9 @@ function loadRegion(country) {
 				var option = document.createElement('option');
 				option.text = regions[i].name;
 				option.value = regions[i].id;
-				select.appendChild(option, 0);
+				if (option.text) {
+					select.appendChild(option, 0);
+				}
 			}
 			
 			select.value = getCookie("region")
@@ -80,7 +82,9 @@ function loadCity(region) {
 				var option = document.createElement('option');
 				option.text = cities[i].name;
 				option.value = cities[i].name;
-				select.appendChild(option, 0);
+				if (option.text) {
+					select.appendChild(option, 0);
+				}
 			}
 			
 			select.value = "christchurch"; //use cookie here

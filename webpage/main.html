@@ -52,7 +52,9 @@ window.onload = function() {
 			option.text = countries[i].name;
 			option.value = countries[i].id + ',' + countries[i].code;
 			
-			select.appendChild(option, 0);
+			if (option.text) {
+				select.appendChild(option, 0);
+			}
 		}
 		
 		select.value = getCookie("country")
