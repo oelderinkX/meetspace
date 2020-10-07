@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/javascript/locationCommon.js"></script>
+  <script src="/javascript/common.js"></script>
 </head>
 
 <style>
@@ -14,6 +16,27 @@ body {
   padding-top: 0rem;
 }
 </style>
+
+<script>
+window.onload = function() {
+	getLocation('countries', function(countries) {
+		var select = document.getElementById("country");
+		
+		for(var i = 0; i < countries.length; i++) {
+			var option = document.createElement('option');
+			option.text = countries[i].name;
+			option.value = countries[i].id + ',' + countries[i].code;
+			
+			if (option.text) {
+				select.appendChild(option, 0);
+			}
+		}
+		
+		select.value = getCookie("country")
+		loadRegion(select.value);
+	});
+}
+</script>
 
 <body>
 <div class="jumbotron text-center">
