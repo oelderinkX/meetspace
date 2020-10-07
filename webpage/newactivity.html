@@ -23,13 +23,28 @@ body {
 <h4>New Activity</h4><br/>
 
 <form action="/newactivity" method="POST">
-
-//location
 	<div class="input-group">
-		<span class = "input-group-addon">Country</span>
-		<select class="form-control" id="country" name="country">
-			!%COUNTRIES%!
-		</select>
+		<div class="input-group-prepend">
+			<label class="input-group-text">Country</label>
+		</div>
+		<select id="country" class="custom-select" onchange="setCountry()"></select>
+	</div>
+	
+	<div class="input-group">
+		<span id="regioncombo" style="visibility: hidden;">\
+			<div class="input-group-prepend">
+				<label class="input-group-text">Region</label>
+			</div>
+		</span>
+	</div>
+	
+	<div class="input-group">
+		<span id="citycombo" style="visibility: hidden;">
+			<div class="input-group-prepend">
+				<label class="input-group-text">City</label>
+			</div>
+			<select id="city"></select>
+		</span>
 	</div>
 
 	<div class="form-group">
