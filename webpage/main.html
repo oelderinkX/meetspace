@@ -73,29 +73,25 @@ window.onload = function() {
 	<div class="row">
 		 <div class="col-sm-6">
 			<h3>Search for activities in your area</h3>
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<label class="input-group-text">Country</label>
-					</div>
-					<select id="country" class="custom-select" onchange="setCountry()"></select>
+				<div class="input-group col-md-3">
+					<span class="input-group-addon">Country</span>
+					<select id="country" class="form-control" onchange="setCountry()"></select>
 				</div>
 				
-				<div class="input-group">
-					<span id="regioncombo" style="visibility: hidden;">\
-						<div class="input-group-prepend">
-							<label class="input-group-text">Region</label>
-						</div>
-					</span>
+				<br/>
+
+				<div class="input-group col-md-3" id="regioncombo" style="visibility: hidden;">
+					<span class="input-group-addon">Region</span>
 				</div>
 				
-				<div class="input-group">
-					<span id="citycombo" style="visibility: hidden;">
-						<div class="input-group-prepend">
-							<label class="input-group-text">City</label>
-						</div>
-						<select id="city"></select>
-					</span>
+				<br/>
+				
+				<div class="input-group col-md-3" id="citycombo" style="visibility: hidden;">
+					<span class="input-group-addon">City</span>
+					<select id="city" class="form-control"></select>
 				</div>
+			
+				<br/>
 					
 				<div>
 					<span id="searchbutton" style="visibility: hidden;"><br/>
