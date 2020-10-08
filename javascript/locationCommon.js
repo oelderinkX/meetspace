@@ -32,7 +32,7 @@ function loadRegion(country) {
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
-		hideElement(citycombohideElement);
+		hideElement(citycombo);
 		hideElement(searchbutton);
 		hideRegionCombo();
 		return;
