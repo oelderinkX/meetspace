@@ -51,20 +51,16 @@ window.onload = function() {
 		<select id="country" class="form-control" onchange="setCountry()"></select>
 	</div>
 	
-	<div class="input-group">
+	<div class="input-group col-md-3">
 		<span id="regioncombo" style="visibility: hidden;">\
-			<div class="input-group-prepend">
-				<label class="input-group-text">Region</label>
-			</div>
+			<span class="input-group-addon">Region</span>
 		</span>
 	</div>
 	
-	<div class="input-group">
+	<div class="input-group col-md-3">
 		<span id="citycombo" style="visibility: hidden;">
-			<div class="input-group-prepend">
-				<label class="input-group-text">City</label>
-			</div>
-			<select id="city"></select>
+			<span class="input-group-addon">City</span>
+			<select id="city" class="form-control"></select>
 		</span>
 	</div>
 
