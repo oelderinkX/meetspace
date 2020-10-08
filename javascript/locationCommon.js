@@ -12,14 +12,28 @@ function getLocation(param, callback) {
 	http.send(null);    
 }
 
+function setVisibility(element, vStyle) {
+	if (element) {
+		element.style.visibility = vStyle;
+	}
+}
+
+function hideElement(element) {
+	setVisibility(element, "hidden");
+}
+
+function showElement(element) {
+	setVisibility(element, "visible");
+}
+
 function loadRegion(country) {
 	var regioncombo = document.getElementById("regioncombo");
 
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
-		citycombo.style.visibility = "hidden";
-		searchbutton.style.visibility = "hidden";
+		hideElement(citycombohideElement);
+		hideElement(searchbutton);
 		hideRegionCombo();
 		return;
 	}
@@ -51,9 +65,9 @@ function loadRegion(country) {
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
 			var regioncombo = document.getElementById("regioncombo");
-			citycombo.style.visibility = "visible";
-			searchbutton.style.visibility = "visible";
-			regioncombo.style.visibility = "visible";
+			showElement(citycombo);
+			showElement(searchbutton);
+			showElement(regioncombo);
 		}
 	});
 }
@@ -63,8 +77,8 @@ function loadCity(region) {
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
-		citycombo.style.visibility = "hidden";
-		searchbutton.style.visibility = "hidden";
+		hideElement(citycombo);
+		hideElement(searchbutton);
 		return;
 	}
 	
@@ -91,8 +105,8 @@ function loadCity(region) {
 			
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
-			citycombo.style.visibility = "visible";
-			searchbutton.style.visibility = "visible";
+			showElement(citycombo);
+			showElement(searchbutton);
 		}
 	});
 }
