@@ -41,6 +41,7 @@ app.listen(port, function () {
 
 require('./newactivity.js')(app);
 require('./register.js')(app);
+require('./forgotpassword.js')(app);
 require('./useractivate.js')(app);
 
 require('./login.js')(app);
