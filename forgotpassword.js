@@ -19,7 +19,7 @@ module.exports = function(app){
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%EMAILADDRESS%!', emailaddress);
 		
-		sql = "SELECT email from meetspace.user where email='" + emailaddress + "' limit 1";
+		sql = "SELECT username, password, email from meetspace.user where email='" + emailaddress + "' limit 1";
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, function(err, result) {
@@ -27,6 +27,9 @@ module.exports = function(app){
 
 				if (result.rows.length == 1)
 				{
+					var username = result.rows[0].username;
+					var password = result.rows[0].password;
+
 					notifications.forgotEmail(emailaddress, username, password);
 				}
 
