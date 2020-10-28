@@ -75,7 +75,7 @@ function sendInviteEmail(email, activityUrl, activityTitle) {
 module.exports.sendInviteEmail = sendInviteEmail;
 
 function forgotEmail(email, username, password) {
-	var emailContent = 'You are have requested that your password be set to this email.\n\n';
+	var emailContent = 'You are have requested that your password be sent to this email.\n\n';
 	emailContent += 'The password for ' + username + ' is: ' + password + '';
 
 	var to_email = new helper.Email(email);

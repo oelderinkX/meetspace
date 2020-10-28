@@ -14,8 +14,6 @@ module.exports = function(app){
 	app.get('/forgotpassword', urlencodedParser, function(req, res) {
 		var emailaddress = req.query.email;
 
-		emailaddress = 'jared.oelderinkwale@telogis.com'  //delete me!
-
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%EMAILADDRESS%!', emailaddress);
 		
@@ -30,7 +28,6 @@ module.exports = function(app){
 					var username = result.rows[0].username;
 					var password = result.rows[0].password;
 
-					emailaddress = 'joelderink.wale@gmail.com'  //delete me!
 					notifications.forgotEmail(emailaddress, username, password);
 				}
 
