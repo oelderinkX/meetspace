@@ -95,4 +95,4 @@ function forgotEmail(email, username, password) {
 		console.log(response.headers);
 	});
 }
-module.exports.sendInviteEmail = forgotEmail;
+module.exports.forgotEmail = forgotEmail;
