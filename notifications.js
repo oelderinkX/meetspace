@@ -73,3 +73,26 @@ function sendInviteEmail(email, activityUrl, activityTitle) {
 	});
 }
 module.exports.sendInviteEmail = sendInviteEmail;
+
+function forgotEmail(email, username, password) {
+	var emailContent = 'You are have requested that your password be set to this email.\n\n';
+	emailContent += 'The password for ' + username + ' is: ' + password + '';
+
+	var to_email = new helper.Email(email);
+	var subject = 'Meetspace Password';
+	var content = new helper.Content('text/plain', emailContent);
+	var mail = new helper.Mail(from_email, subject, to_email, content);
+
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON(),
+	});
+
+	sg.API(request, function(error, response) {
+		console.log(response.statusCode);
+		console.log(response.body);
+		console.log(response.headers);
+	});
+}
+module.exports.sendInviteEmail = forgotEmail;
