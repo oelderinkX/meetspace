@@ -6,6 +6,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script>
+	  function forgotPassword() {
+		var emailaddress = document.getElementsByName('email')[0].value;
+
+		if (emailaddress) {
+			window.location.href = '/forgotpassword?email=' + emailaddress;
+		} else {
+			alert('Please enter your email address');
+		}
+	  }
+  </script>
 </head>
 
 <style>
@@ -38,9 +50,9 @@ body {
 	
 	<div class="form-group">
 		<div class="input-group">
-			<input type="submit" class="btn btn-default btn-primary" value="Login">
-			<a href="/register">Register</a>
-			<a href="javascript:alert('sucks to be you!');">Forgot Password</a>
+			<input type="submit" class="btn btn-default btn-primary" value="Login"><br/>
+			<a href="/register">Register</a><br/>
+			<a href="javascript:forgotPassword();">Forgot Password</a>
 			!%ERROR STATUS%!
 		</div>
 	</div>
