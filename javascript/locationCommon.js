@@ -65,7 +65,6 @@ function loadRegion(country) {
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
 			var regioncombo = document.getElementById("regioncombo");
-			//showElement(citycombo);
 			showElement(searchbutton);
 			showElement(regioncombo);
 		}

@@ -12,7 +12,7 @@ var updateProfilePage = fs.readFileSync(__dirname + "/webpage/forgotpassword.htm
 
 module.exports = function(app){
 	app.get('/forgotpassword', urlencodedParser, function(req, res) {
-		var emailaddress = 'shit';
+		var emailaddress = req.query.emailaddress;
 
 		var formatted = updateProfilePage;
 		formatted = formatted.replace('!%EMAILADDRESS%!', emailaddress);
