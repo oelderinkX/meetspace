@@ -53,9 +53,8 @@ module.exports = function(app){
 		html += 'activity description: ' + req.body.activitydescription + '<br/>';
 		html += 'public: ' + req.body.activitypublic + '<br/>';
 		html += 'private: ' + req.body.activityprivate + '<br/>';
-		html += '<br/><br/><br/><br/>';
-		html += req.body;
-		
+		//html += req.body;
+
 		res.send(html);
 		
 		
