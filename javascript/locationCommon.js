@@ -28,10 +28,10 @@ function showElement(element) {
 
 function loadRegion(country) {
 	var regioncombo = document.getElementById("regioncombo");
+	var citycombo = document.getElementById("citycombo");
+	var searchbutton = document.getElementById("searchbutton");
 
 	if (!country) {
-		var citycombo = document.getElementById("citycombo");
-		var searchbutton = document.getElementById("searchbutton");
 		hideElement(citycombo);
 		hideElement(searchbutton);
 		hideRegionCombo();
@@ -72,9 +72,10 @@ function loadRegion(country) {
 }
 
 function loadCity(region) {
+	var citycombo = document.getElementById("citycombo");
+	var searchbutton = document.getElementById("searchbutton");
+
 	if (!country) {
-		var citycombo = document.getElementById("citycombo");
-		var searchbutton = document.getElementById("searchbutton");
 		hideElement(citycombo);
 		hideElement(searchbutton);
 		return;
