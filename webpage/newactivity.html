@@ -48,7 +48,7 @@ window.onload = function() {
 <form action="/newactivity" method="POST">
 	<div class="input-group">
 		<span class="input-group-addon">Country</span>
-		<select id="country" class="form-control" onchange="setCountry()"></select>
+		<select id="country" name="country" class="form-control" onchange="setCountry()"></select>
 	</div>
 	
 	<br/>
@@ -61,7 +61,7 @@ window.onload = function() {
 
 	<div class="input-group" id="citycombo" style="visibility: hidden;">
 		<span class="input-group-addon">City</span>
-		<select id="city" class="form-control"></select>
+		<select id="city" name="city" class="form-control"></select>
 	</div>
 
 	<br/>
@@ -141,7 +141,7 @@ window.onload = function() {
 		<div class="form-group col-md-3">
 			<div class="input-group">
 				<span class = "input-group-addon">AM / PM</span>
-				<select class="form-control" id="ampm">
+				<select class="form-control" id="ampm" name="ampm">
 					<option value="AM" selected>AM</option>
 					<option value="PM">PM</option>
 				</select>
