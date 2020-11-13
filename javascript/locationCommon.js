@@ -26,6 +26,13 @@ function showElement(element) {
 	setVisibility(element, "visible");
 }
 
+function setComboLoading(select) {
+	var option = document.createElement('option');
+	option.text = "Loading...";
+	option.value = "Loading...";
+	select.appendChild(option, 0);		
+}
+
 function loadRegion(country) {
 	var regioncombo = document.getElementById("regioncombo");
 	var citycombo = document.getElementById("citycombo");
@@ -40,13 +47,15 @@ function loadRegion(country) {
 	
 	regioncombo.innerHTML = "<span class='input-group-addon'>Region</span><select id='region' class='form-control' onchange='setRegion()'></select>";
 	
-	clearRegions();
 	var select = document.getElementById("region");
+	setComboLoading(select);
+
 	var idAndCode = country.split(',');
 	
 	showElement(searchbutton);
 	showElement(regioncombo);
 	getLocation('regions&id=' + idAndCode[0], function(regions) {
+		clearRegions();
 		if(regions) {
 			var option = document.createElement('option');
 			option.text = "";
@@ -81,12 +90,13 @@ function loadCity(region) {
 		return;
 	}
 	
-	clearCities();
 	var select = document.getElementById("city");
-
 	showElement(citycombo);
+	setComboLoading(select);
+
 	showElement(searchbutton);
 	getLocation('cities&id=' +region, function(cities) {
+		clearCities();
 		if(cities) {
 			var option = document.createElement('option');
 			option.text = "";
@@ -101,8 +111,6 @@ function loadCity(region) {
 					select.appendChild(option, 0);
 				}
 			}
-			
-			select.value = "christchurch"; //use cookie here
 			
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
