@@ -66,7 +66,7 @@ function loadRegion(country) {
 			for(var i = 0; i < regions.length; i++) {
 				var option = document.createElement('option');
 				option.text = regions[i].name;
-				option.value = regions[i].id;
+				option.value = regions[i].name;
 				if (option.text) {
 					select.appendChild(option, 0);
 				}
