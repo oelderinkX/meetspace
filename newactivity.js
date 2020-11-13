@@ -26,15 +26,35 @@ module.exports = function(app){
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
-		var html = req.body.activityname + '<br/>';
-		html += req.body.activitytitle + '<br/>';
-		html += req.body.day + '<br/>';
-		html += req.body.hour + '<br/>';
-		html += req.body.minute + '<br/>';
-		html += req.body.ampm + '<br/>';
-		html += req.body.activitydescription + '<br/>';
-		html += req.body.activitypublic + '<br/>';
-		html += req.body.activityprivate + '<br/>';
+		//country
+		//region
+		//city
+		//activityname
+		//activitytitle
+		//day
+		//hour
+		//minute
+		//ampm
+		//activitydescription
+
+		//activitypublic
+		//activityprivate
+
+		var html = '';
+		html += 'country: ' + req.body.country + '<br/>';
+		html += 'region: ' + req.body.region + '<br/>';
+		html += 'city: ' + req.body.city + '<br/>';
+		html += 'activity name: ' + req.body.activityname + '<br/>';
+		html += 'activity title: ' + req.body.activitytitle + '<br/>';
+		html += 'day: ' + req.body.day + '<br/>';
+		html += 'hour: ' + req.body.hour + '<br/>';
+		html += 'minute: ' + req.body.minute + '<br/>';
+		html += 'ampm: ' + req.body.ampm + '<br/>';
+		html += 'activity description: ' + req.body.activitydescription + '<br/>';
+		html += 'public: ' + req.body.activitypublic + '<br/>';
+		html += 'private: ' + req.body.activityprivate + '<br/>';
+		html += '<br/><br/><br/><br/>';
+		html += req.body;
 		
 		res.send(html);
 		
