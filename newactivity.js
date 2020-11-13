@@ -26,20 +26,6 @@ module.exports = function(app){
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
-		//country
-		//region
-		//city
-		//activityname
-		//activitytitle
-		//day
-		//hour
-		//minute
-		//ampm
-		//activitydescription
-
-		//activitypublic
-		//activityprivate
-
 		var html = '';
 		html += 'country: ' + req.body.country + '<br/>';
 		html += 'region: ' + req.body.region + '<br/>';
@@ -53,7 +39,6 @@ module.exports = function(app){
 		html += 'activity description: ' + req.body.activitydescription + '<br/>';
 		html += 'public: ' + req.body.activitypublic + '<br/>';
 		html += 'private: ' + req.body.activityprivate + '<br/>';
-		//html += req.body;
 
 		res.send(html);
 		
