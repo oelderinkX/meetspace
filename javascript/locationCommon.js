@@ -47,6 +47,7 @@ function loadRegion(country) {
 	
 	regioncombo.innerHTML = "<span class='input-group-addon'>Region</span><select id='region' class='form-control' onchange='setRegion()'></select>";
 	
+	clearRegions();
 	var select = document.getElementById("region");
 	setComboLoading(select);
 
@@ -90,6 +91,7 @@ function loadCity(region) {
 		return;
 	}
 	
+	clearCities();
 	var select = document.getElementById("city");
 	showElement(citycombo);
 	setComboLoading(select);
