@@ -37,8 +37,8 @@ module.exports = function(app){
 		html += 'minute: ' + req.body.minute + '<br/>';
 		html += 'ampm: ' + req.body.ampm + '<br/>';
 		html += 'activity description: ' + req.body.activitydescription + '<br/>';
-		html += 'public: ' + req.body.activitypublic + '<br/>';
-		html += 'private: ' + req.body.activityprivate + '<br/>';
+		html += 'public: ' + req.body.publicprivate + '<br/>';
+		html += 'private: ' + req.body.publicprivate + '<br/>';
 
 		res.send(html);
 		
