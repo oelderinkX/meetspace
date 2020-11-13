@@ -44,6 +44,8 @@ function loadRegion(country) {
 	var select = document.getElementById("region");
 	var idAndCode = country.split(',');
 	
+	showElement(searchbutton);
+	showElement(regioncombo);
 	getLocation('regions&id=' + idAndCode[0], function(regions) {
 		if(regions) {
 			var option = document.createElement('option');
@@ -65,14 +67,11 @@ function loadRegion(country) {
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
 			var regioncombo = document.getElementById("regioncombo");
-			showElement(searchbutton);
-			showElement(regioncombo);
 		}
 	});
 }
 
 function loadCity(region) {
-
 	if (!country) {
 		var citycombo = document.getElementById("citycombo");
 		var searchbutton = document.getElementById("searchbutton");
@@ -84,6 +83,8 @@ function loadCity(region) {
 	clearCities();
 	var select = document.getElementById("city");
 
+	showElement(citycombo);
+	showElement(searchbutton);
 	getLocation('cities&id=' +region, function(cities) {
 		if(cities) {
 			var option = document.createElement('option');
@@ -104,8 +105,6 @@ function loadCity(region) {
 			
 			var citycombo = document.getElementById("citycombo");
 			var searchbutton = document.getElementById("searchbutton");
-			showElement(citycombo);
-			showElement(searchbutton);
 		}
 	});
 }
