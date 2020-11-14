@@ -61,6 +61,7 @@ module.exports = function(app){
 					//var game_url = result.rows[0].ret_game_url;
 					console.log(result);
 					var game_url = result.rows[0].ret_game_url;
+					console.log('maybe: "' + result.rows[0] + '"');
 					res.redirect('/' + game_url);
 				}
 			});
