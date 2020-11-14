@@ -34,6 +34,10 @@ module.exports = function(app){
 		var city = req.body.city;
 		var region_id = req.body.region;
 		var country = req.body.country;
+		if (country.includes(','))
+		{
+			country = country.split(',')[1];
+		}
 		var description = req.body.activitydescription;
 		var hour = req.body.hour;
 		var minute = req.body.minute;
