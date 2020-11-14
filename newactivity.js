@@ -39,7 +39,7 @@ module.exports = function(app){
 		var minute = req.body.minute;
 		if (req.body.ampm == "PM")
 		{
-			hour = hour + 12;
+			hour = parentInt(hour, 10) + 12;
 		}
 		var time = hour + ':' + minute;
 		var day = req.body.day;
