@@ -36,7 +36,7 @@ app.use('/javascript', express.static('javascript'));
 require('./main.js')(app);
 
 app.listen(port, function () {
-	console.log('Reading to meat people!');
+	console.log('Ready to meat people!');
 });
 
 require('./newactivity.js')(app);
