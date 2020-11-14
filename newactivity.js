@@ -33,7 +33,7 @@ module.exports = function(app){
 		var country = req.body.country;
 		var description = req.body.activitydescription;
 		var hour = req.body.hour;
-		if (ampm == "")
+		if (req.body.ampm == "")
 		{
 			hour = hour + 12;
 		}
