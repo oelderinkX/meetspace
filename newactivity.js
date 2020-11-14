@@ -60,7 +60,7 @@ module.exports = function(app){
 				} else {
 					//var game_url = result.rows[0].ret_game_url;
 					console.log(result);
-					var game_url = result.rows[0].game_url;
+					var game_url = result.rows[0].ret_game_url;
 					res.redirect('/' + game_url);
 				}
 			});
