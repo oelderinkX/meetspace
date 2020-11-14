@@ -52,7 +52,8 @@ module.exports = function(app){
 		var sql = 'SELECT meetspace.create_activity($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [email, sessionId, title, activity_name, city, region_id, country, description, time, day, public], function(err, result) {
-				connection.release();
+				//connection.release();
+				done();
 				
 				if (err) {
 					console.error(err);
