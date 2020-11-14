@@ -26,63 +26,36 @@ module.exports = function(app){
 	});	
 	
 	app.post('/newactivity', urlencodedParser, function(req, res) {
-		var html = '';
-		html += 'country: ' + req.body.country + '<br/>';
-		html += 'region: ' + req.body.region + '<br/>';
-		html += 'city: ' + req.body.city + '<br/>';
-		html += 'activity name: ' + req.body.activityname + '<br/>';
-		html += 'activity title: ' + req.body.activitytitle + '<br/>';
-		html += 'day: ' + req.body.day + '<br/>';
-		html += 'hour: ' + req.body.hour + '<br/>';
-		html += 'minute: ' + req.body.minute + '<br/>';
-		html += 'ampm: ' + req.body.ampm + '<br/>';
-		html += 'activity description: ' + req.body.activitydescription + '<br/>';
-		html += 'public: ' + req.body.public + '<br/>';
+		var title = req.body.activitytitle;
+		var activity_name = req.body.activityname;
+		var city = req.body.city;
+		var region_id = req.body.region;
+		var country = req.body.country;
+		var description = req.body.activitydescription;
+		var hour = req.body.hour;
+		if (ampm == "")
+		{
+			hour = hour + 12;
+		}
+		var time = hour + ':' + minute;
+		var day = req.body.day;
+		var public = req.body.public;
 
-		res.send(html);
-		
-		
-		/*var registrationStatus = 'OK';
-		var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
-		insert = insert + 'VALUES($1,$2,$3,false);';
-		
-		var username = req.body.username;
-		var password = req.body.password;
-		var email = req.body.email;
-		
-		console.log(insert);
-		
+		//SELECT meetspace.create_activity('joelderink.wale@gmail.com', '25a3eee2-f9fa-38a1-980a-41e74253c740', 'title1', 'activity1', 'Gate Pa', 2611, 'nz', 'desc', '1:00', 2, true)
+		var sql = 'SELECT meetspace.create_activity($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 		pool.connect(function(err, connection, done) {
-			connection.query(insert, 
-						[ username,
-						password,
-						email],
-						function(err) {
+			connection.query(sql, [ email, session,	title,	activity_name,	city, region_id, country, description, time, day, public], function(err) {
 				connection.release();
 				
 				if (err) {
 					console.error(err);
-					var errAsString = err.toString();
-					var errorMessage = 'Unknown error occured when created user.  Please try again.';
 					
-					if (errAsString.indexOf('Duplicate') > 0 && errAsString.indexOf('email') > 0) {
-						errorMessage = 'Email address already taken.  Please choose another';
-					}
-					
-					var formatted = newActivityPage;
-					formatted = formatted.replace('!%USERNAME%!', username);
-					formatted = formatted.replace('!%PASSWORD%!', password);
-					formatted = formatted.replace('!%EMAIL%!', email);
-					
-					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
-					formatted = renderElement.error(formatted, errorMessage);
-					
-					res.send(formatted);
+					res.send(err);
 				} else {
-					res.redirect('/getactivationcode/' + email);
+					res.redirect('/');
 				}
 			});
-		});*/
+		});
 	});
 }
 
