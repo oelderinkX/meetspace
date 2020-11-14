@@ -51,15 +51,16 @@ module.exports = function(app){
 
 		var sql = 'SELECT meetspace.create_activity($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [email, sessionId, title, activity_name, city, region_id, country, description, time, day, public], function(err) {
+			connection.query(sql, [email, sessionId, title, activity_name, city, region_id, country, description, time, day, public], function(err, result) {
 				connection.release();
 				
 				if (err) {
 					console.error(err);
-					
 					res.send(err);
 				} else {
-					res.redirect('/');
+					var game_url = result.rows[0].ret_game_url;
+
+					res.redirect('/' + game_url);
 				}
 			});
 		});
