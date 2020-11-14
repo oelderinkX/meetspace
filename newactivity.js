@@ -49,7 +49,6 @@ module.exports = function(app){
 		var day = req.body.day;
 		var public = req.body.public;
 
-		//SELECT meetspace.create_activity('joelderink.wale@gmail.com', '25a3eee2-f9fa-38a1-980a-41e74253c740', 'title1', 'activity1', 'Gate Pa', 2611, 'nz', 'desc', '1:00', 2, true)
 		var sql = 'SELECT meetspace.create_activity($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [email, sessionId, title, activity_name, city, region_id, country, description, time, day, public], function(err) {
