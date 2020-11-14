@@ -203,7 +203,7 @@ function renderPage(country, region, city, game, req, res) {
 					if (game) {
 						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'no activty for ' + game + '.  Would you like to create it?');
 					} else {
-						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'no activties in your area');
+						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'no activties in your area.  Would you like to create one? <a href="/newactivity">Create!</a>');
 					}
 
 					res.send(noactivityPage);
