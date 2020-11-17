@@ -201,9 +201,9 @@ function renderPage(country, region, city, game, req, res) {
 					var noactivityPage = infoPage;
 
 					if (game) {
-						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'No activty for ' + game + '.  Would you like to create it? <a href="/newactivity">Create!</a>');
+						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'No activty for ' + game + '.  Would you like to create it? <a href="/newactivity" class="btn btn-success" role="button">Create!</a>');
 					} else {
-						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'No activties in your area.  Would you like to create one? <a href="/newactivity">Create!</a>');
+						noactivityPage = noactivityPage.replace('!%MESSAGE%!', 'No activties in your area.  Would you like to create one? <a href="/newactivity" class="btn btn-success" role="button">Create!</a>');
 					}
 
 					res.send(noactivityPage);
