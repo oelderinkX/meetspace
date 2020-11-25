@@ -388,12 +388,22 @@ module.exports = function(app) {
 		var game = '';
 
 		if (params.length > 1) {
-			country = params[1];
+			if (params[1] !== null && params[1] !== '') {
+				country = params[1];
+			}
 		}
 
-		region = params[2];
-		city = params[3];
-		game = params[4];
+		if (params[2] !== null && params[2] !== '') {
+			region = params[2];
+		}
+
+		if (params[3] !== null && params[3] !== '') {
+			city = params[3];
+		}
+		
+		if (params[4] !== null && params[4] !== '') {
+			game = params[4];
+		}
 
 		console.log('country: ' + country );
 		console.log('region: ' + region );
