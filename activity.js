@@ -390,10 +390,10 @@ module.exports = function(app) {
 		var url = req.url;
 		var params = url.split("/");
 
-		var country = '';
-		var city = '';
-		var region = '';
-		var game = '';
+		var country = undefined;
+		var city = undefined;
+		var region = undefined;
+		var game = undefined;
 
 		if (params.length > 1) {
 			if (params[1] !== null && params[1] !== '') {
