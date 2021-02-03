@@ -92,7 +92,7 @@ function posts(webpage, country, region, posts) {
 		}
 
 		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
-		postElement += ' <div class="alert-message alert-message-info"><p><strong>' + post.message + '</strong></br></br>&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</p></div>';
+		postElement += ' <div class="alert-message alert-message-info"><p><strong>' + post.message + '</strong></br>&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</p></div>';
 	});
 	
 	//postElement += '</dl>';
