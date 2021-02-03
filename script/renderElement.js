@@ -42,7 +42,7 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 			daylightsavings	= 1;
 		}
 
-		datetime.setHours(datetime.getHours() + 12 + daylightsavings);
+		datetime.setHours(datetime.getHours() - 12 - daylightsavings);
 	}
 
 	return datetime;
@@ -109,7 +109,6 @@ module.exports.activityTime = activityTime;
 function posts(webpage, country, region, posts) {
 	var YOUTUBELINK_SEARCH = "https://www.youtube.com/watch?";
 
-	//var postElement = '<div class="alert-message alert-message-default">';
 	var postElement = '';
 	posts.forEach(function(post) {
 		var youtubeLinkStart = post.message.indexOf(YOUTUBELINK_SEARCH);
@@ -134,16 +133,11 @@ function posts(webpage, country, region, posts) {
 		}
 
 		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
-		var agoTxt = getAgo(post.submissionDate);
-		
-		console.log('sub: ' + post.submissionDate);
-		console.log('add: ' + adjustedDateTime);
+		var agoTxt = getAgo(adjustedDateTime);
 		
 		postElement += ' <div class="alert-message alert-message-info"><strong>' + post.username + '</strong> ' + agoTxt + '<p>' + post.message + '</p></div>';
 	});
 	
-	//postElement += '</dl>';
-
 	webpage = webpage.replace('!%POSTS%!', postElement);
 
 	return webpage;
