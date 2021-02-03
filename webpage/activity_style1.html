@@ -181,17 +181,15 @@
             </div>
 
             <div class="col-sm-6">
-                <center><p>
+				<form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
                     <div class="form-group">
-                        <form action="!%ACTION%!" method="post" style="display: !%SHOWPOST%!">
+						<div class="input-group">
                             <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
                             <textarea class="form-control" rows="3" maxlength="256" name="postmessage" id="postmessage" placeholder="what's happening ?"></textarea>
-							<br/>
-                            <button type="submit" name="action" class="btn btn-primary" value="post">Post</button>
-                        </form>
+						</div>
+						<button type="submit" name="action" class="btn btn-primary" value="post">Post</button>
                     </div>
-					<i class="glyphicon glyphicon-certificate"></i>
-                </p>
+				</form>
                 <p>
 					!%POSTS%!
 				</p></center>
