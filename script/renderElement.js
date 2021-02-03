@@ -48,6 +48,48 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 	return datetime;
 }
 
+function getAgo(datetime) {
+	var now = new Date();
+
+	var minutes = 0;
+	var hours = 0;
+	var days = 0;
+	
+	minutes = ( now.getTime() - datetime.getTime());
+	minutes /= 1000;
+	minutes /= 60;
+	minutes = Math.abs(Math.floor(minutes));
+	
+	if (minutes > 59) {
+		hours = minutes / 60;
+		hours = Math.abs(Math.floor(hours));
+	}
+	
+	if (hours > 23) {
+		days = hours / 24;
+		days = Math.abs(Math.floor(days));
+	}
+	
+	var ago = '';
+	var timetxt = '';
+	
+	if (days == 1) {
+		ago = '1 day ago';
+	} else if (days > 1) {
+		ago = days + ' days ago';
+	} else if (hours == 1) {
+		ago = '1 hour ago';
+	} else if (hours > 1) {
+		ago = hours + ' hours ago';
+	} else if (minutes == 1) {
+		ago = '1 hour ago';
+	} else {
+		ago = minutes + ' minutes';
+	}
+	
+	return ;
+}
+
 function activityTitle(webpage, title) {
 
   webpage = webpage.replace('!%TITLE%!', title);
@@ -92,7 +134,9 @@ function posts(webpage, country, region, posts) {
 		}
 
 		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
-		postElement += ' <div class="alert-message alert-message-info"><p><strong>' + post.message + '</strong></br>&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</p></div>';
+		/*postElement += ' <div class="alert-message alert-message-info"><p><strong>' + post.message + '</strong></br>&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + '</p></div>';*/
+		
+		postElement += ' <div class="alert-message alert-message-info"><p><strong>' + post.message + '</strong></br>&nbsp;&nbsp;- ' + post.username + ', ' +  dateFormat(adjustedDateTime, "mmmm dS, yyyy, h:MM:ss TT") + ' - &nbsp;&nbsp; - ' + getAgo(post.submissionDate) + '</p></div>'
 	});
 	
 	//postElement += '</dl>';
