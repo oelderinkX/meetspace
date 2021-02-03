@@ -42,7 +42,7 @@ function getGmtAdjustedDateTime(datetime, country, region) {
 			daylightsavings	= 1;
 		}
 
-		datetime.setHours(datetime.getHours() - 12 - daylightsavings);
+		datetime.setHours(datetime.getHours() - daylightsavings);
 	}
 
 	return datetime;
