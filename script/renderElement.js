@@ -82,9 +82,9 @@ function getAgo(datetime) {
 	} else if (hours > 1) {
 		ago = hours + ' hours ago';
 	} else if (minutes == 1) {
-		ago = '1 hour ago';
+		ago = '1 minute ago';
 	} else {
-		ago = minutes + ' minutes';
+		ago = minutes + ' minutes ago';
 	}
 	
 	return ago;
