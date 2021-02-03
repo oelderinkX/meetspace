@@ -134,7 +134,7 @@ function posts(webpage, country, region, posts) {
 		}
 
 		var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
-		var agoTxt = getAgo(adjustedDateTime);
+		var agoTxt = getAgo(post.submissionDate);
 		
 		console.log('sub: ' + post.submissionDate);
 		console.log('add: ' + adjustedDateTime);
