@@ -87,7 +87,7 @@ function getAgo(datetime) {
 		ago = minutes + ' minutes';
 	}
 	
-	return ;
+	return ago;
 }
 
 function activityTitle(webpage, title) {
