@@ -41,7 +41,7 @@ module.exports = function(app){
 		var description = req.body.activitydescription;
 		var hour = req.body.hour;
 		var minute = req.body.minute;
-		if (req.body.ampm == "PM")
+		if (req.body.ampm == "PM" && (+hour) > 12)
 		{
 			hour = (+hour) + 12;
 		}
