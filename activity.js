@@ -139,7 +139,9 @@ function renderPage(country, region, city, game, req, res) {
 
 								res.cookie('activity' , actionlink);
 
-								var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id WHERE meetspace.whosgoing.activityId = " + activityId;
+								var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
+								whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
+								whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
 
 								pool.connect(function(err, client, done) {
 									client.query(whosgoingsql , function(err, result) {
