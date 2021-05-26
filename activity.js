@@ -312,6 +312,14 @@ function performAction(country, region, city, game, action, req, res) {
 				});
 			});
 		} else if (action == 'post') {
+			sql = "SELECT meetspace.post_message($1, $2, $3, $4, $5);";
+
+			pool.connect(function(err, client, done) {
+				client.query(sql, [ email, sessionId, activityId, req.body.postmessage, req.body.postTitle], function(err, result) {
+					renderPage(country, region, city, game, req, res);
+				});
+			});
+		} else if (action == 'announce') {
 			sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 			pool.connect(function(err, client, done) {
