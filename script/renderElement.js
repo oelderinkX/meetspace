@@ -172,7 +172,7 @@ module.exports.login = login;
 
 function whosgoing(webpage, whosgoing, whosnot, whosnotemails, showdelete) {
 	var whosgoingElement = '<ol>';
-	var whosnotElement = '<ul>';
+	var whosnotElement = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
 	var modalsElement = '';
 
 	for(var i = 0; i < whosgoing.length; i++) {
@@ -215,7 +215,7 @@ function whosgoing(webpage, whosgoing, whosnot, whosnotemails, showdelete) {
 		}
 		
 	}
-	whosnotElement += '</ul>';
+	whosnotElement += '</ul></div>';
 
 	webpage = webpage.replace('!%WHOSGOING%!',whosgoingElement);
 	webpage = webpage.replace('!%NOTATTEND%!', whosnotElement);
