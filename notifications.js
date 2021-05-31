@@ -1,6 +1,9 @@
 var helper = require('sendgrid').mail;
 var from_email = new helper.Email('meetspace.noreply@gmail.com');
 
+const sgMail = require('@sendgrid/mail') //new code
+sgMail.setApiKey(process.env.SENDGRID_API_KEY) //new code
+
 var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 function sendRegistrationEmail(email, encodedEmail) {
@@ -29,7 +32,7 @@ module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
 function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 
-	emailContent = fromUser + ' posted:\n\n' + emailContent + '\n\n' + url;
+	/*emailContent = fromUser + ' posted:\n\n' + emailContent + '\n\n' + url;
 
 	var to_email = new helper.Email(email);
 	var subject = activity + ': ' + subject;
@@ -46,7 +49,25 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 		console.log(response.statusCode);
 		console.log(response.body);
 		console.log(response.headers);
-	});
+	});*/
+
+	var msg = {
+		to: email,
+		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
+		subject: activity + ': ' + subject,
+		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
+		html: '<strong>some stuff here</strong>',
+	  }
+	  
+	  sgMail
+		.send(msg)
+		.then((response) => {
+		  console.log(response[0].statusCode)
+		  console.log(response[0].headers)
+		})
+		.catch((error) => {
+		  console.error(error)
+		})
 }
 module.exports.sendPostEmail = sendPostEmail;
 
