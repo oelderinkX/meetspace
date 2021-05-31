@@ -34,38 +34,18 @@ function sendRegistrationEmail(email, encodedEmail) {
 module.exports.sendRegistrationEmail = sendRegistrationEmail;
 
 function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
-
-	/*emailContent = fromUser + ' posted:\n\n' + emailContent + '\n\n' + url;
-
-	var to_email = new helper.Email(email);
-	var subject = activity + ': ' + subject;
-	var content = new helper.Content('text/plain', emailContent);
-	var mail = new helper.Mail(from_email, subject, to_email, content);
-
-	var request = sg.emptyRequest({
-	  method: 'POST',
-	  path: '/v3/mail/send',
-	  body: mail.toJSON(),
-	});
-
-	sg.API(request, function(error, response) {
-		console.log(response.statusCode);
-		console.log(response.body);
-		console.log(response.headers);
-	});*/
-
 	var htmlFormatted = mailPage;
-		
 	htmlFormatted = htmlFormatted.replace('!%ACTIVITY%!', activity);
 	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
 	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', fromUser);
+	htmlFormatted = htmlFormatted.replace('!%URL%!', url);
 
 	var msg = {
 		to: email,
 		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
 		subject: activity,
 		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
-		html: htmlFormatted,
+		html: htmlFormatted
 	  }
 	  
 	  sgMail
