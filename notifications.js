@@ -4,6 +4,8 @@ var from_email = new helper.Email('meetspace.noreply@gmail.com');
 const sgMail = require('@sendgrid/mail') //new code
 sgMail.setApiKey(process.env.SENDGRID_API_KEY) //new code
 
+var mailPage = fs.readFileSync(__dirname + "/webpage/mail.html", "utf8");
+
 var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 function sendRegistrationEmail(email, encodedEmail) {
@@ -51,12 +53,18 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 		console.log(response.headers);
 	});*/
 
+	var htmlFormatted = mailPage;
+		
+	htmlFormatted = formatted.replace('!%ACTIVITY%!', activity);
+	htmlFormatted = formatted.replace('!%EMAIL_CONTENT%!', emailContent);
+	htmlFormatted = formatted.replace('!%FROMUSER%!', fromUser);
+
 	var msg = {
 		to: email,
 		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
-		subject: activity + ': ' + subject,
+		subject: activity,
 		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
-		html: '<strong>some stuff here</strong>',
+		html: htmlFormatted,
 	  }
 	  
 	  sgMail
