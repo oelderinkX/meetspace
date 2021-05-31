@@ -56,9 +56,9 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 
 	var htmlFormatted = mailPage;
 		
-	htmlFormatted = formatted.replace('!%ACTIVITY%!', activity);
-	htmlFormatted = formatted.replace('!%EMAIL_CONTENT%!', emailContent);
-	htmlFormatted = formatted.replace('!%FROMUSER%!', fromUser);
+	htmlFormatted = htmlFormatted.replace('!%ACTIVITY%!', activity);
+	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
+	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', fromUser);
 
 	var msg = {
 		to: email,
