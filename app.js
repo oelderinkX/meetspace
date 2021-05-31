@@ -25,6 +25,8 @@ var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
 });
 
 app.use(favicon(__dirname + '/favicon.ico'));
+app.use('/google9ca0afca288aa353.html', express.static(__dirname + '/google/google9ca0afca288aa353.html'));
+
 
 app.disable('etag');
 
