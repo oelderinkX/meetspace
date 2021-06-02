@@ -27,9 +27,13 @@
 
         setTimeout("reloadPage()", timeoutTime);
     }
-
     setTimeout("reloadPage()", timeoutTime);
 
+    function loadPosts()
+    {
+        var posts = document.getElementById("posts");
+        posts.innerHTML = "All loaded!!!!";
+    }
 </script>
 
 <style>
@@ -188,13 +192,16 @@
                     </div>
 				</form>
                 <br/>
-                <p>
-					!%POSTS%!
+                <p id="posts">
 				</p></center>
             </div>
         </div>
     </div>
 	!%MODALS%!	
 </body>
+
+<script>
+    loadPosts();
+</script>
 
 </html>
