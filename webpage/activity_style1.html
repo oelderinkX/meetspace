@@ -101,7 +101,7 @@
 				var message = posts[i].message;
 				var submissionDate = posts[i].submissionDate;
 
-                var adjustedDateTime = getGmtAdjustedDateTime(post.submissionDate, country, region);
+                var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
 		        var agoTxt = getAgo(adjustedDateTime);
 		
 		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</p></div>';
