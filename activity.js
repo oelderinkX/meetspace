@@ -431,7 +431,7 @@ module.exports = function(app) {
 		renderPage(country, region, city, game, req, res);
 	});
 
-   app.post('*', urlencodedParser, function(req, res) {
+/*   app.post('*', urlencodedParser, function(req, res) {
 		var action = req.body.action;
 
 		var url = req.url;
@@ -457,5 +457,15 @@ module.exports = function(app) {
 		}
 
 		performAction(country, region, city, game, action, req, res);
+	});*/
+
+	app.post('/post', urlencodedParser, function(req, res) {
+		var action = req.body.action;
+
+		//probably json received and do thing!
+
+
+		//performAction(country, region, city, game, action, req, res);
+		res.send("<html><body>/post works well!</body></html>");
 	});
 }
