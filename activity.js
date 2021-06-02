@@ -431,8 +431,6 @@ module.exports = function(app) {
 					}
 				}
 
-				//webpage = renderElement.posts(webpage, country, region, posts);
-
 				res.send(posts);
 			});
 		});
