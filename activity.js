@@ -6,6 +6,7 @@ var renderElement = require('./script/renderElement.js');
 var notifications = require('./notifications.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
@@ -168,32 +169,8 @@ function renderPage(country, region, city, game, req, res) {
 											}
 
 											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot, whosnot_id, showdelete);
+											res.send(webpage);
 										}
-
-										var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
-
-										pool.connect(function(err, client, done) {
-											client.query(postsql, [activityId], function(err, result) {
-												done();
-												
-												var posts = [];
-
-												if (result) {
-													for (var i = 0; i < result.rows.length; i++) {
-														posts.push({
-														  username: result.rows[i].username,
-														  message: result.rows[i].message,
-														  title: result.rows[i].title,
-														  submissionDate: result.rows[i].postdate
-														});
-													}
-												}
-
-												webpage = renderElement.posts(webpage, country, region, posts);
-
-												res.send(webpage);
-											});
-										});
 									});
 								});
 							}
@@ -431,41 +408,33 @@ module.exports = function(app) {
 		renderPage(country, region, city, game, req, res);
 	});
 
-/*   app.post('*', urlencodedParser, function(req, res) {
+	app.post('/getposts', jsonParser, function(req, res) {
 		var action = req.body.action;
+		var activityId = req.body.activityId;
 
-		var url = req.url;
-		var params = url.split("/");
+		var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
 
-		var country = '';
-		var city = '';
-		var region = '';
-		var game = '';
+		pool.connect(function(err, client, done) {
+			client.query(postsql, [activityId], function(err, result) {
+				done();
+				
+				var posts = [];
 
-		if(params.length === 4) {
-			country = params[1];
-			city = params[2];
-			game = params[3];
-		} else if (params.length === 5) {
-			country = params[1];
-			region = params[2];
-			city = params[3];
-			game = params[4];
-		} else {
-			//details = 'unknown activity';
-			//res.send(details);
-		}
+				if (result) {
+					for (var i = 0; i < result.rows.length; i++) {
+						posts.push({
+						  username: result.rows[i].username,
+						  message: result.rows[i].message,
+						  title: result.rows[i].title,
+						  submissionDate: result.rows[i].postdate
+						});
+					}
+				}
 
-		performAction(country, region, city, game, action, req, res);
-	});*/
+				//webpage = renderElement.posts(webpage, country, region, posts);
 
-	app.post('/post', urlencodedParser, function(req, res) {
-		var action = req.body.action;
-
-		//probably json received and do thing!
-
-
-		//performAction(country, region, city, game, action, req, res);
-		res.send("<html><body>/post works well!</body></html>");
+				res.send(posts);
+			});
+		});
 	});
 }
