@@ -19,12 +19,7 @@
     }
 
     function reloadPage() {
-        var postMessageValue = document.getElementById("postmessage").value;
-        var toEmailValue = document.getElementById("toemail").value;
-
-        if (postMessageValue.length == 0 && toEmailValue.length == 0) {
-            window.location.href = window.location.href;
-        }
+        loadPosts();
 
         setTimeout("reloadPage()", timeoutTime);
     }
