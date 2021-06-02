@@ -140,8 +140,7 @@ function renderPage(country, region, city, game, req, res) {
 
 								res.cookie('activity' , actionlink);
 
-								//moved!!!!
-
+								res.send(webpage);
 							}
 						});
 					});
