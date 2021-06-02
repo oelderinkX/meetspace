@@ -31,8 +31,21 @@
 
     function loadPosts()
     {
-        var posts = document.getElementById("posts");
-        posts.innerHTML = "All loaded!!!!";
+        var postsP = document.getElementById("posts");
+
+        var json = { activityId: 3 };
+
+        sendPost("/getposts", JSON.stringify(json), function(response) {
+            var posts = JSON.parse(response);
+
+            for(var i = 0; i < posts.length; i++) {
+                var username = posts[i].username;
+				var message = posts[i].message;
+				var submissionDate = posts[i].submissionDate;
+
+                postsP.innerHTML += '<br>' + username + ' said:' + message + '<br> (' + submissionDate + ')';
+            }
+        });
     }
 </script>
 

@@ -1,6 +1,7 @@
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+function setCookie(cname, cvalue) {
+    var timeElapsed  = Date().now;
+    var d = new Date(timeElapsed);
+    d.setTime(d.getDate() + 365);
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
@@ -19,4 +20,17 @@ function setCookie(cname, cvalue, exdays) {
       }
     }
     return "";
+  }
+
+  function sendPost(url, data, callback) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(data);
+  
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        callback(this.response);
+      }
+    };
   }

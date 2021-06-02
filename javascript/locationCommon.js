@@ -122,14 +122,14 @@ function loadCity(region) {
 
 function setCountry() {
 	var combobox = document.getElementById("country");
-	setCookie("country", combobox.value, 30);
+	setCookie("country", combobox.value);
 	 
 	loadRegion(combobox.value);
 }
 
 function setRegion() {
 	var combobox = document.getElementById("region");
-	setCookie("region", combobox.value, 30);
+	setCookie("region", combobox.value);
 
 	loadCity(combobox.value);
 }
