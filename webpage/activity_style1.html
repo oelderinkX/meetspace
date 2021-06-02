@@ -99,7 +99,7 @@
             for(var i = 0; i < posts.length; i++) {
                 var username = posts[i].username;
 				var message = posts[i].message;
-				var submissionDate = posts[i].submissionDate;
+				var submissionDate = new Date(posts[i].submissionDate);
 
                 var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
 		        var agoTxt = getAgo(adjustedDateTime);
