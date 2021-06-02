@@ -12,6 +12,9 @@
 </head>
 <html>
 <script>
+    // CONSTANTS
+    var ACTIVITY_ID = !%ACTIVITYID%!;
+
     var timeoutTime = 60000 * 5;
 
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -86,7 +89,7 @@
     }
 
     function loadPosts() {
-        var json = { activityId: 3 };
+        var json = { activityId: ACTIVITY_ID };
 
         sendPost("/getposts", JSON.stringify(json), function(response) {
             var posts = JSON.parse(response);
@@ -108,7 +111,7 @@
     }
 
     function loadWhosGoing() {
-        var json = { activityId: 3 };
+        var json = { activityId: ACTIVITY_ID };
 
         sendPost("/whosgoing", JSON.stringify(json), function(response) {
             var whosgoing = JSON.parse(response);
