@@ -110,33 +110,32 @@
     function loadWhosGoing() {
         var json = { activityId: 3 };
 
-        var whosgoing = [];
+        sendPost("/whosgoing", JSON.stringify(json), function(response) {
+            var whosgoing = JSON.parse(response);
 
-        whosgoing.push({ username: 'me', status: 0 });
-        whosgoing.push({ username: 'you', status: 1 });
+            var whosgoingElement = '<ol>';
+            var whosnotElement = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
+            var modalsElement = '';
 
-        var whosgoingElement = '<ol>';
-        var whosnotElement = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
-        var modalsElement = '';
-
-        for(var i = 0; i < whosgoing.length; i++) {
-            if (whosgoing[i].status == 1) {
-                whosgoingElement += '<li>' + whosgoing[i].username + '</li>';
+            for(var i = 0; i < whosgoing.length; i++) {
+                if (whosgoing[i].status == 1) {
+                    whosgoingElement += '<li>' + whosgoing[i].username + '</li>';
+                }
             }
-        }
-        whosgoingElement += '</ol>';
+            whosgoingElement += '</ol>';
 
-        for(var i = 0; i < whosgoing.length; i++) {
-            if (whosgoing[i].status == 0) {
-                whosnotElement += '<li style="color:#CCCCCC">';
-                whosnotElement += whosgoing[i].username;
-                whosnotElement += '</li>';
+            for(var i = 0; i < whosgoing.length; i++) {
+                if (whosgoing[i].status == 0) {
+                    whosnotElement += '<li style="color:#CCCCCC">';
+                    whosnotElement += whosgoing[i].username;
+                    whosnotElement += '</li>';
+                }
             }
-        }
-        whosnotElement += '</ul></div>';
+            whosnotElement += '</ul></div>';
 
-        document.getElementById("whosgoing").innerHTML = whosgoingElement;
-        document.getElementById("notattend").innerHTML = whosnotElement;
+            document.getElementById("whosgoing").innerHTML = whosgoingElement;
+            document.getElementById("notattend").innerHTML = whosnotElement;
+        });
     }
 </script>
 
