@@ -140,39 +140,8 @@ function renderPage(country, region, city, game, req, res) {
 
 								res.cookie('activity' , actionlink);
 
-								var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
-								whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
-								whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
+								//moved!!!!
 
-								pool.connect(function(err, client, done) {
-									client.query(whosgoingsql , function(err, result) {
-										done();
-
-										var whosgoing = [];
-										var whosnot = [];
-										var whosnot_id = [];
-
-										if (!result) {
-											whosnot.push('no body');
-										} else {
-											for (var i = 0; i < result.rows.length; i++) {
-												var email = result.rows[i].email;
-												var username = result.rows[i].username;
-												var status = result.rows[i].status;
-
-												if (status == 1) {
-													whosgoing.push(username);
-												} else {
-													whosnot.push(username);
-													whosnot_id.push(email);
-												}
-											}
-
-											webpage = renderElement.whosgoing(webpage, whosgoing, whosnot, whosnot_id, showdelete);
-											res.send(webpage);
-										}
-									});
-								});
 							}
 						});
 					});
@@ -432,6 +401,33 @@ module.exports = function(app) {
 				}
 
 				res.send(posts);
+			});
+		});
+	});
+
+	app.post('/whosgoing', jsonParser, function(req, res) {
+		var action = req.body.action;
+		var activityId = req.body.activityId;
+
+		var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
+		whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
+		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
+
+		pool.connect(function(err, client, done) {
+			client.query(whosgoingsql , function(err, result) {
+				done();
+
+				var whosgoing = [];
+
+				for (var i = 0; i < result.rows.length; i++) {
+					//var email = result.rows[i].email;
+					var username = result.rows[i].username;
+					var status = result.rows[i].status;
+
+					whosgoing.push({ username: username, status: status });
+				}
+
+				res.send(whosgoing);
 			});
 		});
 	});
