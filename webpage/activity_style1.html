@@ -171,11 +171,10 @@
         var attend = document.getElementById("attend");
         var unattend = document.getElementById("unattend");
         attend.style = "display: none";
-        unattend.style = "display: none";
+        unattend.style = "display: inline";
 
         sendPost("/attend", JSON.stringify(json), function(response) {
             loadWhosGoing();
-            unattend.style = "display: inline";
         });         
     }
 
@@ -184,12 +183,20 @@
 
         var attend = document.getElementById("attend");
         var unattend = document.getElementById("unattend");
-        attend.style = "display: none";
+        attend.style = "display: inline";
         unattend.style = "display: none";
 
         sendPost("/unattend", JSON.stringify(json), function(response) {
             loadWhosGoing();
-            attend.style = "display: inline";
+        });         
+    }
+
+    function invite() {
+        var email = document.getElementById("toemail").value;
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, email: email };
+
+        sendPost("/invite", JSON.stringify(json), function(response) {
+            // update nothing
         });         
     }
 </script>
@@ -326,7 +333,7 @@
                         <div class="input-group col-xs-9">
 							<input type="email" name="toemail" id="toemail" class="form-control" placeholder="invite peter@gmail.com">
 							<span class="input-group-btn">
-								<button type="submit" name="action" class="btn btn-primary" value="invite"><span class="glyphicon glyphicon-envelope"></span></button>
+								<button class="btn btn-primary" onclick="invite();"><span class="glyphicon glyphicon-envelope"></span></button>
 							</span>
                         </div>
                     </div>

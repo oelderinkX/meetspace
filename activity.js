@@ -157,12 +157,6 @@ function renderPage(country, region, city, game, req, res) {
 						noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
 					} else {
 						var message = 'No activties in your area.  Would you like to create one? <a href="/newactivity" class="btn btn-primary" role="button">Create</a>';
-						//diagnostics start
-						//message += '<br/>country: "' + country + '"';
-						//message += '<br/>region: "' + region + '"';
-						//message += '<br/>city: "' + city + '"';
-						//message += '<br/>game: "' + game + '"';
-						//diagnostics end
 						noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
 					}
 
@@ -239,25 +233,6 @@ function performAction(country, region, city, game, action, req, res) {
 			pool.connect(function(err, client, done) {
 				client.query(sql, function(err, result) {
 					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else if (action == 'invite') {
-			sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					if (result && result.rows && result.rows.length == 1) {
-						var isValid = result.rows[0].ret_valid;
-						var activityTitle = result.rows[0].ret_title;
-
-						if (isValid) {
-							notifications.sendInviteEmail(req.body.toemail, getUrl(country, region, city, game), activityTitle);
-						}
-					}
 
 					renderPage(country, region, city, game, req, res);
 				});
@@ -468,4 +443,31 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/invite', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var toEmail = req.body.toEmail;
+		var country = req.body.country;
+		var region = req.body.region;
+		var city = req.body.city;
+		var game = req.body.game;
+
+		sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+
+				if (result && result.rows && result.rows.length == 1) {
+					var isValid = result.rows[0].ret_valid;
+					var activityTitle = result.rows[0].ret_title;
+
+					if (isValid) {
+						notifications.sendInviteEmail(toEmail, getUrl(country, region, city, game), activityTitle);
+					}
+				}
+
+				res.send({ success: true});
+			});
+		});
+	});
 }
