@@ -194,6 +194,7 @@
     function invite() {
         var toEmail = document.getElementById("toemail").value;
         var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: toEmail };
+        document.getElementById("toemail").value = '';
 
         sendPost("/invite", JSON.stringify(json), function(response) {
             // update nothing

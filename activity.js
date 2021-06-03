@@ -446,6 +446,7 @@ module.exports = function(app) {
 	app.post('/invite', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
 		var toEmail = req.body.toEmail;
+		var sessionId = req.cookies['sessionId'];
 		var country = req.body.country;
 		var region = req.body.region;
 		var city = req.body.city;
