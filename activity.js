@@ -243,26 +243,6 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, req, res);
 				});
 			});
-		} else if (action == 'attend') {
-			sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else if (action == 'unattend') {
-			sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
 		} else if (action == 'invite') {
 			sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
 
@@ -413,6 +393,7 @@ module.exports = function(app) {
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
+				done();
 				res.send({ success: true});
 			});
 		});
@@ -447,10 +428,44 @@ module.exports = function(app) {
 
 				pool.connect(function(err, client, done) {
 					client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
+						done();
 						res.send({ success: true});
 					});
 				});
 			});
 		});
 	});
+
+	app.post('/attend', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		var sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+
+				res.send({ success: true});
+			});
+		});
+	});
+
+	app.post('/unattend', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		var sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+
+				res.send({ success: true});
+			});
+		});
+	});
+
 }
