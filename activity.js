@@ -431,6 +431,9 @@ module.exports = function(app) {
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
+				console.log('diag postmessage');
+				console.log(err);
+				console.log(result);
 				res.send({ success: true});
 			});
 		});
