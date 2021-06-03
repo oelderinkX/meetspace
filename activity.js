@@ -441,7 +441,7 @@ module.exports = function(app) {
 					var toEmail = result.rows[i].ret_email;
 					var activityTitle = result.rows[i].ret_activitytitle;
 
-					notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', req.body.postmessage);
+					notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', message);
 				}
 				sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
 
