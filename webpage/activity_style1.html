@@ -13,7 +13,11 @@
 <html>
 <script>
     // CONSTANTS
-    var ACTIVITY_ID = !%ACTIVITYID%!;
+    var ACTIVITY_ID = '!%ACTIVITYID%!';
+    var COUNTRY = '!%COUNTRY%!';
+	var REGION = '!%REGION%!';
+	var CITY = '!%CITY%!';
+	var GAME = '!%GAME%!';
 
     var timeoutTime = 60000 * 5;
 
@@ -153,7 +157,7 @@
 
     function announceMessage() {
         var message = document.getElementById("postmessage").value;
-        var json = { activityId: ACTIVITY_ID, message: message };
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
         document.getElementById("postmessage").value = '';
 
         sendPost("/announcemessage", JSON.stringify(json), function(response) {

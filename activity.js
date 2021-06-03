@@ -138,6 +138,11 @@ function renderPage(country, region, city, game, req, res) {
 								webpage = webpage.replace('!%SHOWPOST%!', showpost);
 								webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
 
+								webpage = webpage.replace('!%COUNTRY%!',country);
+								webpage = webpage.replace('!%REGION%!',region);
+								webpage = webpage.replace('!%CITY%!',city);
+								webpage = webpage.replace('!%GAME%!',game);
+
 								res.cookie('activity' , actionlink);
 
 								res.send(webpage);
@@ -416,8 +421,15 @@ module.exports = function(app) {
 	app.post('/announcemessage', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
 		var message = req.body.message;
+
+		var country = req.body.country;
+		var region = req.body.region;
+		var city = req.body.city;
+		var game = req.body.game;
+
 		var email = req.cookies['email'];
 		var sessionId = req.cookies['sessionId'];
+		var username = req.cookies['username'];
 
 		var sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
