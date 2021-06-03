@@ -153,11 +153,12 @@
 
     function announceMessage() {
         var message = document.getElementById("postmessage").value;
-
         var json = { activityId: ACTIVITY_ID, message: message };
+        document.getElementById("postmessage").value = '';
+
         sendPost("/announcemessage", JSON.stringify(json), function(response) {
             loadPosts();
-        });          
+        });         
     }
 </script>
 

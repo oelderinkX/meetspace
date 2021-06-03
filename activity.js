@@ -258,29 +258,6 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, req, res);
 				});
 			});
-		} else if (action == 'announce') {
-			sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					for (var i = 0; i < result.rows.length; i++) {
-						var toEmail = result.rows[i].ret_email;
-						var activityTitle = result.rows[i].ret_activitytitle;
-
-						notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), req.body.postTitle, req.body.postmessage);
-					}
-					
-					sql = "SELECT meetspace.post_message($1, $2, $3, $4, $5);";
-
-					pool.connect(function(err, client, done) {
-						client.query(sql, [ email, sessionId, activityId, req.body.postmessage, req.body.postTitle], function(err, result) {
-							renderPage(country, region, city, game, req, res);
-						});
-					});
-				});
-			});
 		} else if (action == 'invite') {
 			sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
 
@@ -427,11 +404,40 @@ module.exports = function(app) {
 		var email = req.cookies['email'];
 		var sessionId = req.cookies['sessionId'];
 
-		sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+		var sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
 				res.send({ success: true});
+			});
+		});
+	});
+
+	app.post('/announcemessage', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var message = req.body.message;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		var sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+
+				for (var i = 0; i < result.rows.length; i++) {
+					var toEmail = result.rows[i].ret_email;
+					var activityTitle = result.rows[i].ret_activitytitle;
+
+					notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', req.body.postmessage);
+				}
+				sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+
+				pool.connect(function(err, client, done) {
+					client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
+						res.send({ success: true});
+					});
+				});
 			});
 		});
 	});
