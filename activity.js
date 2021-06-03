@@ -258,14 +258,6 @@ function performAction(country, region, city, game, action, req, res) {
 					renderPage(country, region, city, game, req, res);
 				});
 			});
-		} else if (action == 'post') {
-			sql = "SELECT meetspace.post_message($1, $2, $3, $4, $5);";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, [ email, sessionId, activityId, req.body.postmessage, req.body.postTitle], function(err, result) {
-					renderPage(country, region, city, game, req, res);
-				});
-			});
 		} else if (action == 'announce') {
 			sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
@@ -377,7 +369,6 @@ module.exports = function(app) {
 	});
 
 	app.post('/getposts', jsonParser, function(req, res) {
-		var action = req.body.action;
 		var activityId = req.body.activityId;
 
 		var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
@@ -405,7 +396,6 @@ module.exports = function(app) {
 	});
 
 	app.post('/whosgoing', jsonParser, function(req, res) {
-		var action = req.body.action;
 		var activityId = req.body.activityId;
 
 		var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
@@ -427,6 +417,21 @@ module.exports = function(app) {
 				}
 
 				res.send(whosgoing);
+			});
+		});
+	});
+
+	app.post('/postmessage', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var message = req.body.message;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
+				res.send({ success: true});
 			});
 		});
 	});

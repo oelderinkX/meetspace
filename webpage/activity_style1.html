@@ -140,6 +140,24 @@
             document.getElementById("notattend").innerHTML = whosnotElement;
         });
     }
+
+    function postMessage() {
+        var message = document.getElementById("postmessage").value;
+
+        var json = { activityId: ACTIVITY_ID, message: message };
+        sendPost("/postmessage", JSON.stringify(json), function(response) {
+            loadPosts();
+        });          
+    }
+
+    function announceMessage() {
+        var message = document.getElementById("postmessage").value;
+
+        var json = { activityId: ACTIVITY_ID, message: message };
+        sendPost("/announcemessage", JSON.stringify(json), function(response) {
+            loadPosts();
+        });          
+    }
 </script>
 
 <style>
@@ -289,11 +307,10 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
                         <textarea class="form-control" rows="3" cols="90" maxlength="256" id="postmessage" placeholder="what's happening ?"></textarea>
                     </div>
-                    <button class="btn btn-primary pull-left" value="post" onclick="alert('post');"><span class="glyphicon glyphicon-pencil"></span> Post</button>
-                    <button class="btn btn-danger pull-right" value="announce"  onclick="alert('announce');">Announce <span class="glyphicon glyphicon-envelope"></span></button>
+                    <button class="btn btn-primary pull-left" value="post" onclick="postMessage();"><span class="glyphicon glyphicon-pencil"></span> Post</button>
+                    <button class="btn btn-danger pull-right" value="announce"  onclick="announceMessage();">Announce <span class="glyphicon glyphicon-envelope"></span></button>
                 </div>
                 <br/>
                 <p id="posts">
