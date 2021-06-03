@@ -168,20 +168,28 @@
     function attend() {
         var json = { activityId: ACTIVITY_ID };
 
-        alert('attending!');
+        var attend = document.getElementById("attend");
+        var unattend = document.getElementById("unattend");
+        attend.style = "display: none";
+        unattend.style = "display: none";
 
         sendPost("/attend", JSON.stringify(json), function(response) {
             loadWhosGoing();
+            unattend.style = "display: inline";
         });         
     }
 
     function unattend() {
         var json = { activityId: ACTIVITY_ID };
 
-        alert('unattending!');
+        var attend = document.getElementById("attend");
+        var unattend = document.getElementById("unattend");
+        attend.style = "display: none";
+        unattend.style = "display: none";
 
         sendPost("/unattend", JSON.stringify(json), function(response) {
             loadWhosGoing();
+            attend.style = "display: inline";
         });         
     }
 </script>
@@ -304,8 +312,8 @@
                 </ul>
             </div>
             
-            <button onclick="attend();" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
-            <button onclick="unattend();" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
+            <button onclick="attend();" id="attend" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
+            <button onclick="unattend();" id="unattend" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
         </div>
     </div>
 
