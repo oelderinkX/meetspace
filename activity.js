@@ -451,7 +451,7 @@ module.exports = function(app) {
 		var city = req.body.city;
 		var game = req.body.game;
 
-		sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
+		sql = "select * FROM meetspace.check_credentials('" + toEmail + "', '" + sessionId + "', " + activityId + ");";
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, function(err, result) {
