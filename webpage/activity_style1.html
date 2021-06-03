@@ -164,6 +164,26 @@
             loadPosts();
         });         
     }
+
+    function attend() {
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+
+        alert('attending!');
+
+        sendPost("/attend", JSON.stringify(json), function(response) {
+            loadWhosGoing();
+        });         
+    }
+
+    function unattend() {
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+
+        alert('unattending!');
+
+        sendPost("/unattend", JSON.stringify(json), function(response) {
+            loadWhosGoing();
+        });         
+    }
 </script>
 
 <style>
@@ -268,27 +288,25 @@
         <p>!%TIME%!</p>
         <hr class="my-4">
         <p class="lead">!%DESCRIPTION%!</p>
-        <form name="actions" id="actionsForm" action="!%ACTION%!" method="post">
-            <div class="btn-toolbar">
-				<input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
-				<input type="hidden" name="action" id="hiddenaction"></input>
-				<input type="hidden" name="remove_email" id="remove_email"></input>
-				
-				<div class="btn-group" style="display: !%SHOWCHANNEL%!">				
-					<button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#" onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();" style="display: !%SHOWJOIN%!">Join</a></li>
-						<li><a href="#" onclick="document.getElementById('hiddenaction').value='unjoin'; document.getElementById('actionsForm').submit();" style="display: !%SHOWUNJOIN%!">Leave</a></li>
-						<li><a href="#" onclick="document.getElementById('hiddenaction').value='editmode'; document.getElementById('actionsForm').submit();" style="display: !%SHOWEDIT%!">Edit</a></li>
-						<li><a href="#" onclick="alert('Reset handled by cronjob, thanks Patrick');">Reset</a></li>
-					</ul>
-				</div>
-				
-                <button onclick="document.getElementById('hiddenaction').value='attend'; document.getElementById('actionsForm').submit();" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
-                <button onclick="document.getElementById('hiddenaction').value='unattend'; document.getElementById('actionsForm').submit();" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
-            </div>
-        </form>
 
+        <div class="btn-toolbar">
+            <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
+            <input type="hidden" name="action" id="hiddenaction"></input>
+            <input type="hidden" name="remove_email" id="remove_email"></input>
+            
+            <div class="btn-group" style="display: !%SHOWCHANNEL%!">				
+                <button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();" style="display: !%SHOWJOIN%!">Join</a></li>
+                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='unjoin'; document.getElementById('actionsForm').submit();" style="display: !%SHOWUNJOIN%!">Leave</a></li>
+                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='editmode'; document.getElementById('actionsForm').submit();" style="display: !%SHOWEDIT%!">Edit</a></li>
+                    <li><a href="#" onclick="alert('Reset handled by cronjob, thanks Patrick');">Reset</a></li>
+                </ul>
+            </div>
+            
+            <button onclick="attend();" class="btn btn-primary" style="display: !%SHOWATTEND%!">Yes</button>
+            <button onclick="unattend();" class="btn btn-primary" style="display: !%SHOWUNATTEND%!">No</button>				
+        </div>
     </div>
 
     <div class="container">
