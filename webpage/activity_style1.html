@@ -186,7 +186,7 @@
                     if (showEdit) {
                         whosnotgoingHtml += '&nbsp;&nbsp;';
                         whosnotgoingHtml += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
-                        whosnotgoingHtml += ' onclick="alert(\'delete ' + xor(whosgoing[i].e, ACTIVITY_ID) + '\');"></i>';
+                        whosnotgoingHtml += ' onclick="removeFromActivity(\'' + whosgoing[i].e + '\');"></i>';
                     }
 
                     whosnotgoingHtml += '</li>';
@@ -281,7 +281,7 @@
     function removeFromActivity(e) {
         var json = { activityId: ACTIVITY_ID, e: e };
 
-        sendPost("/removeFromActivity", JSON.stringify(json), function(response) {
+        sendPost("/removefromactivity", JSON.stringify(json), function(response) {
             loadWhosGoing();
         });   
     }
