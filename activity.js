@@ -396,6 +396,7 @@ module.exports = function(app) {
 	app.post('/invite', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
 		var toEmail = req.body.toEmail;
+		var username = req.cookies['username'];
 		var sessionId = req.cookies['sessionId'];
 		var country = req.body.country;
 		var region = req.body.region;
@@ -413,7 +414,7 @@ module.exports = function(app) {
 					var activityTitle = result.rows[0].ret_title;
 
 					if (isValid) {
-						notifications.sendInviteEmail(toEmail, getUrl(country, region, city, game), activityTitle);
+						notifications.sendInviteEmail(toEmail, username, getUrl(country, region, city, game), activityTitle);
 					}
 				}
 

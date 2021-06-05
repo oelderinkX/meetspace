@@ -60,27 +60,37 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 }
 module.exports.sendPostEmail = sendPostEmail;
 
-function sendInviteEmail(email, activityUrl, activityTitle) {
-	var emailContent = 'You have been invited to "' + activityTitle + '"\n\n';
-	emailContent += 'Click the link below to visit the activity\n\n';
-	emailContent += activityUrl + '\n\n';
+function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
+	var htmlFormatted = mailPage;
 
-	var to_email = new helper.Email(email);
-	var subject = 'You have been invited to "' + activityTitle + '"';
-	var content = new helper.Content('text/plain', emailContent);
-	var mail = new helper.Mail(from_email, subject, to_email, content);
+	var emailContent = 'Hello ' + email + ', <br/>';
+	emailContent += 'You have been invited to the activity \'' + activityTitle + '\' from \'' + fromUser + '\'.<br/>';
+	emailContent += 'If you would like to join the activity, click the meetspace link below.<br/>';
+	emailContent += '<br/>';
+	emailContent += 'Thanks, the Meetspace Team!<br/>';
 
-	var request = sg.emptyRequest({
-	  method: 'POST',
-	  path: '/v3/mail/send',
-	  body: mail.toJSON(),
-	});
+	htmlFormatted = htmlFormatted.replace('!%ACTIVITY%!', activityTitle);
+	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
+	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', 'the meetspace team');
+	htmlFormatted = htmlFormatted.replace('!%URL%!', activityUrl);
 
-	sg.API(request, function(error, response) {
-		console.log(response.statusCode);
-		console.log(response.body);
-		console.log(response.headers);
-	});
+	var msg = {
+		to: email,
+		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
+		subject: activity,
+		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
+		html: htmlFormatted
+	  }
+	  
+	  sgMail
+		.send(msg)
+		.then((response) => {
+		  console.log(response[0].statusCode)
+		  console.log(response[0].headers)
+		})
+		.catch((error) => {
+		  console.error(error)
+		})
 }
 module.exports.sendInviteEmail = sendInviteEmail;
 
