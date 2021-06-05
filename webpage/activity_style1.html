@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webpage/activity_css.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/javascript/common.js"></script>
-    <link rel="stylesheet" href="/webpage/activity_css.css">
 	<title>!%TITLE%!</title>
 </head>
 <html>
@@ -19,6 +19,32 @@
 	var REGION = '!%REGION%!';
 	var CITY = '!%CITY%!';
 	var GAME = '!%GAME%!';
+
+    // PRIVATE GLOBAL
+    var _posts;
+    var _whosgoing;
+    var _notattend;
+    var _postmessage;
+    var _attend;
+    var _unattend;
+    var _toemail;
+    var _join;
+    var _leave;
+    var _messaging;
+    var _invites;
+
+    function setElementsVar() {
+        _posts = document.getElementById("posts");
+        _whosgoing = document.getElementById("whosgoing");
+        _notattend = document.getElementById("notattend");
+        _postmessage = document.getElementById("postmessage");
+        _attend = document.getElementById("attend");
+        _toemail = document.getElementById("toemail")
+        _join = document.getElementById("join");
+        _leave = document.getElementById("leave");
+        _messaging = document.getElementById("messaging");
+        _invites = document.getElementById("invites");
+    }
 
     function getRandomTime() {
         var max = 60000 * 6;
@@ -116,7 +142,7 @@
 		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</p></div>';
             }
 
-            document.getElementById("posts").innerHTML = postElement;
+            _posts.innerHTML = postElement;
         });
     }
 
@@ -146,15 +172,14 @@
             }
             whosnotElement += '</ul></div>';
 
-            document.getElementById("whosgoing").innerHTML = whosgoingElement;
-            document.getElementById("notattend").innerHTML = whosnotElement;
+            _whosgoing.innerHTML = whosgoingElement;
+            _notattend.innerHTML = whosnotElement;
         });
     }
 
     function postMessage() {
-        var message = document.getElementById("postmessage").value;
-        var json = { activityId: ACTIVITY_ID, message: message };
-        document.getElementById("postmessage").value = '';
+        var json = { activityId: ACTIVITY_ID, message: _postmessage.value };
+        _postmessage.value = '';
 
         sendPost("/postmessage", JSON.stringify(json), function(response) {
             loadPosts();
@@ -162,9 +187,8 @@
     }
 
     function announceMessage() {
-        var message = document.getElementById("postmessage").value;
-        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
-        document.getElementById("postmessage").value = '';
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: _postmessage.value };
+        _postmessage.value = '';
 
         sendPost("/announcemessage", JSON.stringify(json), function(response) {
             loadPosts();
@@ -173,11 +197,8 @@
 
     function attend() {
         var json = { activityId: ACTIVITY_ID };
-
-        var attend = document.getElementById("attend");
-        var unattend = document.getElementById("unattend");
-        attend.style = "display: none";
-        unattend.style = "display: inline";
+        hide(_attend);
+        show(_unattend);
 
         sendPost("/attend", JSON.stringify(json), function(response) {
             loadWhosGoing();
@@ -186,11 +207,8 @@
 
     function unattend() {
         var json = { activityId: ACTIVITY_ID };
-
-        var attend = document.getElementById("attend");
-        var unattend = document.getElementById("unattend");
-        attend.style = "display: inline";
-        unattend.style = "display: none";
+        show(_attend);
+        hide(_unattend);
 
         sendPost("/unattend", JSON.stringify(json), function(response) {
             loadWhosGoing();
@@ -198,9 +216,8 @@
     }
 
     function invite() {
-        var toEmail = document.getElementById("toemail").value;
-        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: toEmail };
-        document.getElementById("toemail").value = '';
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: _toemail.value };
+        _toemail.value = '';
 
         sendPost("/invite", JSON.stringify(json), function(response) {
             // update nothing
@@ -209,10 +226,12 @@
 
     function join() {
         var json = { activityId: ACTIVITY_ID };
-        var join = document.getElementById("join");
-        var leave = document.getElementById("leave");
-        join.style = "display: none";
-        leave.style = "display: inline";
+        hide(_join);
+        show(_leave);
+        show(_attend);
+        show(_unattend);
+        show(_messaging);
+        show(_invites);
 
         sendPost("/join", JSON.stringify(json), function(response) {
             loadWhosGoing();
@@ -221,10 +240,13 @@
 
     function leave() {
         var json = { activityId: ACTIVITY_ID };
-        var join = document.getElementById("join");
-        var leave = document.getElementById("leave");
-        join.style = "display: inline";
-        leave.style = "display: none";
+        show(_join);
+        hide(_leave);
+
+        hide(_attend);
+        hide(_unattend);
+        hide(_messaging);
+        hide(_invites);
 
         sendPost("/leave", JSON.stringify(json), function(response) {
             loadWhosGoing();
@@ -275,7 +297,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <div class="form-group" style="display: !%SHOWINVITE%!">
+                <div class="form-group" id="invites" style="display: !%SHOWINVITE%!">
                     <div class="input-group col-xs-9">
                         <input type="email" name="toemail" id="toemail" class="form-control" placeholder="invite peter@gmail.com">
                         <span class="input-group-btn">
@@ -290,7 +312,7 @@
 			<br/>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group" id="messaging" style="display: none">
                         <textarea class="form-control" rows="3" cols="90" maxlength="256" id="postmessage" placeholder="what's happening ?"></textarea>
                     </div>
                     <button class="btn btn-primary pull-left" value="post" onclick="postMessage();"><span class="glyphicon glyphicon-pencil"></span> Post</button>
@@ -305,6 +327,7 @@
 </body>
 
 <script>
+    setElementsVar();
     loadPosts();
     loadWhosGoing();
 </script>
