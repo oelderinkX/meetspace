@@ -395,6 +395,7 @@ module.exports = function(app) {
 
 	app.post('/invite', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
+		var email = req.cookies['email'];
 		var toEmail = req.body.toEmail;
 		var username = req.cookies['username'];
 		var sessionId = req.cookies['sessionId'];
@@ -403,7 +404,7 @@ module.exports = function(app) {
 		var city = req.body.city;
 		var game = req.body.game;
 
-		sql = "select * FROM meetspace.check_credentials('" + toEmail + "', '" + sessionId + "', " + activityId + ");";
+		sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, function(err, result) {
