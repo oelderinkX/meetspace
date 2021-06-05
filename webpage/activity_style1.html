@@ -39,6 +39,7 @@
         _notattend = document.getElementById("notattend");
         _postmessage = document.getElementById("postmessage");
         _attend = document.getElementById("attend");
+        _unattend = document.getElementById("unattend");
         _toemail = document.getElementById("toemail")
         _join = document.getElementById("join");
         _leave = document.getElementById("leave");
@@ -311,8 +312,8 @@
             </div>
 			<br/>
             <div class="col-sm-6">
-                <div class="form-group">
-                    <div class="input-group" id="messaging" style="display: none">
+                <div class="form-group" id="messaging" style="display: !%SHOWMESSAGING%!">
+                    <div class="input-group">
                         <textarea class="form-control" rows="3" cols="90" maxlength="256" id="postmessage" placeholder="what's happening ?"></textarea>
                     </div>
                     <button class="btn btn-primary pull-left" value="post" onclick="postMessage();"><span class="glyphicon glyphicon-pencil"></span> Post</button>
