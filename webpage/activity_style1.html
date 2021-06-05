@@ -240,8 +240,9 @@
         var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: _toemail.value };
         _toemail.value = '';
 
+        console.log('sending request: ' + JSON.stringify(json));
         sendPost("/invite", JSON.stringify(json), function(response) {
-            // update nothing
+            console.log('received response: ' + JSON.stringify(json));
         });         
     }
 

@@ -417,7 +417,11 @@ module.exports = function(app) {
 					}
 				}
 
-				res.send({ success: true});
+				if (err) {
+					res.send({ success: false, error: err});
+				} else {
+					res.send({ success: true});
+				}
 			});
 		});
 	});
