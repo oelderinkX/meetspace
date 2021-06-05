@@ -20,19 +20,24 @@
 	var CITY = '!%CITY%!';
 	var GAME = '!%GAME%!';
 
-    var timeoutTime = 60000 * 5;
-
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        timeoutTime = 60000 * 5;
+    function getRandomTime() {
+        var max = 60000 * 7;
+        var min = 60000 * 3;
+        var time = Math.floor(Math.random() * (max - min) ) + min;
+        return time;
     }
 
-    function reloadPage() {
+    function reloadPosts() {
         loadPosts();
-        loadWhosGoing();
-
-        setTimeout("reloadPage()", timeoutTime);
+        setTimeout("reloadPosts()", getRandomTime());
     }
-    setTimeout("reloadPage()", timeoutTime);
+    function reloadWhosGoing() {
+        loadWhosGoing();
+        setTimeout("reloadWhosGoing()", getRandomTime());
+    }
+
+    setTimeout("reloadPosts()",  getRandomTime());
+    setTimeout("reloadWhosGoing()",  getRandomTime());
 
     function getAgo(datetime) {
         var now = new Date();
