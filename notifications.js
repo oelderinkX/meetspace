@@ -77,8 +77,8 @@ function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
 	var msg = {
 		to: email,
 		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
-		subject: activity,
-		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
+		subject: 'Invitation to ' + activityTitle,
+		text: fromUser + ' invited you to ' + activityTitle + ' click the following link to see ' + activityUrl,
 		html: htmlFormatted
 	  };
 	  
