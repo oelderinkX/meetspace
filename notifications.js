@@ -74,6 +74,9 @@ function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
 	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', 'the meetspace team');
 	htmlFormatted = htmlFormatted.replace('!%URL%!', activityUrl);
 
+	console.log('html');
+	console.log(htmlFormatted);
+
 	var msg = {
 		to: email,
 		from: 'meetspace.noreply@gmail.com', // Change to your verified sender
@@ -82,6 +85,9 @@ function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
 		html: htmlFormatted
 	  };
 	  
+	  console.log('msg');
+	  console.log(msg);
+
 	  sgMail
 		.send(msg)
 		.then((response) => {
