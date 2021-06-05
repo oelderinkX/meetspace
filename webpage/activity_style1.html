@@ -147,7 +147,11 @@
         });
     }
 
-    function loadWhosGoing() {
+    function loadWhosGoing(showEdit) {
+        if (!showEdit) {
+            showEdit = false;
+        }
+
         var json = { activityId: ACTIVITY_ID };
 
         sendPost("/whosgoing", JSON.stringify(json), function(response) {
@@ -169,9 +173,11 @@
                     whosnotElement += '<li style="color:#CCCCCC">';
                     whosnotElement += whosgoing[i].username;
 
-                    whosnotElement += '&nbsp;&nbsp;';
-                    whosnotElement += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
-			        whosnotElement += ' onclick="alert(\'delete ' + whosgoing[i].username + '\');"></i>';
+                    if (showEdit) {
+                        whosnotElement += '&nbsp;&nbsp;';
+                        whosnotElement += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
+                        whosnotElement += ' onclick="alert(\'delete ' + alert(xor(whosgoing[i].d, ACTIVITY_ID)) + '\');"></i>';
+                    }
 
                     whosnotElement += '</li>';
                 }
@@ -256,6 +262,11 @@
         sendPost("/leave", JSON.stringify(json), function(response) {
             loadWhosGoing();
         });         
+    }
+
+    function edit() {
+        var showEdit = true;
+        loadWhosGoing(showEdit);
     }
 </script>
 
