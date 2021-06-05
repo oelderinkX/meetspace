@@ -215,29 +215,7 @@ function performAction(country, region, city, game, action, req, res) {
 	console.log('activityId:' + activityId);
 
 	if (action) {
-		if (action == 'join') {
-			sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			console.log('sql: ' + sql);
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else if (action == 'unjoin') {
-			sql = "SELECT meetspace.unjoin_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else if (action == 'reset') {
+		if (action == 'reset') {
 			sql = "select * FROM meetspace.reset_acitivty('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 			pool.connect(function(err, client, done) {
@@ -466,6 +444,38 @@ module.exports = function(app) {
 						notifications.sendInviteEmail(toEmail, getUrl(country, region, city, game), activityTitle);
 					}
 				}
+
+				res.send({ success: true});
+			});
+		});
+	});
+
+	app.post('/join', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+
+				res.send({ success: true});
+			});
+		});
+	});
+
+	app.post('/leave', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var email = req.cookies['email'];
+		var sessionId = req.cookies['sessionId'];
+
+		sql = "SELECT meetspace.unjoin_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
 
 				res.send({ success: true});
 			});

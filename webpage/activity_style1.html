@@ -21,8 +21,8 @@
 	var GAME = '!%GAME%!';
 
     function getRandomTime() {
-        var max = 60000 * 7;
-        var min = 60000 * 3;
+        var max = 60000 * 6;
+        var min = 60000 * 2;
         var time = Math.floor(Math.random() * (max - min) ) + min;
         return time;
     }
@@ -206,6 +206,30 @@
             // update nothing
         });         
     }
+
+    function join() {
+        var json = { activityId: ACTIVITY_ID };
+        var join = document.getElementById("join");
+        var leave = document.getElementById("leave");
+        join.style = "display: none";
+        leave.style = "display: inline";
+
+        sendPost("/join", JSON.stringify(json), function(response) {
+            loadWhosGoing();
+        });         
+    }
+
+    function leave() {
+        var json = { activityId: ACTIVITY_ID };
+        var join = document.getElementById("join");
+        var leave = document.getElementById("leave");
+        join.style = "display: inline";
+        leave.style = "display: none";
+
+        sendPost("/leave", JSON.stringify(json), function(response) {
+            loadWhosGoing();
+        });         
+    }
 </script>
 
 <body>
@@ -236,9 +260,9 @@
             <div class="btn-group" style="display: !%SHOWCHANNEL%!">				
                 <button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channel <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='join'; document.getElementById('actionsForm').submit();" style="display: !%SHOWJOIN%!">Join</a></li>
-                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='unjoin'; document.getElementById('actionsForm').submit();" style="display: !%SHOWUNJOIN%!">Leave</a></li>
-                    <li><a href="#" onclick="document.getElementById('hiddenaction').value='editmode'; document.getElementById('actionsForm').submit();" style="display: !%SHOWEDIT%!">Edit</a></li>
+                    <li><a href="#" onclick="join();" id="join" style="display: !%SHOWJOIN%!">Join</a></li>
+                    <li><a href="#" onclick="leave();" id="leave" style="display: !%SHOWUNJOIN%!">Leave</a></li>
+                    <li><a href="#" onclick="edit();" style="display: !%SHOWEDIT%!">Edit</a></li>
                     <li><a href="#" onclick="alert('Reset handled by cronjob, thanks Patrick');">Reset</a></li>
                 </ul>
             </div>
