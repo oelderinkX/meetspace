@@ -210,37 +210,7 @@ function performAction(country, region, city, game, action, req, res) {
 	var activityId = req.body.activityId;
 	console.log('activityId:' + activityId);
 
-	if (action) {
-		if (action == 'reset') {
-			sql = "select * FROM meetspace.reset_acitivty('" + email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else if (action == 'removefromactivity') {
-			var remove_email = req.body.remove_email;
-			
-			sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
-
-			pool.connect(function(err, client, done) {
-				client.query(sql, function(err, result) {
-					done();
-					
-					console.log(err);
-
-					renderPage(country, region, city, game, req, res);
-				});
-			});
-		} else {
-			renderPage(country, region, city, game, req, res);
-		}
-	} else {
-		renderPage(country, region, city, game, req, res);
-	}
+	renderPage(country, region, city, game, req, res);
 }
 
 module.exports = function(app) {
@@ -476,5 +446,23 @@ module.exports = function(app) {
 				res.send({ success: true});
 			});
 		});
+	});
+
+	app.post('/removefromactivity', jsonParser, function(req, res) {
+		var remove_email_encoded = req.body.d;
+		//var remove_email = 
+		
+		sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
+
+		pool.connect(function(err, client, done) {
+			client.query(sql, function(err, result) {
+				done();
+				
+				console.log(err);
+
+				renderPage(country, region, city, game, req, res);
+			});
+		});
+
 	});
 }

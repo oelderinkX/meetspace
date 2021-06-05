@@ -42,3 +42,15 @@ function hide(element) {
 function show(element) {
   element.style = "display: inline";
 }
+
+function xor(str, xor) {
+  var chars = str.split('');
+
+  for (var i = 0; i < chars.length; i++) {
+    var c = chars[i].charCodeAt(0);
+
+    chars[i] = (c ^ xor);
+  }
+
+  return chars.join('');
+}
