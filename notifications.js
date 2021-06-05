@@ -36,8 +36,8 @@ module.exports.sendRegistrationEmail = sendRegistrationEmail;
 function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 	var htmlFormatted = mailPage;
 	htmlFormatted = htmlFormatted.replace('!%ACTIVITY%!', activity);
-	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
 	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', fromUser);
+	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
 	htmlFormatted = htmlFormatted.replace('!%URL%!', url);
 
 	var msg = {
@@ -67,11 +67,11 @@ function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
 	emailContent += 'You have been invited to the activity \'' + activityTitle + '\' from \'' + fromUser + '\'.<br/>';
 	emailContent += 'If you would like to join the activity, click the meetspace link below.<br/>';
 	emailContent += '<br/>';
-	emailContent += 'Thanks, the Meetspace Team!<br/>';
+	emailContent += 'Thanks, the Meetspace Team!';
 
 	htmlFormatted = htmlFormatted.replace('!%ACTIVITY%!', activityTitle);
+	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', 'the Meetspace Team');
 	htmlFormatted = htmlFormatted.replace('!%EMAIL_CONTENT%!', emailContent);
-	htmlFormatted = htmlFormatted.replace('!%FROMUSER%!', 'the meetspace team');
 	htmlFormatted = htmlFormatted.replace('!%URL%!', activityUrl);
 
 	console.log('html');
