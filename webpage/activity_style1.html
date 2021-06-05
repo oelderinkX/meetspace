@@ -157,34 +157,43 @@
         sendPost("/whosgoing", JSON.stringify(json), function(response) {
             var whosgoing = JSON.parse(response);
 
-            var whosgoingElement = '<ol>';
-            var whosnotElement = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
-            var modalsElement = '';
+            if (!showEdit) {
 
-            for(var i = 0; i < whosgoing.length; i++) {
-                if (whosgoing[i].status == 1) {
-                    whosgoingElement += '<li>' + whosgoing[i].username + '</li>';
+                var whosgoingHtml = '<ol>';
+
+                for(var i = 0; i < whosgoing.length; i++) {
+                    if (whosgoing[i].status == 1) {
+                        whosgoingHtml += '<li>' + whosgoing[i].username + '</li>';
+                    }
                 }
+                whosgoingHtml += '</ol>';
+                _whosgoing.innerHTML = whosgoingHtml;
             }
-            whosgoingElement += '</ol>';
+
+            var whosnotgoingHtml = '';
+
+            if (showEdit) {
+                var whosnotgoingHtml = '<div><ul>';
+            } else {
+                var whosnotgoingHtml = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
+            }
 
             for(var i = 0; i < whosgoing.length; i++) {
                 if (whosgoing[i].status == 0) {
-                    whosnotElement += '<li style="color:#CCCCCC">';
-                    whosnotElement += whosgoing[i].username;
+                    whosnotgoingHtml += '<li style="color:#CCCCCC">';
+                        whosnotgoingHtml += whosgoing[i].username;
 
                     if (showEdit) {
-                        whosnotElement += '&nbsp;&nbsp;';
-                        whosnotElement += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
-                        whosnotElement += ' onclick="alert(\'delete ' + xor(whosgoing[i].e, ACTIVITY_ID) + '\');"></i>';
+                        whosnotgoingHtml += '&nbsp;&nbsp;';
+                        whosnotgoingHtml += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
+                        whosnotgoingHtml += ' onclick="alert(\'delete ' + xor(whosgoing[i].e, ACTIVITY_ID) + '\');"></i>';
                     }
 
-                    whosnotElement += '</li>';
+                    whosnotgoingHtml += '</li>';
                 }
             }
-            whosnotElement += '</ul></div>';
+            whosnotgoingHtml += '</ul></div>';
 
-            _whosgoing.innerHTML = whosgoingElement;
             _notattend.innerHTML = whosnotElement;
         });
     }
@@ -267,6 +276,14 @@
     function edit() {
         var showEdit = true;
         loadWhosGoing(showEdit);
+    }
+
+    function removeFromActivity(e) {
+        var json = { activityId: ACTIVITY_ID, e: e };
+
+        sendPost("/removeFromActivity", JSON.stringify(json), function(response) {
+            loadWhosGoing();
+        });   
     }
 </script>
 

@@ -456,7 +456,8 @@ module.exports = function(app) {
 
 	app.post('/removefromactivity', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
-		var remove_email = common.xor(req.body.d, activityId);
+		var remove_email = common.xor(req.body.e, activityId);
+		var sessionId = req.cookies['sessionId'];
 		
 		sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
 
@@ -467,6 +468,5 @@ module.exports = function(app) {
 				res.send({ success: true});
 			});
 		});
-
 	});
 }
