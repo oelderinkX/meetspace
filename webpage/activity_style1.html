@@ -168,6 +168,11 @@
                 if (whosgoing[i].status == 0) {
                     whosnotElement += '<li style="color:#CCCCCC">';
                     whosnotElement += whosgoing[i].username;
+
+                    whosnotElement += '&nbsp;&nbsp;';
+                    whosnotElement += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
+			        whosnotElement += ' onclick="alert(\'delete ' + whosgoing[i].username + '\');"></i>';
+
                     whosnotElement += '</li>';
                 }
             }

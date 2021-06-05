@@ -290,11 +290,17 @@ module.exports = function(app) {
 				var whosgoing = [];
 
 				for (var i = 0; i < result.rows.length; i++) {
-					//var email = result.rows[i].email;
 					var username = result.rows[i].username;
 					var status = result.rows[i].status;
 
-					whosgoing.push({ username: username, status: status });
+					var email = '';
+					if (status == 0) {
+						email = common.xor(result.rows[i].email, activityId);
+					} else {
+						email = '';
+					}
+
+					whosgoing.push({ username: username, status: status, e: email });
 				}
 
 				res.send(whosgoing);
@@ -449,8 +455,8 @@ module.exports = function(app) {
 	});
 
 	app.post('/removefromactivity', jsonParser, function(req, res) {
-		var remove_email_encoded = req.body.d;
-		//var remove_email = 
+		var activityId = req.body.activityId;
+		var remove_email = common.xor(req.body.d, activityId);
 		
 		sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
 
@@ -458,9 +464,7 @@ module.exports = function(app) {
 			client.query(sql, function(err, result) {
 				done();
 				
-				console.log(err);
-
-				renderPage(country, region, city, game, req, res);
+				res.send({ success: true});
 			});
 		});
 

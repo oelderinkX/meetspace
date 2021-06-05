@@ -42,3 +42,16 @@ function replaceAll(str, searchValue, replaceWith) {
 	return str;
 }
 module.exports.replaceAll = replaceAll;
+
+function xor(str, xor) {
+  var chars = str.split('');
+
+  for (var i = 0; i < chars.length; i++) {
+    var c = chars[i].charCodeAt(0);
+
+    chars[i] = String.fromCharCode(c ^ xor);
+  }
+
+  return chars.join('');
+}
+module.exports.xor = xor;
