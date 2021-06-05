@@ -49,7 +49,7 @@ function xor(str, xor) {
   for (var i = 0; i < chars.length; i++) {
     var c = chars[i].charCodeAt(0);
 
-    chars[i] = String.fromCharCode(c ^ xor);
+    chars[i] = String.fromCharCode(c ^ (xor+i));
   }
 
   return chars.join('');
