@@ -97,10 +97,10 @@ function renderPage(country, region, city, game, req, res) {
 									showpost = 'inline';
 									showinvite = 'inline';
 									showchannel = 'inline';
+									showmessaging = 'inline';
 
 									if (isAttending) {
 										showunattend = 'inline';
-										showmessaging = 'inline'
 									} else {
 										showattend = 'inline';
 									}
@@ -109,10 +109,6 @@ function renderPage(country, region, city, game, req, res) {
 										showreset = 'inline';
 										showedit = 'inline';
 										showreset = 'inline';
-										
-										if (action == 'editmode') {
-											showdelete = true;
-										}
 									}
 								} else {
 									if (username && sessionId) {
