@@ -46,17 +46,17 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 		subject: activity,
 		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
 		html: htmlFormatted
-	  }
+	  };
 	  
 	  sgMail
 		.send(msg)
 		.then((response) => {
-		  console.log(response[0].statusCode)
-		  console.log(response[0].headers)
+		  console.log(response[0].statusCode);
+		  console.log(response[0].headers);
 		})
 		.catch((error) => {
-		  console.error(error)
-		})
+		  console.error(error);
+		});
 }
 module.exports.sendPostEmail = sendPostEmail;
 
@@ -80,17 +80,17 @@ function sendInviteEmail(email, fromUser, activityUrl, activityTitle) {
 		subject: activity,
 		text: fromUser + ' posted:\n\n' + emailContent + '\n\n' + url,
 		html: htmlFormatted
-	  }
+	  };
 	  
 	  sgMail
 		.send(msg)
 		.then((response) => {
-		  console.log(response[0].statusCode)
-		  console.log(response[0].headers)
+		  console.log(response[0].statusCode);
+		  console.log(response[0].headers);
 		})
 		.catch((error) => {
-		  console.error(error)
-		})
+		  console.error(error);
+		});
 }
 module.exports.sendInviteEmail = sendInviteEmail;
 
