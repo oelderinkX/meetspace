@@ -242,7 +242,7 @@
 
         console.log('sending request: ' + JSON.stringify(json));
         sendPost("/invite", JSON.stringify(json), function(response) {
-            console.log('received response: ' + JSON.stringify(json));
+            console.log('received response: ' + JSON.stringify(response));
         });         
     }
 
