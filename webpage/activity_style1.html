@@ -144,7 +144,7 @@
                 var imageName = '';
                 if (imagePosStart >= 0 && imagePosEnd >= 0) {
                     imageName = message.substring(imagePosStart + 9, imagePosEnd);
-                    message = message.substring(0, imagePosStart + 9) + message.substring(imagePosEnd+1);
+                    message = message.substring(0, imagePosStart) + message.substring(imagePosEnd+1);
                 }
 
 				var submissionDate = new Date(posts[i].submissionDate);
@@ -152,8 +152,8 @@
                 var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
 		        var agoTxt = getAgo(adjustedDateTime);
 		
-		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</p></div>';
-                postElement += ' <img src="/postimages/' + imageName +  '"></div>';
+		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</div>';
+                postElement += ' <img src="/postimages/' + imageName +  '"></p></div>';
             }
 
             _posts.innerHTML = postElement;
