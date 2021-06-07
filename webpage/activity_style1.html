@@ -290,7 +290,15 @@
     }
 
     function savePicture() {
-        alert(_takepicture);
+        if (_takepicture.files && _takepicture.files.length > 0) {
+            var picture = _takepicture.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsText(picture); 
+            fileReader.onload = function() {
+                alert(fileReader.result);
+                //this is probably where we construct the json
+            };
+        }
     }
 </script>
 
