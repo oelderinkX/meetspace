@@ -138,12 +138,22 @@
             for(var i = 0; i < posts.length; i++) {
                 var username = posts[i].username;
 				var message = posts[i].message;
+
+                var imagePosStart = message.indexOf('[image: "');
+                var imagePosEnd = message.indexOf('"', imagePosStart);
+                var imageName = '';
+                if (imagePosStart >= 0 && imagePosEnd >= 0) {
+                    imageName = message.substring(imagePosStart + 9, imagePosEnd - imagePosStart - 9);
+                    message = message.substring(0, imagePosStart + 9) + message.substring(imagePosEnd+1);
+                }
+
 				var submissionDate = new Date(posts[i].submissionDate);
 
                 var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
 		        var agoTxt = getAgo(adjustedDateTime);
 		
 		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</p></div>';
+                postElement += ' <img src="/postimages/' + imageName +  '"></div>';
             }
 
             _posts.innerHTML = postElement;
