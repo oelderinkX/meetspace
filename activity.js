@@ -490,4 +490,16 @@ module.exports = function(app) {
 
 		res.send({ success: true});
 	});
+
+	app.get('/listpostimages', jsonParser, function(req, res) {
+		var files = fs.readdirSync(__dirname + '/postimages', { withFileTypes: true });
+
+		var allFiles = [];
+
+		files.forEach(file => {
+  			allFiles.push(file);
+		});
+
+		res.send(allFiles);
+	});
 }
