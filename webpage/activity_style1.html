@@ -152,7 +152,7 @@
                 var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
 		        var agoTxt = getAgo(adjustedDateTime);
 		
-		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message + '</div>';
+		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message;
                 postElement += ' <img src="/postimages/' + imageName +  '"></p></div>';
             }
 
