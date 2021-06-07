@@ -295,7 +295,7 @@
             var fileReader = new FileReader();
             fileReader.readAsDataURL(picture); 
             fileReader.onload = function() {
-                alert(fileReader.result);
+                console.log(fileReader.result);
                 var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: picture.name };
                 sendPost("/postimage", JSON.stringify(json), function(response) {
                     loadPosts();
