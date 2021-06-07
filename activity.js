@@ -475,4 +475,9 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/postimage', jsonParser, function(req, res) {
+		var activityId = req.body.activityId;
+		var image = req.body.image;
+	});
 }
