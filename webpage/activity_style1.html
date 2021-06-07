@@ -306,7 +306,7 @@
 
     function setPicture() {
         if (_takepicture.files && _takepicture.files.length > 0) {
-            var _image = _takepicture.files[0];
+            _image = _takepicture.files[0];
         }
     }
 
@@ -317,6 +317,7 @@
             var json = { activityId: ACTIVITY_ID, image: _image, filename: _image.name };
             sendPost("/postimage", JSON.stringify(json), function(response) {
                 // do nothing since everything will be done when post and announce!
+                _image = undefined;
             });
         };
     }
