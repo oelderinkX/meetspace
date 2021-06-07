@@ -293,10 +293,13 @@
         if (_takepicture.files && _takepicture.files.length > 0) {
             var picture = _takepicture.files[0];
             var fileReader = new FileReader();
-            fileReader.readAsText(picture); 
+            fileReader.readAsDataURL(picture); 
             fileReader.onload = function() {
                 alert(fileReader.result);
-                //this is probably where we construct the json
+                var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: picture.name };
+                sendPost("/postimage", JSON.stringify(json), function(response) {
+                    loadPosts();
+                });
             };
         }
     }

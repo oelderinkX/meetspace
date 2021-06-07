@@ -479,5 +479,12 @@ module.exports = function(app) {
 	app.post('/postimage', jsonParser, function(req, res) {
 		var activityId = req.body.activityId;
 		var image = req.body.image;
+		var filename = req.body.filename;
+
+		var bin = new Buffer(image, 'base64');
+
+		fs.writeFile(__dirname + '/postimages/' + filename, bin);
+
+		res.send({ success: true});
 	});
 }
