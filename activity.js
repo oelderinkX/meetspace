@@ -484,22 +484,8 @@ module.exports = function(app) {
 		image = image.substr(image.indexOf(',')); 
 		var bin = new Buffer(image, 'base64');
 
-		//fs.unlinkSync(__dirname + '/postimages/40010_1371951342327_3288595_n.jpg');
-
 		fs.writeFile(__dirname + '/postimages/' + filename, bin);
 
-		res.send({ success: true});
-	});
-
-	app.get('/listpostimages', jsonParser, function(req, res) {
-		var files = fs.readdirSync(__dirname + '/postimages', { withFileTypes: true });
-
-		var allFiles = [];
-
-		files.forEach(file => {
-  			allFiles.push(file);
-		});
-
-		res.send(allFiles);
+		res.send({ success: true, filename: '/postimages/' + filename });
 	});
 }

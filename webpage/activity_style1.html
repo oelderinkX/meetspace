@@ -33,6 +33,7 @@
     var _messaging;
     var _invites;
     var _takepicture;
+    var _image;
 
     function setElementsVar() {
         _posts = document.getElementById("posts");
@@ -201,8 +202,15 @@
     }
 
     function postMessage() {
-        var json = { activityId: ACTIVITY_ID, message: _postmessage.value };
+        var message = _postmessage.value;
         _postmessage.value = '';
+
+        if (_image) {
+            savePicture();
+            message += '[image: "' + _image.name + '"]';
+        }
+
+        var json = { activityId: ACTIVITY_ID, message: message };
 
         sendPost("/postmessage", JSON.stringify(json), function(response) {
             loadPosts();
@@ -210,8 +218,15 @@
     }
 
     function announceMessage() {
-        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: _postmessage.value };
+        var message = _postmessage.value;
         _postmessage.value = '';
+
+        if (_image) {
+            savePicture();
+            message += '[image: "' + _image.name + '"]';
+        }
+
+        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
 
         sendPost("/announcemessage", JSON.stringify(json), function(response) {
             loadPosts();
@@ -289,19 +304,21 @@
         });   
     }
 
-    function savePicture() {
+    function setPicture() {
         if (_takepicture.files && _takepicture.files.length > 0) {
-            var picture = _takepicture.files[0];
-            var fileReader = new FileReader();
-            fileReader.readAsDataURL(picture); 
-            fileReader.onload = function() {
-                console.log(fileReader.result);
-                var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: picture.name };
-                sendPost("/postimage", JSON.stringify(json), function(response) {
-                    loadPosts();
-                });
-            };
+            var _image = _takepicture.files[0];
         }
+    }
+
+    function savePicture() {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(_image); 
+        fileReader.onload = function() {
+            var json = { activityId: ACTIVITY_ID, image: _image, filename: _image.name };
+            sendPost("/postimage", JSON.stringify(json), function(response) {
+                // do nothing since everything will be done when post and announce!
+            });
+        };
     }
 </script>
 
