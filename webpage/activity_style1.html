@@ -140,10 +140,10 @@
 				var message = posts[i].message;
 
                 var imagePosStart = message.indexOf('[image: "');
-                var imagePosEnd = message.indexOf('"', imagePosStart);
+                var imagePosEnd = message.indexOf('"', imagePosStart + 9);
                 var imageName = '';
                 if (imagePosStart >= 0 && imagePosEnd >= 0) {
-                    imageName = message.substring(imagePosStart + 9, imagePosEnd - imagePosStart - 9);
+                    imageName = message.substring(imagePosStart + 9, imagePosEnd);
                     message = message.substring(0, imagePosStart + 9) + message.substring(imagePosEnd+1);
                 }
 
