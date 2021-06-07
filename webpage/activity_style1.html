@@ -314,7 +314,7 @@
         var fileReader = new FileReader();
         fileReader.readAsDataURL(_image); 
         fileReader.onload = function() {
-            var json = { activityId: ACTIVITY_ID, image: _image, filename: _image.name };
+            var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
             sendPost("/postimage", JSON.stringify(json), function(response) {
                 // do nothing since everything will be done when post and announce!
                 _image = undefined;
