@@ -348,6 +348,7 @@
                 <div class="form-group" id="messaging" style="display: !%SHOWMESSAGING%!">
                     <div class="input-group">
                         <textarea class="form-control" rows="3" cols="90" maxlength="256" id="postmessage" placeholder="what's happening ?"></textarea>
+                        <input type="file" name="selectedPicture" id="selectedPicture" accept="image/*" onchange="alert(document.getElementById('selectedPicture').files[0])" />
                     </div>
                     <button class="btn btn-primary pull-left" value="post" onclick="postMessage();"><span class="glyphicon glyphicon-pencil"></span> Post</button>
                     <button class="btn btn-danger pull-right" value="announce"  onclick="announceMessage();">Announce <span class="glyphicon glyphicon-envelope"></span></button>
