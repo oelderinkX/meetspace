@@ -481,7 +481,10 @@ module.exports = function(app) {
 		var image = req.body.image;
 		var filename = req.body.filename;
 
-		var bin = new Buffer(image, 'base64');
+		var base64 = new Buffer(image, 'base64');
+		var bin = base64.substr(base64.indexOf(',')); 
+
+		//fs.unlinkSync(__dirname + '/postimages/40010_1371951342327_3288595_n.jpg');
 
 		fs.writeFile(__dirname + '/postimages/' + filename, bin);
 
