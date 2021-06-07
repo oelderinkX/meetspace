@@ -32,6 +32,7 @@ app.disable('etag');
 
 app.use(cookieParser())
 app.use('/images', express.static('images'));
+app.use('/postimages', express.static('postimages'));
 app.use('/script', express.static('script'));
 app.use('/webpage', express.static('webpage'));
 app.use('/javascript', express.static('javascript'));
