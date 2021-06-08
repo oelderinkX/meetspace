@@ -330,8 +330,8 @@
                 var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
                 sendPost("/postimage", JSON.stringify(json), function(response) {
                     // do nothing since everything will be done when post and announce!
-                    _image = undefined;
                     callback();
+                    _image = undefined;
                 });
             };
         } else {
