@@ -215,32 +215,34 @@
         var message = _postmessage.value;
         _postmessage.value = '';
 
-        if (_image) {
-            savePicture();
-            message += '[image: "' + _image.name + '"]';
-        }
+        savePicture(function() {
+            if (_image) {
+                message += '[image: "' + _image.name + '"]';
+            }
 
-        var json = { activityId: ACTIVITY_ID, message: message };
+            var json = { activityId: ACTIVITY_ID, message: message };
 
-        sendPost("/postmessage", JSON.stringify(json), function(response) {
-            loadPosts();
-        });          
+            sendPost("/postmessage", JSON.stringify(json), function(response) {
+                loadPosts();
+            });
+        });
     }
 
     function announceMessage() {
         var message = _postmessage.value;
         _postmessage.value = '';
 
-        if (_image) {
-            savePicture();
-            message += '[image: "' + _image.name + '"]';
-        }
+        savePicture(function() {
+            if (_image) {
+                message += '[image: "' + _image.name + '"]';
+            }
 
-        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+            var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
 
-        sendPost("/announcemessage", JSON.stringify(json), function(response) {
-            loadPosts();
-        });         
+            sendPost("/announcemessage", JSON.stringify(json), function(response) {
+                loadPosts();
+            });
+        });
     }
 
     function attend() {
@@ -320,16 +322,21 @@
         }
     }
 
-    function savePicture() {
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(_image); 
-        fileReader.onload = function() {
-            var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
-            sendPost("/postimage", JSON.stringify(json), function(response) {
-                // do nothing since everything will be done when post and announce!
-                _image = undefined;
-            });
-        };
+    function savePicture(callback) {
+        if (_image) {
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(_image); 
+            fileReader.onload = function() {
+                var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
+                sendPost("/postimage", JSON.stringify(json), function(response) {
+                    // do nothing since everything will be done when post and announce!
+                    _image = undefined;
+                    callback();
+                });
+            };
+        } else {
+            callback();
+        }
     }
 </script>
 
