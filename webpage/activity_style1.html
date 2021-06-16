@@ -61,6 +61,7 @@
         loadPosts();
         setTimeout("reloadPosts()", getRandomTime());
     }
+
     function reloadWhosGoing() {
         loadWhosGoing();
         setTimeout("reloadWhosGoing()", getRandomTime());
@@ -119,10 +120,8 @@
 
         if (country == 'nz') {
             if (datetime.getMonth() > 4 && datetime.getMonth() < 9 ) {
-                daylightsavings	= 1;
+                datetime.setHours(datetime.getHours() - 1);
             }
-
-            datetime.setHours(datetime.getHours() - daylightsavings);
         }
 
         return datetime;
@@ -218,36 +217,41 @@
 
     function postMessage() {
         var message = _postmessage.value;
-        _postmessage.value = '';
 
-        savePicture(function() {
-            if (_image) {
-                message += '[image: "' + _image.name + '"]';
-            }
+        if (message) {
+            _postmessage.value = '';
+            savePicture(function() {
+                if (_image) {
+                    message += '[image: "' + _image.name + '"]';
+                }
 
-            var json = { activityId: ACTIVITY_ID, message: message };
+                var json = { activityId: ACTIVITY_ID, message: message };
 
-            sendPost("/postmessage", JSON.stringify(json), function(response) {
-                loadPosts();
+                sendPost("/postmessage", JSON.stringify(json), function(response) {
+                    loadPosts();
+                });
             });
-        });
+        }
     }
 
     function announceMessage() {
         var message = _postmessage.value;
-        _postmessage.value = '';
 
-        savePicture(function() {
-            if (_image) {
-                message += '[image: "' + _image.name + '"]';
-            }
+        if (message) {
+            _postmessage.value = '';
 
-            var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+            savePicture(function() {
+                if (_image) {
+                    message += '[image: "' + _image.name + '"]';
+                }
 
-            sendPost("/announcemessage", JSON.stringify(json), function(response) {
-                loadPosts();
+                var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+
+                sendPost("/announcemessage", JSON.stringify(json), function(response) {
+                    loadPosts();
+                });
             });
-        });
+        }
     }
 
     function attend() {
