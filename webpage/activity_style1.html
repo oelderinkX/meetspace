@@ -103,10 +103,12 @@
             ago = '1 hour ago';
         } else if (hours > 1) {
             ago = hours + ' hours ago';
+        } else if (minutes > 1) {
+            ago = minutes + ' minutes ago';
         } else if (minutes == 1) {
             ago = '1 minute ago';
-        } else {
-            ago = minutes + ' minutes ago';
+        } else if (minutes == 0) {
+            ago = 'just now';
         }
         
         return ago;
