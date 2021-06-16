@@ -119,9 +119,8 @@
         var daylightsavings = 0;
 
         if (country == 'nz') {
-            if (datetime.getMonth() > 4 && datetime.getMonth() < 9 ) {
-                datetime.setHours(datetime.getHours() - 1);
-            }
+            // we might be saving time as NZ time in the Db
+            // but we don't need to adjust any longer for nz at least
         }
 
         return datetime;
