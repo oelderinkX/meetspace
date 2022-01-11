@@ -40,6 +40,40 @@ function retrieveCountries(callback) {
 }
 module.exports.RetrieveCountries = retrieveCountries;
 
+function retrieveActiveCountries(callback) {
+	if (countries.length > 0) {
+		return callback();
+	} else {
+		console.log('loading all countries...');
+		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
+		pool.connect(function(err, client, done) {
+			client.query(postsql, function(err, result) {
+				done();
+
+				if (result) {
+					for (var i = 0; i < result.rows.length; i++) {
+						console.log('loading country ' + result.rows[i].name);
+						countries.push({
+						  id: result.rows[i].id,
+						  name: result.rows[i].name,
+						  code: result.rows[i].code,
+						});
+					}
+				}
+
+				return callback();
+			});
+		});
+	}
+}
+module.exports.RetrieveActiveCountries = retrieveActiveCountries;
+
+function getActiveCountries(res) {
+	retrieveActiveCountries(function() {
+		res.send(countries);
+	});
+}
+
 function getCountries(res) {
 	retrieveCountries(function() {
 		res.send(countries);
@@ -142,6 +176,8 @@ module.exports = function(app) {
 		
 		if (get == "countries") {
 			getCountries(res);
+		} else if (get == "activeCountries") {
+			getActiveCountries(res);
 		} else if (get == "regions" && id) {
 			getRegionByCountry(res, id);
 		} else if (get == "cities" && id) {

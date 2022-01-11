@@ -33,7 +33,7 @@ function search() {
 			link += "/" + region.options[region.selectedIndex].text.toLowerCase();
 
 			if (city && city.selectedIndex >= 0) {
-				link += "/" + city.options[city.selectedIndex].text.toLowerCase();;
+				link += "/" + city.options[city.selectedIndex].text.toLowerCase();
 			}
 		}
 	}
@@ -44,7 +44,7 @@ function search() {
 }
 
 window.onload = function() {
-	getLocation('countries', function(countries) {
+	getLocation('activeCountries', function(countries) {
 		var select = document.getElementById("country");
 		
 		for(var i = 0; i < countries.length; i++) {
