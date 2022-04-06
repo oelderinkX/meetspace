@@ -1,7 +1,8 @@
 function getLocation(param, callback) {
-	var url = 'www.meetspace.co.nz/location?get=';
+	var url = '/location?get=' + param;
     var http = new XMLHttpRequest(); // a new request
-    http.open('GET' ,url + param,true);
+    http.open('GET', url ,true);
+	http.setRequestHeader("Content-type", "application/json");
 	
 	http.onload = function(e) {
 		if (http.readyState === 4 && http.status === 200) {
