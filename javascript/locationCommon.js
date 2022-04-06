@@ -1,5 +1,5 @@
 function getLocation(param, callback) {
-	var url = 'http://www.meetspace.co.nz/location?get=';
+	var url = 'www.meetspace.co.nz/location?get=';
     var http = new XMLHttpRequest(); // a new request
     http.open('GET' ,url + param,true);
 	
