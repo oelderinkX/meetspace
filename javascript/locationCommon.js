@@ -73,10 +73,6 @@ function loadRegion(country) {
 			}
 			
 			select.value = getCookie("region")
-
-			var citycombo = document.getElementById("citycombo");
-			var searchbutton = document.getElementById("searchbutton");
-			var regioncombo = document.getElementById("regioncombo");
 		}
 	});
 }
@@ -113,9 +109,6 @@ function loadCity(region) {
 					select.appendChild(option, 0);
 				}
 			}
-			
-			var citycombo = document.getElementById("citycombo");
-			var searchbutton = document.getElementById("searchbutton");
 		}
 	});
 }

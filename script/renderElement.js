@@ -71,7 +71,6 @@ function getAgo(datetime) {
 	}
 	
 	var ago = '';
-	var timetxt = '';
 	
 	if (days == 1) {
 		ago = '1 day ago';
