@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
@@ -9,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/javascript/common.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ&callback=initMap"></script>
 	<title>!%TITLE%!</title>
 </head>
 <html>
@@ -51,8 +51,8 @@
     }
 
     function getRandomTime() {
-        var max = 60000 * 6;
-        var min = 60000 * 2;
+        var max = 60000 * 8;
+        var min = 60000 * 4;
         var time = Math.floor(Math.random() * (max - min) ) + min;
         return time;
     }
@@ -348,7 +348,22 @@
             callback();
         }
     }
+
+    let map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
+        });
+    }
 </script>
+
+<style>
+#map {
+    height: 100%;
+}
+</style>
 
 <body>
     <div class="jumbotron text-center">
@@ -369,6 +384,8 @@
         <p>!%TIME%!</p>
         <hr class="my-4">
         <p class="lead">!%DESCRIPTION%!</p>
+
+        <p><div id="map"></div></p>
 
         <div class="btn-toolbar">
             <input type="hidden" name="activityId" value="!%ACTIVITYID%!"></input>
