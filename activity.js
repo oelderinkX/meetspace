@@ -117,7 +117,7 @@ function renderPage(country, region, city, game, req, res) {
 									}
 								}
 
-								webpage = webpage.replaceAll('!%TITLE%!', title);
+								webpage = common.replaceAll(webpage, '!%TITLE%!', title);
 								webpage = webpage.replace('!%TIME%!', getDay(day) + ' ' + getTime(time));
 
 								webpage = webpage.replace('!%DESCRIPTION%!', description);
