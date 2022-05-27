@@ -1,3 +1,4 @@
+var dateFormat = require('dateformat');
 const url = require('url')
 const params = url.parse(process.env.DATABASE_URL);
 const auth = params.auth.split(':');
@@ -55,3 +56,36 @@ function xor(str, xor) {
   return chars.join('');
 }
 module.exports.xor = xor;
+
+function getTime(time) {
+	var datetime = new Date();
+
+	var timeSplit = time.split(":");
+
+	datetime.setHours(timeSplit[0]);
+	datetime.setMinutes(timeSplit[1]);
+
+	var strTime = dateFormat(datetime, "h:MM tt");
+
+	return strTime;
+}
+module.exports.getTime = getTime;
+
+function getDay(day) {
+	if (day == 0) {
+		return "Sunday";
+	} else if (day == 1) {
+		return "Monday";
+	} else if (day == 2) {
+		return "Tuesday";
+	} else if (day == 3) {
+		return "Wednesday";
+	} else if (day == 4) {
+		return "Thursday";
+	} else if (day == 5) {
+		return "Friday";
+	} else {
+		return "Saturday";
+	}
+}
+module.exports.getDay = getDay;
