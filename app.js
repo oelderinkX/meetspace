@@ -8,7 +8,6 @@ var common = require('./script/common.js');
 var port = process.env.PORT || 80
 
 var pool = new pg.Pool(common.postgresConfig());
-
 console.log('port number is: ' + port);
 
 var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
@@ -26,7 +25,6 @@ var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/google9ca0afca288aa353.html', express.static(__dirname + '/google/google9ca0afca288aa353.html'));
-
 
 app.disable('etag');
 

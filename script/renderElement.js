@@ -89,22 +89,6 @@ function getAgo(datetime) {
 	return ago;
 }
 
-function activityTitle(webpage, title) {
-
-  webpage = webpage.replace('!%TITLE%!', title);
-  webpage = webpage.replace('!%TITLE%!', title);
-
-  return webpage;
-}
-module.exports.activityTitle = activityTitle;
-
-function activityTime(webpage, day, time) {
-	webpage = webpage.replace('!%TIME%!', getDay(day) + ' ' + getTime(time));
-
-	return webpage;
-}
-module.exports.activityTime = activityTime;
-
 function posts(webpage, country, region, posts) {
 	var YOUTUBELINK_SEARCH = "https://www.youtube.com/watch?";
 
@@ -300,22 +284,3 @@ function breadcrumb(webpage, country, region, city, game) {
 	return webpage;
 }
 module.exports.breadcrumb = breadcrumb;
-
-function mainheading(webpage, isLogin, username) {
-	var heading = '';
-
-	if(isLogin) {
-		heading = '<form action="/login">\n';
-		heading += '\t<div class="btn-group">\n';
-		heading += '\t\t<input type="submit" value="Login" class="btn btn-default btn-primary"/>\n';
-		heading += '\t</div>\n';
-		heading += '</form>\n';
-	} else {
-		heading = 'Welcome ' + username;
-	}
-
-	webpage = webpage.replace('!%MAINHEADING%!', heading);
-
-	return webpage;
-}
-module.exports.mainheading = mainheading;
