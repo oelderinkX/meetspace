@@ -51,11 +51,11 @@ function sendPostEmail(email, fromUser, activity, url, subject, emailContent) {
 	  sgMail
 		.send(msg)
 		.then((response) => {
-		  console.log(response[0].statusCode);
-		  console.log(response[0].headers);
+		  console.log('statuscode: ' + response[0].statusCode);
+		  console.log('header: ' + response[0].headers);
 		})
 		.catch((error) => {
-		  console.error(error);
+		  console.error('error!!: ' + error);
 		});
 }
 module.exports.sendPostEmail = sendPostEmail;
