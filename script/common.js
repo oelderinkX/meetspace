@@ -24,8 +24,7 @@ function s4() {
 
 function postgresConfig() {
 	var config = {
-		connectionString: process.env.DATABASE_URL,
-		sslmode: "prefer"
+		connectionString: process.env.DATABASE_URL
 	};
 
 	return config;
