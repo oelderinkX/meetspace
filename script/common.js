@@ -24,7 +24,10 @@ function s4() {
 
 function postgresConfig() {
 	var config = {
-		connectionString: process.env.DATABASE_URL
+		connectionString: process.env.DATABASE_URL,
+		ssl: {
+			rejectUnauthorized: false
+		}
 	};
 
 	return config;
