@@ -47,6 +47,12 @@ function retrieveActiveCountries(callback) {
 		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
 		pool.connect(function(err, client, done) {
+
+			if (err) {
+				console.log('DB Connection Error!!!!!!');
+				console.log(err);
+			}
+
 			client.query(postsql, function(err, result) {
 				done();
 
