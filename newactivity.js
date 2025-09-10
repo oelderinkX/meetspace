@@ -58,7 +58,6 @@ module.exports = function(app){
 					console.error(err);
 					res.send(err);
 				} else {
-					console.log(result);
 					var game_url = result.rows[0].ret_game_url;
 					res.redirect('/' + game_url);
 				}
@@ -66,6 +65,3 @@ module.exports = function(app){
 		});
 	});
 }
-
-
-

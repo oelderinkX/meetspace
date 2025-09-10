@@ -7,10 +7,6 @@ const auth = params.auth.split(':');
 const webpage_url = '/';
 module.exports.webpage_url = webpage_url;
 
-function fakeMethod() {
-	// this is just a fake commit you can delete this methods
-}
-
 function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();

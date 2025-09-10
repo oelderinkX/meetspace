@@ -10,10 +10,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var registrationPage = fs.readFileSync(__dirname + "/webpage/registration.html", "utf8");
 
 module.exports = function(app){
-	
 	app.all('/logout', urlencodedParser, function(req, res) {
-		
-		var registrationStatus = 'OK';
 		var sql = 'DELETE FROM meetspace.session WHERE email = $1 AND sessionId = $2;';
 		
 		var email = req.cookies['email'];

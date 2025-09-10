@@ -23,7 +23,6 @@ function s4() {
 }
 
 module.exports = function(app){
-	
 	app.get('/login', function(req, res) {
 		var formatted = loginPage;
 		
@@ -36,7 +35,6 @@ module.exports = function(app){
 	});	
 	
 	app.post('/login', urlencodedParser, function(req, res) {
-		
 		var password = req.body.password;
 		var email = req.body.email;
 		var sessionId = guid();
@@ -50,13 +48,12 @@ module.exports = function(app){
 				if (err) {
 					console.error(err);
 					var errAsString = err.toString();
-					var errorMessage = 'Unknown error occured when created user.  Please try again.';
+					var errorMessage = 'Unknown error occured when created user.  Please try again.  Error "' + errAsString + '"';
 					
 					var formatted = loginPage;
 					formatted = formatted.replace('!%PASSWORD%!', password);
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
-					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
 					formatted = renderElement.error(formatted, errorMessage);
 				
 					res.send(formatted);
@@ -73,7 +70,6 @@ module.exports = function(app){
 						formatted = formatted.replace('!%PASSWORD%!', password);
 						formatted = formatted.replace('!%EMAIL%!', email);
 						
-						//formatted = formatted.replace('!%ERROR STATUS%!',);
 						formatted = renderElement.error(formatted, 'Unknown user or password');
 						
 						res.send(formatted);
@@ -83,6 +79,3 @@ module.exports = function(app){
 		});
 	});
 }
-
-
-

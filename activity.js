@@ -241,11 +241,6 @@ module.exports = function(app) {
 		if (params[4] !== null && params[4] !== '') {
 			game = params[4];
 		}
-
-		console.log('country: ' + country );
-		console.log('region: ' + region );
-		console.log('city: ' + city);
-		console.log('game: ' + game);
 		
 		renderPage(country, region, city, game, req, res);
 	});
@@ -339,6 +334,7 @@ module.exports = function(app) {
 		var username = req.cookies['username'];
 
 		var sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+		console.log('announcemessage: sql: ' + sql);
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, function(err, result) {
@@ -348,6 +344,7 @@ module.exports = function(app) {
 					var toEmail = result.rows[i].ret_email;
 					var activityTitle = result.rows[i].ret_activitytitle;
 
+					console.log('sending email');
 					notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', message);
 				}
 				sql = "SELECT meetspace.post_message($1, $2, $3, $4);";

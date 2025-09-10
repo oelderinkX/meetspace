@@ -4,7 +4,6 @@ var fs = require("fs");
 var renderElement = require('./script/renderElement.js');
 var common = require('./script/common.js');
 
-
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var pool = new pg.Pool(common.postgresConfig());
@@ -26,16 +25,12 @@ module.exports = function(app){
 	});	
 	
 	app.post('/register', urlencodedParser, function(req, res) {
-		
-		var registrationStatus = 'OK';
 		var insert = 'INSERT INTO meetspace.user (username, password, email, active) ';
 		insert = insert + 'VALUES($1,$2,$3,false);';
 		
 		var username = req.body.username;
 		var password = req.body.password;
 		var email = req.body.email;
-		
-		console.log(insert);
 		
 		pool.connect(function(err, connection, done) {
 			connection.query(insert, 
@@ -59,7 +54,6 @@ module.exports = function(app){
 					formatted = formatted.replace('!%PASSWORD%!', password);
 					formatted = formatted.replace('!%EMAIL%!', email);
 					
-					//formatted = formatted.replace('!%ERROR STATUS%!',errorMessage);
 					formatted = renderElement.error(formatted, errorMessage);
 					
 					res.send(formatted);

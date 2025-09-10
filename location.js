@@ -16,7 +16,6 @@ function retrieveCountries(callback) {
 	if (countries.length > 0) {
 		return callback();
 	} else {
-		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries order by name;";
 		pool.connect(function(err, client, done) {
 			client.query(postsql, function(err, result) {
@@ -24,7 +23,6 @@ function retrieveCountries(callback) {
 
 				if (result) {
 					for (var i = 0; i < result.rows.length; i++) {
-						console.log('loading country ' + result.rows[i].name);
 						countries.push({
 						  id: result.rows[i].id,
 						  name: result.rows[i].name,
@@ -44,7 +42,6 @@ function retrieveActiveCountries(callback) {
 	if (countries.length > 0) {
 		return callback();
 	} else {
-		console.log('loading all countries...');
 		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
 		pool.connect(function(err, client, done) {
 
