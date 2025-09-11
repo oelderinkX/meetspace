@@ -5,7 +5,7 @@ const sgMail = require('@sendgrid/mail') //new code
 sgMail.setApiKey(process.env.SENDGRID_API_KEY) //new code
 
 var fs = require("fs");
-var mailPage = fs.readFileSync(__dirname + "/webpage/mail.html", "utf8");
+var mailPage = fs.readFileSync(__dirname + "/webpage/mail2.html", "utf8");
 
 var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
