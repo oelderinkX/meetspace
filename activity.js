@@ -46,8 +46,6 @@ function renderPage(country, region, city, game, req, res) {
 		}
 
 		client.query(sql, [country, region, city, game], function(err, result) {
-			done();
-
 			if (err) {
 				console.log("errors!");
 			} else {
@@ -77,130 +75,125 @@ function renderPage(country, region, city, game, req, res) {
 
 					sql = "SELECT * FROM meetspace.get_activity_details($1, $2, $3);"
 
-					pool.connect(function(err, client, done) {
+					client.query(sql, [email, sessionId, activityId], function(err, result) {
 						if (err) {
-							console.log("ERROR: " + err);
-						}
+							console.log("error fail");
+						} else {
+							var isJoined = result.rows[0].ret_joined;
+							var isAttending = result.rows[0].ret_attended;
+							var isAdmin = result.rows[0].ret_admin;
+						
+							if (isJoined) {
+								showunjoin = '';
+								showpost = 'inline';
+								showinvite = 'inline';
+								showchannel = 'inline';
+								showmessaging = 'inline';
 
-						client.query(sql, [email, sessionId, activityId], function(err, result) {
-							done();
-
-							if (err) {
-								console.log("error fail");
-							} else {
-								var isJoined = result.rows[0].ret_joined;
-								var isAttending = result.rows[0].ret_attended;
-								var isAdmin = result.rows[0].ret_admin;
-							
-								if (isJoined) {
-									showunjoin = '';
-									showpost = 'inline';
-									showinvite = 'inline';
-									showchannel = 'inline';
-									showmessaging = 'inline';
-
-									if (isAttending) {
-										showunattend = 'inline';
-									} else {
-										showattend = 'inline';
-									}
-									
-									if (isAdmin) {
-										showreset = 'inline';
-										showedit = 'inline';
-										showreset = 'inline';
-									}
+								if (isAttending) {
+									showunattend = 'inline';
 								} else {
-									if (username && sessionId) {
-										showjoin = '';
-										showchannel = 'inline';
-									}
+									showattend = 'inline';
 								}
-
-								webpage = common.replaceAll(webpage, '!%TITLE%!', title);
-								webpage = webpage.replace('!%TIME%!', common.getDay(day) + ' ' + common.getTime(time));
-
-								webpage = webpage.replace('!%DESCRIPTION%!', description);
-								webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
-								webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
-
-								webpage = common.replaceAll(webpage, '!%SHOWJOIN%!', showjoin);
-								webpage = common.replaceAll(webpage, '!%SHOWUNJOIN%!', showunjoin);
-								webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
-								webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
-								webpage = common.replaceAll(webpage, '!%SHOWMESSAGING%!', showmessaging);
-								webpage = common.replaceAll(webpage, '!%SHOWEDIT%!', showedit);
-								webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showchannel);
-
-								webpage = webpage.replace('!%SHOWPOST%!', showpost);
-								webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
-
-								webpage = webpage.replace('!%COUNTRY%!',country);
-								webpage = webpage.replace('!%REGION%!',region);
-								webpage = webpage.replace('!%CITY%!',city);
-								webpage = webpage.replace('!%GAME%!',game);
-
-								res.cookie('activity' , actionlink);
-
-								res.send(webpage);
+								
+								if (isAdmin) {
+									showreset = 'inline';
+									showedit = 'inline';
+									showreset = 'inline';
+								}
+							} else {
+								if (username && sessionId) {
+									showjoin = '';
+									showchannel = 'inline';
+								}
 							}
-						});
+
+							webpage = common.replaceAll(webpage, '!%TITLE%!', title);
+							webpage = webpage.replace('!%TIME%!', common.getDay(day) + ' ' + common.getTime(time));
+
+							webpage = webpage.replace('!%DESCRIPTION%!', description);
+							webpage = common.replaceAll(webpage, '!%ACTION%!', actionlink);
+							webpage = common.replaceAll(webpage, '!%ACTIVITYID%!', activityId);
+
+							webpage = common.replaceAll(webpage, '!%SHOWJOIN%!', showjoin);
+							webpage = common.replaceAll(webpage, '!%SHOWUNJOIN%!', showunjoin);
+							webpage = common.replaceAll(webpage, '!%SHOWATTEND%!', showattend);
+							webpage = common.replaceAll(webpage, '!%SHOWUNATTEND%!', showunattend);
+							webpage = common.replaceAll(webpage, '!%SHOWMESSAGING%!', showmessaging);
+							webpage = common.replaceAll(webpage, '!%SHOWEDIT%!', showedit);
+							webpage = common.replaceAll(webpage, '!%SHOWCHANNEL%!', showchannel);
+
+							webpage = webpage.replace('!%SHOWPOST%!', showpost);
+							webpage = webpage.replace('!%SHOWINVITE%!', showinvite);
+
+							webpage = webpage.replace('!%COUNTRY%!',country);
+							webpage = webpage.replace('!%REGION%!',region);
+							webpage = webpage.replace('!%CITY%!',city);
+							webpage = webpage.replace('!%GAME%!',game);
+
+							res.cookie('activity' , actionlink);
+
+							done();
+							res.send(webpage);
+						}
 					});
-				} else if (result.rows.length == 0) {
-					var noactivityPage = infoPage;
+			} else if (result.rows.length == 0) {
+				var noactivityPage = infoPage;
 
-					if (game) {
-						var message = 'No activty for ' + game + '.  Would you like to create it? <a href="/newactivity" class="btn btn-primary" role="button">Create</a>';
-						noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
-					} else {
-						var message = 'No activties in your area.  Would you like to create one? <a href="/newactivity" class="btn btn-primary" role="button">Create</a>';
-						noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
-					}
-
-					res.send(noactivityPage);
-				} else if (result.rows.length > 1) {
-					webpage = listPage;
-
-					webpage = renderElement.breadcrumb(webpage, country, region, city, game);
-
-					var titlelist = [];
-					var gamelist = [];
-					var citylist = [];
-					var regionlist = [];
-					var countrylist = [];
-					var descriptionlist = [];
-					var linklist = [];
-					var numberofplayerslist = [];
-
-					for (var i = 0; i < result.rows.length; i++) {
-						var title = result.rows[i].ret_title;
-						game = result.rows[i].ret_game;
-						city = result.rows[i].ret_city;
-						region = result.rows[i].ret_region;
-						country = result.rows[i].ret_country;
-						description = result.rows[i].ret_description;
-						var numberofplayers = result.rows[i].ret_number_of_players;
-
-						var link = getUrl(country, region, city, game);
-
-						titlelist.push(title);
-						gamelist.push(game);
-						citylist.push(city);
-						regionlist.push(region);
-						countrylist.push(country);
-						descriptionlist.push(description);
-						linklist.push(link);
-						numberofplayerslist.push(numberofplayers);
-					}
-
-					webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist, numberofplayerslist);
-
-					res.send(webpage);
+				if (game) {
+					var message = 'No activty for ' + game + '.  Would you like to create it? <a href="/newactivity" class="btn btn-primary" role="button">Create</a>';
+					noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
+				} else {
+					var message = 'No activties in your area.  Would you like to create one? <a href="/newactivity" class="btn btn-primary" role="button">Create</a>';
+					noactivityPage = noactivityPage.replace('!%MESSAGE%!', message);
 				}
+
+				done();
+				res.send(noactivityPage);
+			} else if (result.rows.length > 1) {
+				webpage = listPage;
+
+				webpage = renderElement.breadcrumb(webpage, country, region, city, game);
+
+				var titlelist = [];
+				var gamelist = [];
+				var citylist = [];
+				var regionlist = [];
+				var countrylist = [];
+				var descriptionlist = [];
+				var linklist = [];
+				var numberofplayerslist = [];
+
+				for (var i = 0; i < result.rows.length; i++) {
+					var title = result.rows[i].ret_title;
+					game = result.rows[i].ret_game;
+					city = result.rows[i].ret_city;
+					region = result.rows[i].ret_region;
+					country = result.rows[i].ret_country;
+					description = result.rows[i].ret_description;
+					var numberofplayers = result.rows[i].ret_number_of_players;
+
+					var link = getUrl(country, region, city, game);
+
+					titlelist.push(title);
+					gamelist.push(game);
+					citylist.push(city);
+					regionlist.push(region);
+					countrylist.push(country);
+					descriptionlist.push(description);
+					linklist.push(link);
+					numberofplayerslist.push(numberofplayers);
+				}
+
+				webpage = renderElement.activities(webpage, titlelist, gamelist, citylist, regionlist, countrylist, descriptionlist, linklist, numberofplayerslist);
+
+				done();
+				res.send(webpage);
 			}
-		});
-	});
+		}
+	}); });
 }
+
 
 function performAction(country, region, city, game, action, req, res) {
 	var email = req.cookies['email'];

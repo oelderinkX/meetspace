@@ -53,5 +53,3 @@ require('./updateprofile.js')(app);
 require('./location.js')(app);
 
 require('./activity.js')(app);  //this most likely needs to go at the bottom
-
-
