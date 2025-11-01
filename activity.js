@@ -215,7 +215,7 @@ function performAction(country, region, city, game, action, req, res) {
 }
 
 module.exports = function(app) {
-	app.get('*', urlencodedParser, function(req, res) {
+	app.get('/{*activity}', urlencodedParser, function(req, res) {
 		var url = req.url;
 		var params = url.split("/");
 
