@@ -38,41 +38,97 @@ function retrieveCountries(callback) {
 }
 module.exports.RetrieveCountries = retrieveCountries;
 
-function retrieveActiveCountries(callback) {
+// function retrieveActiveCountries(callback) {
+// 	if (countries.length > 0) {
+// 		return callback();
+// 	} else {
+// 		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
+// 		pool.connect(function(err, client, done) {
+
+// 			if (err) {
+// 				console.log('DB Connection Error!!!!!!');
+// 				console.log(err);
+// 			}
+
+// 			client.query(postsql, function(err, result) {
+// 				done();
+
+// 				if (result) {
+// 					for (var i = 0; i < result.rows.length; i++) {
+// 						console.log('loading country ' + result.rows[i].name);
+// 						countries.push({
+// 						  id: result.rows[i].id,
+// 						  name: result.rows[i].name,
+// 						  code: result.rows[i].code,
+// 						});
+// 					}
+// 				}
+
+// 				return callback();
+// 			});
+// 		});
+// 	}
+// }
+// module.exports.RetrieveActiveCountries = retrieveActiveCountries;
+
+async function retrieveActiveCountries() {
 	if (countries.length > 0) {
-		return callback();
+		return countries;
 	} else {
 		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
-		pool.connect(function(err, client, done) {
 
-			if (err) {
-				console.log('DB Connection Error!!!!!!');
-				console.log(err);
+		let client = await pool.connect();
+		let result = await client.query(postsql);
+
+		if (result) {
+			for (var i = 0; i < result.rows.length; i++) {
+				console.log('loading country ' + result.rows[i].name);
+				countries.push({
+					id: result.rows[i].id,
+					name: result.rows[i].name,
+					code: result.rows[i].code,
+				});
 			}
+		}
 
-			client.query(postsql, function(err, result) {
-				done();
+		return countries;
+		// pool.connect(function(err, client, done) {
 
-				if (result) {
-					for (var i = 0; i < result.rows.length; i++) {
-						console.log('loading country ' + result.rows[i].name);
-						countries.push({
-						  id: result.rows[i].id,
-						  name: result.rows[i].name,
-						  code: result.rows[i].code,
-						});
-					}
-				}
+		// 	if (err) {
+		// 		console.log('DB Connection Error!!!!!!');
+		// 		console.log(err);
+		// 	}
 
-				return callback();
-			});
-		});
+		// 	client.query(postsql, function(err, result) {
+		// 		done();
+
+		// 		if (result) {
+		// 			for (var i = 0; i < result.rows.length; i++) {
+		// 				console.log('loading country ' + result.rows[i].name);
+		// 				countries.push({
+		// 				  id: result.rows[i].id,
+		// 				  name: result.rows[i].name,
+		// 				  code: result.rows[i].code,
+		// 				});
+		// 			}
+		// 		}
+
+		// 		return callback();
+		// 	});
+		// });
 	}
 }
 module.exports.RetrieveActiveCountries = retrieveActiveCountries;
 
-function getActiveCountries(res) {
-	retrieveActiveCountries(function() {
+
+// function getActiveCountries(res) {
+// 	retrieveActiveCountries(function() {
+// 		res.send(countries);
+// 	});
+// }
+
+async function getActiveCountries(res) {
+	retrieveActiveCountries().then( function(countries) {
 		res.send(countries);
 	});
 }
@@ -171,8 +227,29 @@ function getCitiesByRegion(res, id) {
 	});
 }
 
+// module.exports = function(app) {
+// 	app.get('/location', function(req, res) {
+// 		var get = req.query.get;
+// 		var id = req.query.id;
+// 		var empty = [];
+		
+// 		if (get == "countries") {
+// 			getCountries(res);
+// 		} else if (get == "activeCountries") {
+// 			getActiveCountries(res);
+// 		} else if (get == "regions" && id) {
+// 			getRegionByCountry(res, id);
+// 		} else if (get == "cities" && id) {
+// 			getCitiesByRegion(res, id);
+// 		} else {
+// 			res.send(empty);
+// 		}
+// 	});	
+// }
+
+
 module.exports = function(app) {
-	app.get('/location', function(req, res) {
+	app.get('/location', async function(req, res) {
 		var get = req.query.get;
 		var id = req.query.id;
 		var empty = [];
@@ -180,7 +257,7 @@ module.exports = function(app) {
 		if (get == "countries") {
 			getCountries(res);
 		} else if (get == "activeCountries") {
-			getActiveCountries(res);
+			await getActiveCountries(res);
 		} else if (get == "regions" && id) {
 			getRegionByCountry(res, id);
 		} else if (get == "cities" && id) {
