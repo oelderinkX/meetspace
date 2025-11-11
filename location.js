@@ -12,76 +12,42 @@ exports.Countries = countries;
 var regions = [];
 var cities = [];
 
-function retrieveCountries(callback) {
+async function retrieveCountries(callback) {
 	if (countries.length > 0) {
-		return callback();
+		return countries;
 	} else {
-		var postsql = "select id, name, code from meetspace.countries order by name;";
-		pool.connect(function(err, client, done) {
-			client.query(postsql, function(err, result) {
-				done();
+		const postsql = "select id, name, code from meetspace.countries order by name;";
+		let client = await pool.connect();
+		let result = await client.query(postsql);
 
-				if (result) {
-					for (var i = 0; i < result.rows.length; i++) {
-						countries.push({
-						  id: result.rows[i].id,
-						  name: result.rows[i].name,
-						  code: result.rows[i].code,
-						});
-					}
-				}
+		if (result) {
+			for (let i = 0; i < result.rows.length; i++) {
+				countries.push({
+					id: result.rows[i].id,
+					name: result.rows[i].name,
+					code: result.rows[i].code,
+				});
+			}
+		}
 
-				return callback();
-			});
-		});
+		client.release();
+		return countries;
 	}
 }
 module.exports.RetrieveCountries = retrieveCountries;
 
-// function retrieveActiveCountries(callback) {
-// 	if (countries.length > 0) {
-// 		return callback();
-// 	} else {
-// 		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
-// 		pool.connect(function(err, client, done) {
-
-// 			if (err) {
-// 				console.log('DB Connection Error!!!!!!');
-// 				console.log(err);
-// 			}
-
-// 			client.query(postsql, function(err, result) {
-// 				done();
-
-// 				if (result) {
-// 					for (var i = 0; i < result.rows.length; i++) {
-// 						console.log('loading country ' + result.rows[i].name);
-// 						countries.push({
-// 						  id: result.rows[i].id,
-// 						  name: result.rows[i].name,
-// 						  code: result.rows[i].code,
-// 						});
-// 					}
-// 				}
-
-// 				return callback();
-// 			});
-// 		});
-// 	}
-// }
-// module.exports.RetrieveActiveCountries = retrieveActiveCountries;
 
 async function retrieveActiveCountries() {
 	if (countries.length > 0) {
 		return countries;
 	} else {
-		var postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
+		const postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
 
 		let client = await pool.connect();
 		let result = await client.query(postsql);
 
 		if (result) {
-			for (var i = 0; i < result.rows.length; i++) {
+			for (let i = 0; i < result.rows.length; i++) {
 				console.log('loading country ' + result.rows[i].name);
 				countries.push({
 					id: result.rows[i].id,
@@ -92,51 +58,19 @@ async function retrieveActiveCountries() {
 		}
 
 		client.release();
-
 		return countries;
-		// pool.connect(function(err, client, done) {
-
-		// 	if (err) {
-		// 		console.log('DB Connection Error!!!!!!');
-		// 		console.log(err);
-		// 	}
-
-		// 	client.query(postsql, function(err, result) {
-		// 		done();
-
-		// 		if (result) {
-		// 			for (var i = 0; i < result.rows.length; i++) {
-		// 				console.log('loading country ' + result.rows[i].name);
-		// 				countries.push({
-		// 				  id: result.rows[i].id,
-		// 				  name: result.rows[i].name,
-		// 				  code: result.rows[i].code,
-		// 				});
-		// 			}
-		// 		}
-
-		// 		return callback();
-		// 	});
-		// });
 	}
 }
 module.exports.RetrieveActiveCountries = retrieveActiveCountries;
 
-
-// function getActiveCountries(res) {
-// 	retrieveActiveCountries(function() {
-// 		res.send(countries);
-// 	});
-// }
-
 async function getActiveCountries(res) {
-	retrieveActiveCountries().then( function(countries) {
+	retrieveActiveCountries().then(function(countries) {
 		res.send(countries);
 	});
 }
 
-function getCountries(res) {
-	retrieveCountries(function() {
+async function getCountries(res) {
+	retrieveCountries().then(function(countries) {
 		res.send(countries);
 	});
 }
