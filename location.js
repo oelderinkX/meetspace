@@ -75,11 +75,11 @@ async function getCountries(res) {
 	});
 }
 
-function getRegionByCountry(res, id) {
-	var regionByCountry = [];
+async function getRegionByCountry(res, id) {
+	const regionByCountry = [];
 	
 	if (regions.length > 0) {
-		for (var i = 0; i < regions.length ; i++) {
+		for (let i = 0; i < regions.length ; i++) {
 			if (regions[i].country_id == id) {
 				regionByCountry.push({
 					id: regions[i].id,
@@ -92,35 +92,34 @@ function getRegionByCountry(res, id) {
 		res.send(regionByCountry);
 	} else {
 		var postsql = "select id, name, code, country_id from meetspace.regions order by name;";
-		pool.connect(function(err, client, done) {
-			client.query(postsql, function(err, result) {
-				done();
 
-				if (result) {
-					for (var i = 0; i < result.rows.length; i++) {
-						regions.push({
-						  id: result.rows[i].id,
-						  name: result.rows[i].name,
-						  code: result.rows[i].code,
-						  country_id: result.rows[i].country_id
-						});
-					}
-				}
+		let client = await pool.connect();
+		let result = await client.query(postsql);	
 
-				for (var i = 0; i < regions.length ; i++) {
-					if (regions[i].country_id == id) {
-						regionByCountry.push({
-							id: regions[i].id,
-							name: regions[i].name,
-							code: regions[i].code,
-							country_id: regions[i].country_id
-						});
-					}
-				}
-				
-				res.send(regionByCountry);
-			});
-		});
+		if (result) {
+			for (let i = 0; i < result.rows.length; i++) {
+				regions.push({
+					id: result.rows[i].id,
+					name: result.rows[i].name,
+					code: result.rows[i].code,
+					country_id: result.rows[i].country_id
+				});
+			}
+		}
+
+		for (let i = 0; i < regions.length ; i++) {
+			if (regions[i].country_id == id) {
+				regionByCountry.push({
+					id: regions[i].id,
+					name: regions[i].name,
+					code: regions[i].code,
+					country_id: regions[i].country_id
+				});
+			}
+		}
+		
+		client.release();
+		res.send(regionByCountry);
 	}
 }
 
@@ -191,11 +190,11 @@ module.exports = function(app) {
 		var empty = [];
 		
 		if (get == "countries") {
-			getCountries(res);
+			await getCountries(res);
 		} else if (get == "activeCountries") {
 			await getActiveCountries(res);
 		} else if (get == "regions" && id) {
-			getRegionByCountry(res, id);
+			await getRegionByCountry(res, id);
 		} else if (get == "cities" && id) {
 			getCitiesByRegion(res, id);
 		} else {
