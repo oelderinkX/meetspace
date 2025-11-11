@@ -91,6 +91,8 @@ async function retrieveActiveCountries() {
 			}
 		}
 
+		client.release();
+
 		return countries;
 		// pool.connect(function(err, client, done) {
 
