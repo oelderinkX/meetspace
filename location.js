@@ -17,6 +17,7 @@ async function retrieveCountries(callback) {
 		return countries;
 	} else {
 		const postsql = "select id, name, code from meetspace.countries order by name;";
+		
 		let client = await pool.connect();
 		let result = await client.query(postsql);
 
@@ -91,7 +92,7 @@ async function getRegionByCountry(res, id) {
 		}			
 		res.send(regionByCountry);
 	} else {
-		var postsql = "select id, name, code, country_id from meetspace.regions order by name;";
+		const postsql = "select id, name, code, country_id from meetspace.regions order by name;";
 
 		let client = await pool.connect();
 		let result = await client.query(postsql);	
@@ -123,65 +124,43 @@ async function getRegionByCountry(res, id) {
 	}
 }
 
-function getCitiesByRegion(res, id) {
-	var citiesByRegion = [];
+async function getCitiesByRegion(res, id) {
+	const citiesByRegion = [];
 	
-	var postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + " order by name;";
-	pool.connect(function(err, client, done) {
-		client.query(postsql, function(err, result) {
-			done();
+	const postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + " order by name;";
 
-			if (result) {
-				for (var i = 0; i < result.rows.length; i++) {
-					cities.push({
-					  id: result.rows[i].id,
-					  region_id: result.rows[i].region_id,
-					  country_id: result.rows[i].country_id,
-					  latitude: result.rows[i].latitude,
-					  longitude: result.rows[i].longitude,
-					  name: result.rows[i].name
-					});
-				}
-			}
+	let client = await pool.connect();
+	let result = await client.query(postsql);	
 
-			for (var i = 0; i < cities.length ; i++) {
-				if (cities[i].region_id == id) {
-					citiesByRegion.push({
-						id: cities[i].id,
-						region_id: cities[i].region_id,
-						country_id: cities[i].country_id,
-						latitude: cities[i].latitude,
-						longitude: cities[i].longitude,
-						name: cities[i].name
-					});
-				}
-			}
-			
-			res.send(citiesByRegion);
-		});
-	});
+	if (result) {
+		for (let i = 0; i < result.rows.length; i++) {
+			cities.push({
+				id: result.rows[i].id,
+				region_id: result.rows[i].region_id,
+				country_id: result.rows[i].country_id,
+				latitude: result.rows[i].latitude,
+				longitude: result.rows[i].longitude,
+				name: result.rows[i].name
+			});
+		}
+	}
+
+	for (let i = 0; i < cities.length ; i++) {
+		if (cities[i].region_id == id) {
+			citiesByRegion.push({
+				id: cities[i].id,
+				region_id: cities[i].region_id,
+				country_id: cities[i].country_id,
+				latitude: cities[i].latitude,
+				longitude: cities[i].longitude,
+				name: cities[i].name
+			});
+		}
+	}
+	
+	client.release();
+	res.send(citiesByRegion);
 }
-
-// module.exports = function(app) {
-// 	app.get('/location', function(req, res) {
-// 		var get = req.query.get;
-// 		var id = req.query.id;
-// 		var empty = [];
-		
-// 		if (get == "countries") {
-// 			getCountries(res);
-// 		} else if (get == "activeCountries") {
-// 			getActiveCountries(res);
-// 		} else if (get == "regions" && id) {
-// 			getRegionByCountry(res, id);
-// 		} else if (get == "cities" && id) {
-// 			getCitiesByRegion(res, id);
-// 		} else {
-// 			res.send(empty);
-// 		}
-// 	});	
-// }
-
 
 module.exports = function(app) {
 	app.get('/location', async function(req, res) {
@@ -196,7 +175,7 @@ module.exports = function(app) {
 		} else if (get == "regions" && id) {
 			await getRegionByCountry(res, id);
 		} else if (get == "cities" && id) {
-			getCitiesByRegion(res, id);
+			await getCitiesByRegion(res, id);
 		} else {
 			res.send(empty);
 		}
