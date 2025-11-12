@@ -2,6 +2,7 @@ var pg = require('pg');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 var common = require('./script/common.js');
+var logging = require('./logging.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -18,6 +19,7 @@ async function retrieveCountries(callback) {
 	} else {
 		const postsql = "select id, name, code from meetspace.countries order by name;";
 		
+		logging.logDbStats('retrieveCountries start', pool);
 		let client = await pool.connect();
 		let result = await client.query(postsql);
 
@@ -32,6 +34,7 @@ async function retrieveCountries(callback) {
 		}
 
 		client.release();
+		logging.logDbStats('retrieveCountries finish', pool);
 		return countries;
 	}
 }
@@ -44,6 +47,7 @@ async function retrieveActiveCountries() {
 	} else {
 		const postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
 
+		logging.logDbStats('retrieveActiveCountries start', pool);
 		let client = await pool.connect();
 		let result = await client.query(postsql);
 
@@ -59,6 +63,7 @@ async function retrieveActiveCountries() {
 		}
 
 		client.release();
+		logging.logDbStats('retrieveActiveCountries finish', pool);
 		return countries;
 	}
 }
@@ -94,6 +99,7 @@ async function getRegionByCountry(res, id) {
 	} else {
 		const postsql = "select id, name, code, country_id from meetspace.regions order by name;";
 
+		logging.logDbStats('getRegionByCountry start', pool);
 		let client = await pool.connect();
 		let result = await client.query(postsql);	
 
@@ -120,6 +126,7 @@ async function getRegionByCountry(res, id) {
 		}
 		
 		client.release();
+		logging.logDbStats('getRegionByCountry finish', pool);
 		res.send(regionByCountry);
 	}
 }
@@ -129,6 +136,7 @@ async function getCitiesByRegion(res, id) {
 	
 	const postsql = "select id, region_id, country_id, latitude, longitude, name from meetspace.cities where region_id = " + id + " order by name;";
 
+	logging.logDbStats('getCitiesByRegion start', pool);
 	let client = await pool.connect();
 	let result = await client.query(postsql);	
 
@@ -159,6 +167,7 @@ async function getCitiesByRegion(res, id) {
 	}
 	
 	client.release();
+	logging.logDbStats('getCitiesByRegion finish', pool);
 	res.send(citiesByRegion);
 }
 
