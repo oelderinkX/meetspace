@@ -269,7 +269,7 @@ module.exports = function(app) {
 	app.post('/whosgoing', jsonParser, async function(req, res) {
 		const activityId = req.body.activityId;
 
-		const whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
+		let whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
 		whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
 		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
 
