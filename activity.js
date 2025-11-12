@@ -4,6 +4,7 @@ var fs = require("fs");
 var common = require('./script/common.js');
 var renderElement = require('./script/renderElement.js');
 var notifications = require('./notifications.js');
+var logging = require('./logging.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
@@ -238,31 +239,31 @@ module.exports = function(app) {
 		renderPage(country, region, city, game, req, res);
 	});
 
-	app.post('/getposts', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
+	app.post('/getposts', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
 
-		var postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
+		const postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
 
-		pool.connect(function(err, client, done) {
-			client.query(postsql, [activityId], function(err, result) {
-				done();
-				
-				var posts = [];
+		logging.logDbStats('/getposts start', pool);
+		let client = await pool.connect();
+		let result = await client.query(postsql, [activityId]);
 
-				if (result) {
-					for (var i = 0; i < result.rows.length; i++) {
-						posts.push({
-						  username: result.rows[i].username,
-						  message: result.rows[i].message,
-						  title: result.rows[i].title,
-						  submissionDate: result.rows[i].postdate
-						});
-					}
-				}
+		const posts = [];
 
-				res.send(posts);
-			});
-		});
+		if (result) {
+			for (let i = 0; i < result.rows.length; i++) {
+				posts.push({
+					username: result.rows[i].username,
+					message: result.rows[i].message,
+					title: result.rows[i].title,
+					submissionDate: result.rows[i].postdate
+				});
+			}
+		}
+
+		client.release();
+		logging.logDbStats('/getposts finish', pool);
+		res.send(posts);
 	});
 
 	app.post('/whosgoing', jsonParser, function(req, res) {
