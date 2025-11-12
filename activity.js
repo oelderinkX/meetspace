@@ -350,36 +350,36 @@ module.exports = function(app) {
 		res.send({ success: true});
 	});
 
-	app.post('/attend', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
+	app.post('/attend', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
 
-		var sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/attend start', pool);
+		let client = await pool.connect();
+		let result = await client.query(sql);
 
-				res.send({ success: true});
-			});
-		});
+		client.release();
+		logging.logDbStats('/attend finish', pool);
+		res.send({ success: true});
 	});
 
-	app.post('/unattend', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
+	app.post('/unattend', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
 
-		var sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/unattend start', pool);
+		let client = await pool.connect();
+		let result = await client.query(sql);
 
-				res.send({ success: true});
-			});
-		});
+		client.release();
+		logging.logDbStats('/unattend finish', pool);
+		res.send({ success: true});
 	});
 
 	app.post('/invite', jsonParser, function(req, res) {

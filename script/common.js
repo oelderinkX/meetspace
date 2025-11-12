@@ -1,8 +1,4 @@
 var dateFormat = require('dateformat');
-const { connectionString } = require('pg/lib/defaults');
-const url = require('url')
-const params = url.parse(process.env.DATABASE_URL);
-const auth = params.auth.split(':');
 
 const webpage_url = '/';
 module.exports.webpage_url = webpage_url;
@@ -20,29 +16,18 @@ function s4() {
 
 function postgresConfig() {
 	var config = {
+		application_name: 'Meet Space',
 		connectionString: process.env.DATABASE_URL,
 		ssl: {
 			rejectUnauthorized: false
-		}
+		},
+		max: 20
 	};
 
 	return config;
 }
 module.exports.postgresConfig = postgresConfig;
 
-function postgresConfig2() {
-  var config = {
-    user: auth[0],
-    password: auth[1],
-    host: params.hostname,
-    port: params.port,
-    database: params.pathname.split('/')[1],
-    ssl: true	  
-  };
-  
-  return config;
-}
-module.exports.postgresConfig2 = postgresConfig2;
 
 function replaceAll(str, searchValue, replaceWith) {
 	if (searchValue == replaceWith) {
