@@ -266,91 +266,88 @@ module.exports = function(app) {
 		res.send(posts);
 	});
 
-	app.post('/whosgoing', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
+	app.post('/whosgoing', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
 
-		var whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
+		const whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
 		whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
 		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
 
-		pool.connect(function(err, client, done) {
-			client.query(whosgoingsql , function(err, result) {
-				done();
+		logging.logDbStats('/whosgoing start', pool);
+		let client = await pool.connect();
+		let result = await client.query(whosgoingsql);
 
-				var whosgoing = [];
+		const whosgoing = [];
 
-				for (var i = 0; i < result.rows.length; i++) {
-					var username = result.rows[i].username;
-					var status = result.rows[i].status;
+		for (let i = 0; i < result.rows.length; i++) {
+			const username = result.rows[i].username;
+			const status = result.rows[i].status;
 
-					var email = '';
-					if (status == 0) {
-						email = common.xor(result.rows[i].email, activityId);
-					} else {
-						email = '';
-					}
+			let email = '';
+			if (status == 0) {
+				email = common.xor(result.rows[i].email, activityId);
+			} else {
+				email = '';
+			}
 
-					whosgoing.push({ username: username, status: status, e: email });
-				}
+			whosgoing.push({ username: username, status: status, e: email });
+		}
 
-				res.send(whosgoing);
-			});
-		});
+		client.release();
+		logging.logDbStats('/whosgoing finish', pool);
+		res.send(whosgoing);
 	});
 
-	app.post('/postmessage', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var message = req.body.message;
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
+	app.post('/postmessage', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const message = req.body.message;
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
 
-		var sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+		const sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
-				done();
-				res.send({ success: true});
-			});
-		});
+		logging.logDbStats('/postmessage start', pool);
+		let client = await pool.connect();
+		let result = await client.query(sql, [ email, sessionId, activityId, message]);
+
+		client.release();
+		logging.logDbStats('/postmessage finish', pool);
+		res.send({ success: true});
 	});
 
-	app.post('/announcemessage', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var message = req.body.message;
+	app.post('/announcemessage', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const message = req.body.message;
 
-		var country = req.body.country;
-		var region = req.body.region;
-		var city = req.body.city;
-		var game = req.body.game;
+		const country = req.body.country;
+		const region = req.body.region;
+		const city = req.body.city;
+		const game = req.body.game;
 
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
-		var username = req.cookies['username'];
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
+		const username = req.cookies['username'];
 
-		var sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
-		console.log('announcemessage: sql: ' + sql);
+		let sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/announcemessage start', pool);
+		let client = await pool.connect();
+		let result = await client.query(sql);
 
-				for (var i = 0; i < result.rows.length; i++) {
-					var toEmail = result.rows[i].ret_email;
-					var activityTitle = result.rows[i].ret_activitytitle;
+		for (let i = 0; i < result.rows.length; i++) {
+			const toEmail = result.rows[i].ret_email;
+			const activityTitle = result.rows[i].ret_activitytitle;
 
-					console.log('sending email');
-					notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', message);
-				}
-				sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+			console.log('sending email');
+			notifications.sendPostEmail(toEmail, username, activityTitle, getUrl(country, region, city, game), '', message);
+		}
 
-				pool.connect(function(err, client, done) {
-					client.query(sql, [ email, sessionId, activityId, message], function(err, result) {
-						done();
-						res.send({ success: true});
-					});
-				});
-			});
-		});
+		sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
+		result = await client.query(sql, [email, sessionId, activityId, message]);
+
+		client.release();
+		logging.logDbStats('/announcemessage finish', pool);
+		res.send({ success: true});
 	});
 
 	app.post('/attend', jsonParser, function(req, res) {
