@@ -40,7 +40,7 @@ function renderPage(country, region, city, game, req, res) {
 
 	webpage = renderElement.breadcrumb(webpage, country, region, city, game);
 
-	const sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
+	let sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
 
 	pool.connect(function(err, client, done) {
 		if(err) {
