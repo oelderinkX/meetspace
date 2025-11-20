@@ -5,7 +5,7 @@ async function query(pool, sql, values, expireSeconds) {
 
     if (result === null) {
         console.log('query: No cache');
-        
+
         const client = await pool.connect();
 		result = await client.query(sql, values);
         client.release();
@@ -33,6 +33,12 @@ function getSql(sql, values) {
 
     return null;
 }
+
+function clearSql(sql, values) {
+    console.log('clearSql: ' + sql + ' ' + JSON.stringify(values) );
+    sql_cache = sql_cache.filter(s => !(s.sql === sql && JSON.stringify(s.values) === JSON.stringify(values)));
+}
+module.exports.clearSql = clearSql;
 
 function setSql(sql, values, result, expireSeconds) {
     console.log('setSql: ' + sql + ' ' + JSON.stringify(values) );

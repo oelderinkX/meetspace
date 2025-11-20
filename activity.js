@@ -196,19 +196,6 @@ function renderPage(country, region, city, game, req, res) {
 	}); });
 }
 
-
-function performAction(country, region, city, game, action, req, res) {
-	var email = req.cookies['email'];
-	var sessionId = req.cookies['sessionId'];
-	var username = req.cookies['username'];
-	var sql = '';
-
-	var activityId = req.body.activityId;
-	console.log('activityId:' + activityId);
-
-	renderPage(country, region, city, game, req, res);
-}
-
 module.exports = function(app) {
 	app.get('/{*activity}', urlencodedParser, function(req, res) {
 		var url = req.url;
@@ -267,18 +254,22 @@ module.exports = function(app) {
 		res.send(posts);
 	});
 
+	function getWhosGoingSql(activityId) {
+		return `SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status
+			FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id
+			WHERE meetspace.whosgoing.activityId = ${activityId}`;
+	}
+
 	app.post('/whosgoing', jsonParser, async function(req, res) {
 		const activityId = req.body.activityId;
 
-		let whosgoingsql = "SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status";
-		whosgoingsql += " FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id";
-		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
+		let whosgoingsql = getWhosGoingSql(activityId);
 
 		logging.logDbStats('/whosgoing start', pool);
 		// const client = await pool.connect();
 		// const result = await client.query(whosgoingsql);
 
-		const result = await sqlCache.query(pool, whosgoingsql, [], 30);
+		const result = await sqlCache.query(pool, whosgoingsql, [], 60);
 
 		const whosgoing = [];
 
@@ -358,6 +349,9 @@ module.exports = function(app) {
 		const email = req.cookies['email'];
 		const sessionId = req.cookies['sessionId'];
 
+		let whosgoingsql = getWhosGoingSql(activityId);
+		sqlCache.clearSql(whosgoingsql, []);
+
 		const sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/attend start', pool);
@@ -373,6 +367,9 @@ module.exports = function(app) {
 		const activityId = req.body.activityId;
 		const email = req.cookies['email'];
 		const sessionId = req.cookies['sessionId'];
+
+		let whosgoingsql = getWhosGoingSql(activityId);
+		sqlCache.clearSql(whosgoingsql, []);
 
 		const sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
