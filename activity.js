@@ -251,7 +251,7 @@ module.exports = function(app) {
 			}
 		}
 
-		client.release();
+		//client.release();
 		logging.logDbStats('/getposts finish', pool);
 		res.send(posts);
 	});
