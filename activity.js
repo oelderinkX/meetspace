@@ -263,8 +263,6 @@ module.exports = function(app) {
 	app.post('/whosgoing', jsonParser, async function(req, res) {
 		const activityId = req.body.activityId;
 
-		let whosgoingsql = getWhosGoingSql(activityId);
-
 		logging.logDbStats('/whosgoing start', pool);
 		// const client = await pool.connect();
 		// const result = await client.query(whosgoingsql);
