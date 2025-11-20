@@ -413,61 +413,61 @@ module.exports = function(app) {
 		res.send({ success: true});
 	});
 
-	app.post('/join', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
+	app.post('/join', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
 
-		sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "SELECT meetspace.join_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/join start', pool);
+		const client = await pool.connect();
+		const result = await client.query(sql);
 
-				res.send({ success: true});
-			});
-		});
+		client.release();
+		logging.logDbStats('/join finish', pool);
+		res.send({ success: true});
 	});
 
-	app.post('/leave', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var email = req.cookies['email'];
-		var sessionId = req.cookies['sessionId'];
+	app.post('/leave', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const email = req.cookies['email'];
+		const sessionId = req.cookies['sessionId'];
 
-		sql = "SELECT meetspace.unjoin_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "SELECT meetspace.unjoin_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/leave start', pool);
+		const client = await pool.connect();
+		const result = await client.query(sql);
 
-				res.send({ success: true});
-			});
-		});
+		client.release();
+		logging.logDbStats('/leave finish', pool);
+		res.send({ success: true});
 	});
 
-	app.post('/removefromactivity', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var remove_email = common.xor(req.body.e, activityId);
-		var sessionId = req.cookies['sessionId'];
+	app.post('/removefromactivity', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const remove_email = common.xor(req.body.e, activityId);
+		const sessionId = req.cookies['sessionId'];
 		
-		sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "select * FROM meetspace.remove_from_activity('" + remove_email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
-				
-				res.send({ success: true});
-			});
-		});
+		logging.logDbStats('/removefromactivity start', pool);
+		const client = await pool.connect();
+		const result = await client.query(sql);
+
+		client.release();
+		logging.logDbStats('/removefromactivity finish', pool);
+		res.send({ success: true});
 	});
 
-	app.post('/postimage', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var image = req.body.image;
-		var filename = req.body.filename;
+	app.post('/postimage', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		let image = req.body.image;
+		const filename = req.body.filename;
 
 		image = image.substr(image.indexOf(',')); 
-		var bin = new Buffer(image, 'base64');
+		const bin = new Buffer(image, 'base64');
 
 		fs.writeFile(__dirname + '/postimages/' + filename, bin);
 
