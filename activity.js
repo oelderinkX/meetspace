@@ -227,14 +227,16 @@ module.exports = function(app) {
 		renderPage(country, region, city, game, req, res);
 	});
 
+
+	const GET_POSTS_SQL = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
 	app.post('/getposts', jsonParser, async function(req, res) {
 		const activityId = req.body.activityId;
 
-		const postsql = "SELECT username, message, postdate, title FROM meetspace.post INNER JOIN meetspace.user ON meetspace.post.userid = meetspace.user.id WHERE activityid = $1 ORDER BY postdate DESC LIMIT 10;";
-
 		logging.logDbStats('/getposts start', pool);
-		let client = await pool.connect();
-		let result = await client.query(postsql, [activityId]);
+		// let client = await pool.connect();
+		// let result = await client.query(postsql, [activityId]);
+
+		const result = await sqlCache.query(pool, GET_POSTS_SQL, [activityId], 60);
 
 		const posts = [];
 
@@ -253,12 +255,10 @@ module.exports = function(app) {
 		logging.logDbStats('/getposts finish', pool);
 		res.send(posts);
 	});
-
-	function getWhosGoingSql(activityId) {
-		return `SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status
+	
+	const WHOS_GOING_SQL = `SELECT meetspace.user.email, meetspace.user.username, meetspace.whosgoing.status
 			FROM meetspace.whosgoing JOIN meetspace.user ON meetspace.whosgoing.userId = meetspace.user.id
-			WHERE meetspace.whosgoing.activityId = ${activityId}`;
-	}
+			WHERE meetspace.whosgoing.activityId = $1`;
 
 	app.post('/whosgoing', jsonParser, async function(req, res) {
 		const activityId = req.body.activityId;
@@ -269,7 +269,7 @@ module.exports = function(app) {
 		// const client = await pool.connect();
 		// const result = await client.query(whosgoingsql);
 
-		const result = await sqlCache.query(pool, whosgoingsql, [], 60);
+		const result = await sqlCache.query(pool, WHOS_GOING_SQL, [activityId], 60);
 
 		const whosgoing = [];
 
@@ -298,6 +298,7 @@ module.exports = function(app) {
 		const email = req.cookies['email'];
 		const sessionId = req.cookies['sessionId'];
 
+		sqlCache.clearSql(GET_POSTS_SQL, [activityId]);
 		const sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
 
 		logging.logDbStats('/postmessage start', pool);
@@ -322,6 +323,7 @@ module.exports = function(app) {
 		const sessionId = req.cookies['sessionId'];
 		const username = req.cookies['username'];
 
+		sqlCache.clearSql(GET_POSTS_SQL, [activityId]);
 		let sql = "select * FROM meetspace.get_emails_for_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/announcemessage start', pool);
@@ -349,9 +351,7 @@ module.exports = function(app) {
 		const email = req.cookies['email'];
 		const sessionId = req.cookies['sessionId'];
 
-		let whosgoingsql = getWhosGoingSql(activityId);
-		sqlCache.clearSql(whosgoingsql, []);
-
+		sqlCache.clearSql(WHOS_GOING_SQL, [activityId]);
 		const sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/attend start', pool);
@@ -368,9 +368,7 @@ module.exports = function(app) {
 		const email = req.cookies['email'];
 		const sessionId = req.cookies['sessionId'];
 
-		let whosgoingsql = getWhosGoingSql(activityId);
-		sqlCache.clearSql(whosgoingsql, []);
-
+		sqlCache.clearSql(WHOS_GOING_SQL, [activityId]);
 		const sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/unattend start', pool);
@@ -422,7 +420,7 @@ module.exports = function(app) {
 
 		logging.logDbStats('/join start', pool);
 		const client = await pool.connect();
-		const result = await client.query(sql);
+		await client.query(sql);
 
 		client.release();
 		logging.logDbStats('/join finish', pool);
@@ -438,7 +436,7 @@ module.exports = function(app) {
 
 		logging.logDbStats('/leave start', pool);
 		const client = await pool.connect();
-		const result = await client.query(sql);
+		await client.query(sql);
 
 		client.release();
 		logging.logDbStats('/leave finish', pool);
@@ -454,7 +452,7 @@ module.exports = function(app) {
 
 		logging.logDbStats('/removefromactivity start', pool);
 		const client = await pool.connect();
-		const result = await client.query(sql);
+		await client.query(sql);
 
 		client.release();
 		logging.logDbStats('/removefromactivity finish', pool);
