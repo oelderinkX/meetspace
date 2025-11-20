@@ -48,8 +48,8 @@ async function retrieveActiveCountries() {
 		const postsql = "select id, name, code from meetspace.countries where code in (select distinct(country) from meetspace.activity) order by name;";
 
 		logging.logDbStats('retrieveActiveCountries start', pool);
-		let client = await pool.connect();
-		let result = await client.query(postsql);
+		const client = await pool.connect();
+		const result = await client.query(postsql);
 
 		if (result) {
 			for (let i = 0; i < result.rows.length; i++) {

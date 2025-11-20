@@ -1,22 +1,23 @@
-var pg = require('pg');
-var bodyParser = require('body-parser');
-var fs = require("fs");
-var common = require('./script/common.js');
-var renderElement = require('./script/renderElement.js');
-var notifications = require('./notifications.js');
-var logging = require('./logging.js');
+const pg = require('pg');
+const bodyParser = require('body-parser');
+const fs = require("fs");
+const common = require('./script/common.js');
+const renderElement = require('./script/renderElement.js');
+const notifications = require('./notifications.js');
+const logging = require('./logging.js');
+const sqlCache = require('./sqlCache.js');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var jsonParser = bodyParser.json();
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const jsonParser = bodyParser.json();
 
-var pool = new pg.Pool(common.postgresConfig());
+const pool = new pg.Pool(common.postgresConfig());
 
-var style1Page = fs.readFileSync(__dirname + "/webpage/activity_style1.html", "utf8");
-var listPage = fs.readFileSync(__dirname + "/webpage/activity_list.html", "utf8");
-var infoPage = fs.readFileSync(__dirname + "/webpage/infopage.html", "utf8");
+const style1Page = fs.readFileSync(__dirname + "/webpage/activity_style1.html", "utf8");
+const listPage = fs.readFileSync(__dirname + "/webpage/activity_list.html", "utf8");
+const infoPage = fs.readFileSync(__dirname + "/webpage/infopage.html", "utf8");
 
 function getUrl(country, region, city, game) {
-	var url = common.webpage_url;
+	let url = common.webpage_url;
 
 	url += country + '/' + region + '/' + city + '/' + game;
 
@@ -24,14 +25,14 @@ function getUrl(country, region, city, game) {
 }
 
 function renderPage(country, region, city, game, req, res) {
-	var email = req.cookies['email'];
+	const email = req.cookies['email'];
 
-	var webpage = style1Page;
+	let webpage = style1Page;
 
-	var username = req.cookies['username'];
-	var sessionId = req.cookies['sessionId'];
+	const username = req.cookies['username'];
+	const sessionId = req.cookies['sessionId'];
 	
-	var action = req.body.action;
+	const action = req.body.action;
 
 	getUrl(country, region, city, game);
 
@@ -39,7 +40,7 @@ function renderPage(country, region, city, game, req, res) {
 
 	webpage = renderElement.breadcrumb(webpage, country, region, city, game);
 
-	var sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
+	const sql = "SELECT * FROM meetspace.find_activity($1, $2, $3, $4);"
 
 	pool.connect(function(err, client, done) {
 		if(err) {
@@ -274,8 +275,10 @@ module.exports = function(app) {
 		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
 
 		logging.logDbStats('/whosgoing start', pool);
-		const client = await pool.connect();
-		const result = await client.query(whosgoingsql);
+		// const client = await pool.connect();
+		// const result = await client.query(whosgoingsql);
+
+		const result = await sqlCache.query(pool, whosgoingsql, [], 30);
 
 		const whosgoing = [];
 
