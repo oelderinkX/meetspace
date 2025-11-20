@@ -274,8 +274,8 @@ module.exports = function(app) {
 		whosgoingsql += " WHERE meetspace.whosgoing.activityId = " + activityId;
 
 		logging.logDbStats('/whosgoing start', pool);
-		let client = await pool.connect();
-		let result = await client.query(whosgoingsql);
+		const client = await pool.connect();
+		const result = await client.query(whosgoingsql);
 
 		const whosgoing = [];
 
@@ -307,8 +307,8 @@ module.exports = function(app) {
 		const sql = "SELECT meetspace.post_message($1, $2, $3, $4);";
 
 		logging.logDbStats('/postmessage start', pool);
-		let client = await pool.connect();
-		let result = await client.query(sql, [ email, sessionId, activityId, message]);
+		const client = await pool.connect();
+		const result = await client.query(sql, [ email, sessionId, activityId, message]);
 
 		client.release();
 		logging.logDbStats('/postmessage finish', pool);
@@ -358,8 +358,8 @@ module.exports = function(app) {
 		const sql = "SELECT meetspace.attend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/attend start', pool);
-		let client = await pool.connect();
-		let result = await client.query(sql);
+		const client = await pool.connect();
+		const result = await client.query(sql);
 
 		client.release();
 		logging.logDbStats('/attend finish', pool);
@@ -374,47 +374,43 @@ module.exports = function(app) {
 		const sql = "SELECT meetspace.unattend_activity('" + email + "', '" + sessionId + "', " + activityId + ");";
 
 		logging.logDbStats('/unattend start', pool);
-		let client = await pool.connect();
-		let result = await client.query(sql);
+		const client = await pool.connect();
+		const result = await client.query(sql);
 
 		client.release();
 		logging.logDbStats('/unattend finish', pool);
 		res.send({ success: true});
 	});
 
-	app.post('/invite', jsonParser, function(req, res) {
-		var activityId = req.body.activityId;
-		var email = req.cookies['email'];
-		var toEmail = req.body.toEmail;
-		var username = req.cookies['username'];
-		var sessionId = req.cookies['sessionId'];
-		var country = req.body.country;
-		var region = req.body.region;
-		var city = req.body.city;
-		var game = req.body.game;
+	app.post('/invite', jsonParser, async function(req, res) {
+		const activityId = req.body.activityId;
+		const email = req.cookies['email'];
+		const toEmail = req.body.toEmail;
+		const username = req.cookies['username'];
+		const sessionId = req.cookies['sessionId'];
+		const country = req.body.country;
+		const region = req.body.region;
+		const city = req.body.city;
+		const game = req.body.game;
 
-		sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
+		const sql = "select * FROM meetspace.check_credentials('" + email + "', '" + sessionId + "', " + activityId + ");";
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, function(err, result) {
-				done();
+		logging.logDbStats('/invite start', pool);
+		let client = await pool.connect();
+		let result = await client.query(sql);
 
-				if (result && result.rows && result.rows.length == 1) {
-					var isValid = result.rows[0].ret_valid;
-					var activityTitle = result.rows[0].ret_title;
+		if (result && result.rows && result.rows.length == 1) {
+			const isValid = result.rows[0].ret_valid;
+			const activityTitle = result.rows[0].ret_title;
 
-					if (isValid) {
-						notifications.sendInviteEmail(toEmail, username, getUrl(country, region, city, game), activityTitle);
-					}
-				}
+			if (isValid) {
+				notifications.sendInviteEmail(toEmail, username, getUrl(country, region, city, game), activityTitle);
+			}
+		}
 
-				if (err) {
-					res.send({ success: false, error: err});
-				} else {
-					res.send({ success: true});
-				}
-			});
-		});
+		client.release();
+		logging.logDbStats('/invite finish', pool);
+		res.send({ success: true});
 	});
 
 	app.post('/join', jsonParser, function(req, res) {
