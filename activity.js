@@ -296,7 +296,7 @@ module.exports = function(app) {
 			whosgoing.push({ username: username, status: status, e: email });
 		}
 
-		client.release();
+		//client.release();
 		logging.logDbStats('/whosgoing finish', pool);
 		res.send(whosgoing);
 	});

@@ -5,8 +5,10 @@ async function query(pool, sql, values, expireSeconds) {
 
     if (result === null) {
         console.log('query: No cache');
+        
         const client = await pool.connect();
 		result = await client.query(sql, values);
+        client.release();
 
         setSql(sql, values, result, expireSeconds);
     }
