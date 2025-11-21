@@ -128,7 +128,7 @@
         return datetime;
     }
 
-    function loadPosts() {
+    function loadPostsOld() {
         var json = { activityId: ACTIVITY_ID };
 
         sendPost("/getposts", JSON.stringify(json), function(response) {
@@ -158,6 +158,46 @@
                     postElement += ' <img class="img-responsive" src="/postimages/' + imageName +  '"></p></div>';
                 } else {
                     postElement += ' </p></div>';
+                }
+            }
+
+            _posts.innerHTML = postElement;
+        });
+    }
+
+    function loadPosts() {
+        const request = { activityId: ACTIVITY_ID };
+
+        fetch("/getposts",
+                    { method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(request)}).then(response => {
+            const posts = response.json;
+
+            let postElement = '';
+            for(let i = 0; i < posts.length; i++) {
+                const username = posts[i].username;
+				let message = posts[i].message;
+
+                const imagePosStart = message.indexOf('[image: "');
+                const imagePosEnd = message.indexOf('"', imagePosStart + 9);
+                let imageName = '';
+                if (imagePosStart >= 0 && imagePosEnd >= 0) {
+                    imageName = message.substring(imagePosStart + 9, imagePosEnd);
+                    message = message.substring(0, imagePosStart) + message.substring(imagePosEnd+2);
+                }
+
+				const submissionDate = new Date(posts[i].submissionDate);
+
+                const adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
+		        const agoTxt = getAgo(adjustedDateTime);
+		
+		        postElement += ` <div class="alert-message alert-message-default"><strong>${username}</strong> ${agoTxt}<p class="text-break">${message}`;
+
+                if (imageName.length > 0) {
+                    postElement += ` <img class="img-responsive" src="/postimages/${imageName}"></p></div>`;
+                } else {
+                    postElement += ` </p></div>`;
                 }
             }
 
