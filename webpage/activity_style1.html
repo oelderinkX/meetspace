@@ -14,26 +14,26 @@
 <html>
 <script>
     // CONSTANTS
-    var ACTIVITY_ID = '!%ACTIVITYID%!';
-    var COUNTRY = '!%COUNTRY%!';
-	var REGION = '!%REGION%!';
-	var CITY = '!%CITY%!';
-	var GAME = '!%GAME%!';
+    let ACTIVITY_ID = '!%ACTIVITYID%!';
+    let COUNTRY = '!%COUNTRY%!';
+	let REGION = '!%REGION%!';
+	let CITY = '!%CITY%!';
+	let GAME = '!%GAME%!';
 
     // PRIVATE GLOBAL
-    var _posts;
-    var _whosgoing;
-    var _notattend;
-    var _postmessage;
-    var _attend;
-    var _unattend;
-    var _toemail;
-    var _join;
-    var _leave;
-    var _messaging;
-    var _invites;
-    var _takepicture;
-    var _image;
+    let _posts;
+    let _whosgoing;
+    let _notattend;
+    let _postmessage;
+    let _attend;
+    let _unattend;
+    let _toemail;
+    let _join;
+    let _leave;
+    let _messaging;
+    let _invites;
+    let _takepicture;
+    let _image;
 
     function setElementsVar() {
         _posts = document.getElementById("posts");
@@ -51,9 +51,9 @@
     }
 
     function getRandomTime() {
-        var max = 60000 * 8;
-        var min = 60000 * 4;
-        var time = Math.floor(Math.random() * (max - min) ) + min;
+        const max = 60000 * 8;
+        const min = 60000 * 4;
+        const time = Math.floor(Math.random() * (max - min) ) + min;
         return time;
     }
 
@@ -71,11 +71,11 @@
     setTimeout("reloadWhosGoing()",  getRandomTime());
 
     function getAgo(datetime) {
-        var now = new Date();
+        const now = new Date();
 
-        var minutes = 0;
-        var hours = 0;
-        var days = 0;
+        let minutes = 0;
+        let hours = 0;
+        let days = 0;
         
         minutes = ( now.getTime() - datetime.getTime());
         minutes /= 1000;
@@ -92,8 +92,8 @@
             days = Math.abs(Math.floor(days));
         }
         
-        var ago = '';
-        var timetxt = '';
+        let ago = '';
+        let timetxt = '';
         
         if (days == 1) {
             ago = '1 day ago';
@@ -118,7 +118,7 @@
     /// Need to add daylight savings
     ///
     function getGmtAdjustedDateTime(datetime, country, region) {
-        var daylightsavings = 0;
+        let daylightsavings = 0;
 
         if (country == 'nz') {
             // we might be saving time as NZ time in the Db
@@ -174,7 +174,7 @@ function loadWhosGoing(showEdit) {
             showEdit = false;
         }
 
-        var request = { activityId: ACTIVITY_ID };
+        const request = { activityId: ACTIVITY_ID };
 
         fetch("/whosgoing",
                     { method: 'POST',
@@ -221,59 +221,8 @@ function loadWhosGoing(showEdit) {
         });
     }
 
-    function loadWhosGoingOld(showEdit) {
-        if (!showEdit) {
-            showEdit = false;
-        }
-
-        var json = { activityId: ACTIVITY_ID };
-
-        sendPost("/whosgoing", JSON.stringify(json), function(response) {
-            var whosgoing = JSON.parse(response);
-
-            if (!showEdit) {
-
-                var whosgoingHtml = '<ol>';
-
-                for(var i = 0; i < whosgoing.length; i++) {
-                    if (whosgoing[i].status == 1) {
-                        whosgoingHtml += '<li>' + whosgoing[i].username + '</li>';
-                    }
-                }
-                whosgoingHtml += '</ol>';
-                _whosgoing.innerHTML = whosgoingHtml;
-            }
-
-            var whosnotgoingHtml = '';
-
-            if (showEdit) {
-                var whosnotgoingHtml = '<div><ul>';
-            } else {
-                var whosnotgoingHtml = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
-            }
-
-            for(var i = 0; i < whosgoing.length; i++) {
-                if (whosgoing[i].status == 0) {
-                    whosnotgoingHtml += '<li style="color:#CCCCCC">';
-                        whosnotgoingHtml += whosgoing[i].username;
-
-                    if (showEdit) {
-                        whosnotgoingHtml += '&nbsp;&nbsp;';
-                        whosnotgoingHtml += '<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = \'black\';" onmouseout="this.style.color = \'lightgrey\';"';
-                        whosnotgoingHtml += ' onclick="removeFromActivity(\'' + whosgoing[i].e + '\');"></i>';
-                    }
-
-                    whosnotgoingHtml += '</li>';
-                }
-            }
-            whosnotgoingHtml += '</ul></div>';
-
-            _notattend.innerHTML = whosnotgoingHtml;
-        });
-    }
-
     function postMessage() {
-        var message = _postmessage.value;
+        let message = _postmessage.value;
 
         if (message) {
             _postmessage.value = '';
@@ -282,7 +231,7 @@ function loadWhosGoing(showEdit) {
                     message += '[image: "' + _image.name + '"]';
                 }
 
-                var json = { activityId: ACTIVITY_ID, message: message };
+                const json = { activityId: ACTIVITY_ID, message: message };
 
                 sendPost("/postmessage", JSON.stringify(json), function(response) {
                     loadPosts();
@@ -292,7 +241,7 @@ function loadWhosGoing(showEdit) {
     }
 
     function announceMessage() {
-        var message = _postmessage.value;
+        let message = _postmessage.value;
 
         if (message) {
             _postmessage.value = '';
@@ -302,7 +251,7 @@ function loadWhosGoing(showEdit) {
                     message += '[image: "' + _image.name + '"]';
                 }
 
-                var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
+                const json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, message: message };
 
                 sendPost("/announcemessage", JSON.stringify(json), function(response) {
                     loadPosts();
@@ -312,27 +261,36 @@ function loadWhosGoing(showEdit) {
     }
 
     function attend() {
-        var json = { activityId: ACTIVITY_ID };
+        const request = { activityId: ACTIVITY_ID };
         hide(_attend);
         show(_unattend);
 
-        sendPost("/attend", JSON.stringify(json), function(response) {
-            loadWhosGoing();
-        });         
+
+        fetch("/attend",
+            { method: 'POST',
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(request)})
+            .then(response => {
+                loadWhosGoing();
+        });      
     }
 
     function unattend() {
-        var json = { activityId: ACTIVITY_ID };
+        const request = { activityId: ACTIVITY_ID };
         show(_attend);
         hide(_unattend);
 
-        sendPost("/unattend", JSON.stringify(json), function(response) {
-            loadWhosGoing();
-        });         
+        fetch("/unattend",
+            { method: 'POST',
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(request)})
+            .then(response => {
+                loadWhosGoing();
+        });    
     }
 
     function invite() {
-        var json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: _toemail.value };
+        const json = { activityId: ACTIVITY_ID, country: COUNTRY, region: REGION, city: CITY, game: GAME, toEmail: _toemail.value };
         _toemail.value = '';
 
         console.log('sending request: ' + JSON.stringify(json));
@@ -342,7 +300,7 @@ function loadWhosGoing(showEdit) {
     }
 
     function join() {
-        var json = { activityId: ACTIVITY_ID };
+        const json = { activityId: ACTIVITY_ID };
         hide(_join);
         show(_leave);
         show(_attend);
@@ -356,7 +314,7 @@ function loadWhosGoing(showEdit) {
     }
 
     function leave() {
-        var json = { activityId: ACTIVITY_ID };
+        const json = { activityId: ACTIVITY_ID };
         show(_join);
         hide(_leave);
         hide(_attend);
@@ -370,12 +328,12 @@ function loadWhosGoing(showEdit) {
     }
 
     function edit() {
-        var showEdit = true;
+        const showEdit = true;
         loadWhosGoing(showEdit);
     }
 
     function removeFromActivity(e) {
-        var json = { activityId: ACTIVITY_ID, e: e };
+        const json = { activityId: ACTIVITY_ID, e: e };
 
         sendPost("/removefromactivity", JSON.stringify(json), function(response) {
             loadWhosGoing();
@@ -390,10 +348,10 @@ function loadWhosGoing(showEdit) {
 
     function savePicture(callback) {
         if (_image) {
-            var fileReader = new FileReader();
+            const fileReader = new FileReader();
             fileReader.readAsDataURL(_image); 
             fileReader.onload = function() {
-                var json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
+                const json = { activityId: ACTIVITY_ID, image: fileReader.result, filename: _image.name };
                 sendPost("/postimage", JSON.stringify(json), function(response) {
                     // do nothing since everything will be done when post and announce!
                     callback();
