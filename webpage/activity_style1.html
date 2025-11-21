@@ -128,43 +128,6 @@
         return datetime;
     }
 
-    function loadPostsOld() {
-        var json = { activityId: ACTIVITY_ID };
-
-        sendPost("/getposts", JSON.stringify(json), function(response) {
-            var posts = JSON.parse(response);
-
-            var postElement = '';
-            for(var i = 0; i < posts.length; i++) {
-                var username = posts[i].username;
-				var message = posts[i].message;
-
-                var imagePosStart = message.indexOf('[image: "');
-                var imagePosEnd = message.indexOf('"', imagePosStart + 9);
-                var imageName = '';
-                if (imagePosStart >= 0 && imagePosEnd >= 0) {
-                    imageName = message.substring(imagePosStart + 9, imagePosEnd);
-                    message = message.substring(0, imagePosStart) + message.substring(imagePosEnd+2);
-                }
-
-				var submissionDate = new Date(posts[i].submissionDate);
-
-                var adjustedDateTime = getGmtAdjustedDateTime(submissionDate, 'nz', 'region!');
-		        var agoTxt = getAgo(adjustedDateTime);
-		
-		        postElement += ' <div class="alert-message alert-message-default"><strong>' + username + '</strong> ' + agoTxt + '<p class="text-break">' + message;
-
-                if (imageName.length > 0) {
-                    postElement += ' <img class="img-responsive" src="/postimages/' + imageName +  '"></p></div>';
-                } else {
-                    postElement += ' </p></div>';
-                }
-            }
-
-            _posts.innerHTML = postElement;
-        });
-    }
-
     function loadPosts() {
         const request = { activityId: ACTIVITY_ID };
 
@@ -206,7 +169,59 @@
         });
     }
 
-    function loadWhosGoing(showEdit) {
+function loadWhosGoing(showEdit) {
+        if (!showEdit) {
+            showEdit = false;
+        }
+
+        var request = { activityId: ACTIVITY_ID };
+
+        fetch("/whosgoing",
+                    { method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(request)})
+                    .then(response => response.json())
+                    .then(whosgoing => {
+            if (!showEdit) {
+                let whosgoingHtml = '<ol>';
+
+                for(let i = 0; i < whosgoing.length; i++) {
+                    if (whosgoing[i].status == 1) {
+                        whosgoingHtml += `<li>${whosgoing[i].username}</li>`;
+                    }
+                }
+                whosgoingHtml += '</ol>';
+                _whosgoing.innerHTML = whosgoingHtml;
+            }
+
+            let whosnotgoingHtml = '';
+
+            if (showEdit) {
+                whosnotgoingHtml = '<div><ul>';
+            } else {
+                whosnotgoingHtml = '<a data-toggle="collapse" href="#notgoingcollapse">Show more...</a><div id="notgoingcollapse" class="panel-collapse collapse"><ul>';
+            }
+
+            for(let i = 0; i < whosgoing.length; i++) {
+                if (whosgoing[i].status == 0) {
+                    whosnotgoingHtml += `<li style="color:#CCCCCC">${whosgoing[i].username}`;
+
+                    if (showEdit) {
+                        whosnotgoingHtml += '&nbsp;&nbsp;';
+                        whosnotgoingHtml += `<i class="glyphicon glyphicon-remove" onmouseover="this.style.color = 'black';" onmouseout="this.style.color = 'lightgrey';"`;
+                        whosnotgoingHtml += ` onclick="removeFromActivity('${whosgoing[i].e}');"></i>`;
+                    }
+
+                    whosnotgoingHtml += '</li>';
+                }
+            }
+            whosnotgoingHtml += '</ul></div>';
+
+            _notattend.innerHTML = whosnotgoingHtml;
+        });
+    }
+
+    function loadWhosGoingOld(showEdit) {
         if (!showEdit) {
             showEdit = false;
         }
