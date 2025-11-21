@@ -171,8 +171,9 @@
         fetch("/getposts",
                     { method: 'POST',
                     headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify(request)}).then(response => {
-            const posts = response.json;
+                    body: JSON.stringify(request)})
+                    .then(response => response.json())
+                    .then(posts => {
 
             let postElement = '';
             for(let i = 0; i < posts.length; i++) {
