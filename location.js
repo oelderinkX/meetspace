@@ -1,17 +1,14 @@
-var pg = require('pg');
-var bodyParser = require('body-parser');
-var fs = require("fs");
-var common = require('./script/common.js');
-var logging = require('./logging.js');
+const pg = require('pg');
+const bodyParser = require('body-parser');
+const common = require('./script/common.js');
+const logging = require('./logging.js');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const pool = new pg.Pool(common.postgresConfig());
 
-var pool = new pg.Pool(common.postgresConfig());
-
-var countries = [];
+let countries = [];
 exports.Countries = countries;
-var regions = [];
-var cities = [];
+let regions = [];
+let cities = [];
 
 async function retrieveCountries(callback) {
 	if (countries.length > 0) {

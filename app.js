@@ -1,18 +1,18 @@
-var express = require('express');
-var app = express();
-var favicon = require('serve-favicon');
-var cookieParser = require('cookie-parser')
-var cron = require('node-schedule');
-var pg = require('pg');
-var common = require('./script/common.js');
-var port = process.env.PORT || 80
+const express = require('express');
+const app = express();
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser')
+const cron = require('node-schedule');
+const pg = require('pg');
+const common = require('./script/common.js');
+const port = process.env.PORT || 80
 
-var pool = new pg.Pool(common.postgresConfig());
+const pool = new pg.Pool(common.postgresConfig());
 console.log('port number is: ' + port);
 
-var cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
+const cronjob = cron.scheduleJob('0 0 */6 * * *', function(fireDate){
 	console.log('cron job running...');
-	var sql = "SELECT meetspace.reset_activities();"
+	const sql = "SELECT meetspace.reset_activities();"
 	pool.connect(function(err, connection, done) {
 		connection.query(sql, function(err, result) {
 			done();

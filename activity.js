@@ -198,13 +198,13 @@ function renderPage(country, region, city, game, req, res) {
 
 module.exports = function(app) {
 	app.get('/{*activity}', urlencodedParser, function(req, res) {
-		var url = req.url;
-		var params = url.split("/");
+		const url = req.url;
+		const params = url.split("/");
 
-		var country = undefined;
-		var city = undefined;
-		var region = undefined;
-		var game = undefined;
+		let country = undefined;
+		let city = undefined;
+		let region = undefined;
+		let game = undefined;
 
 		if (params.length > 1) {
 			if (params[1] !== null && params[1] !== '') {
@@ -233,9 +233,6 @@ module.exports = function(app) {
 		const activityId = req.body.activityId;
 
 		logging.logDbStats('/getposts start', pool);
-		// let client = await pool.connect();
-		// let result = await client.query(postsql, [activityId]);
-
 		const result = await sqlCache.query(pool, GET_POSTS_SQL, [activityId], 60);
 
 		const posts = [];
@@ -251,7 +248,6 @@ module.exports = function(app) {
 			}
 		}
 
-		//client.release();
 		logging.logDbStats('/getposts finish', pool);
 		res.send(posts);
 	});
@@ -264,9 +260,6 @@ module.exports = function(app) {
 		const activityId = req.body.activityId;
 
 		logging.logDbStats('/whosgoing start', pool);
-		// const client = await pool.connect();
-		// const result = await client.query(whosgoingsql);
-
 		const result = await sqlCache.query(pool, WHOS_GOING_SQL, [activityId], 60);
 
 		const whosgoing = [];
@@ -285,7 +278,6 @@ module.exports = function(app) {
 			whosgoing.push({ username: username, status: status, e: email });
 		}
 
-		//client.release();
 		logging.logDbStats('/whosgoing finish', pool);
 		res.send(whosgoing);
 	});

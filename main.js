@@ -1,24 +1,21 @@
-var pg = require('pg');
-var bodyParser = require('body-parser');
-var fs = require("fs");
-const util = require('util');
-var common = require('./script/common.js');
-var renderElement = require('./script/renderElement.js');
+const pg = require('pg');
+const bodyParser = require('body-parser');
+const fs = require("fs");
+const common = require('./script/common.js');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var pool = new pg.Pool(common.postgresConfig());
+const pool = new pg.Pool(common.postgresConfig());
 
-var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
+const mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 
 module.exports = function(app){
 	app.get('/', urlencodedParser, function(req, res) {
-		var showjoin = 'inline';
-		var username = req.cookies['username'];
-		var sessionId = req.cookies['sessionId'];
-		var webpage = mainPage;
+		const username = req.cookies['username'];
+		const sessionId = req.cookies['sessionId'];
+		let webpage = mainPage;
 
-		var heading = '';
+		let heading = '';
 
 		if(username && sessionId) {
 			heading = '<form action="/login">\n';
